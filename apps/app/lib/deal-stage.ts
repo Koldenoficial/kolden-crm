@@ -73,9 +73,8 @@ export function dealStageLabel(stage: DealStage): string {
 	}
 }
 
-export function dealStagePresentation(stage: DealStage): {
-	label: string;
-	tone: StatusTone;
-} {
+type DealStagePresentation = { label: string; tone: StatusTone };
+
+export function dealStagePresentation(stage: DealStage): DealStagePresentation {
 	return { label: dealStageLabel(stage), tone: TONE[stage] };
 }

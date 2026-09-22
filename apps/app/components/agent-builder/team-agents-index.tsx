@@ -10,6 +10,8 @@ import { useTRPC } from "@/lib/trpc/client";
 import type { RouterOutputs } from "@/lib/trpc/types";
 import { useWorkspaceUrl } from "@/lib/use-workspace-url";
 
+type StatusLabels = Record<string, string>;
+
 type Agents = RouterOutputs["agents"]["list"];
 
 export function TeamAgentsIndex({ initialAgents }: { initialAgents: Agents }) {
@@ -87,7 +89,7 @@ function agentStatusLabel(
 	t: ReturnType<typeof useTranslations<"agentBuilder">>,
 	status: string,
 ): string {
-	const known: Record<string, string> = {
+	const known: StatusLabels = {
 		DRAFT: t("teamAgentsIndex.status.draft"),
 		LIVE: t("teamAgentsIndex.status.live"),
 		PAUSED: t("teamAgentsIndex.status.paused"),

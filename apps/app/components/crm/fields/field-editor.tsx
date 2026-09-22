@@ -69,6 +69,8 @@ import {
 } from "./fields-copy";
 import { type FieldEntity, kindOf } from "./fields-entity";
 
+type TypeHints = Record<(typeof FIELD_TYPES)[number], string>;
+
 type FieldRecord = RouterOutputs["fields"]["list"][number];
 
 type Draft = {
@@ -88,7 +90,7 @@ function optionId(option: { id?: string }, index: number): string {
 
 function typeHints(
 	t: ReturnType<typeof useTranslations<"records">>,
-): Record<(typeof FIELD_TYPES)[number], string> {
+): TypeHints {
 	return {
 		TEXT: t("fields.typeHint.text"),
 		LONG_TEXT: t("fields.typeHint.longText"),

@@ -46,10 +46,16 @@ export const ENRICHMENT_FACET_OPTIONS = (
 	},
 }));
 
+type EnrichmentDisplay = {
+	label: string;
+	tone: StatusTone;
+	busy?: boolean;
+};
+
 export function enrichmentPresentation(
 	status: EnrichmentStatus,
 	queued: boolean,
-): { label: string; tone: StatusTone; busy?: boolean } {
+): EnrichmentDisplay {
 	const t = translator("records");
 	if (status === "PENDING" && queued) {
 		return {

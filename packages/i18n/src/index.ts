@@ -4,8 +4,8 @@ export type Locale = (typeof LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = "en";
 
-export function isLocale(value: unknown): value is Locale {
-	return typeof value === "string" && LOCALES.includes(value as Locale);
+export function isLocale(value: string): value is Locale {
+	return LOCALES.some((locale) => locale === value);
 }
 
 export function appLocale(): Locale {

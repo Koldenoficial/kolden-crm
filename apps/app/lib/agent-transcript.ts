@@ -106,7 +106,7 @@ function humanise(tool: string): string {
 
 function translatedVerbs(
 	t: ReturnType<typeof translator<"agentBuilder">>,
-): Record<string, string> {
+): ToolVerbs {
 	return {
 		read_crm_history: t("toolVerbs.readCrmHistory"),
 		read_company_history: t("toolVerbs.readCompanyHistory"),

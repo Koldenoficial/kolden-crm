@@ -37,7 +37,9 @@ export type Messages = typeof en;
 
 export type Namespace = keyof Messages;
 
-const catalog: Record<Locale, Messages> = {
+type Catalog = Record<Locale, Messages>;
+
+const catalog: Catalog = {
 	en,
 	"pt-BR": {
 		agentBuilder: ptAgentBuilder,

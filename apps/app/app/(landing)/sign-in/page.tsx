@@ -1,7 +1,7 @@
 import type { MailboxProviderId } from "@crm/auth/scopes";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
 import { redirect, unstable_rethrow } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { AuthHeading, AuthShell } from "@/components/auth-shell";
 import { getSession } from "@/lib/session";

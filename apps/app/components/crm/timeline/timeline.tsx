@@ -29,6 +29,8 @@ import {
 	timelineTabParser,
 } from "./timeline-search-params";
 
+type EmptyState = { title: string; description: string };
+
 export type TimelineAnchor =
 	| { companyId: string }
 	| { contactId: string }
@@ -44,7 +46,7 @@ function tabLabel(
 function emptyState(
 	tab: TimelineTab,
 	t: ReturnType<typeof useTranslations<"records">>,
-): { title: string; description: string } {
+): EmptyState {
 	return {
 		title: t(`timeline.empty.${tab}.title`),
 		description: t(`timeline.empty.${tab}.description`),

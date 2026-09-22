@@ -25,6 +25,8 @@ import { z } from "zod";
 import { runFailureReason } from "@/lib/agent-run-failure";
 import type { RouterOutputs } from "@/lib/trpc/types";
 
+type StatusLabels = Record<string, string>;
+
 type Runs = RouterOutputs["agents"]["history"];
 type Activity = RouterOutputs["agents"]["activity"];
 type RunRow = Runs[number];
@@ -446,7 +448,7 @@ function humanStatus(
 	t: ReturnType<typeof useTranslations<"agentBuilder">>,
 	value: string,
 ): string {
-	const known: Record<string, string> = {
+	const known: StatusLabels = {
 		SUCCEEDED: t("history.filters.succeeded"),
 		FAILED: t("history.filters.failed"),
 		RUNNING: t("history.filters.running"),

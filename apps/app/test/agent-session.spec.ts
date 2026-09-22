@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
-import type { MessageStreamEvent, SessionState } from "eve/client";
 import { allMessages } from "@crm/i18n/messages";
+import type { MessageStreamEvent, SessionState } from "eve/client";
 import { recordCopy, recordFilter, recordHeader } from "../lib/agent-record";
 import { classify, composerState, eventsOf } from "../lib/agent-session";
 

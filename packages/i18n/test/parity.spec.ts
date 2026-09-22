@@ -4,12 +4,17 @@ import { allMessages } from "../src/messages";
 
 type Tree = { [key: string]: string | Tree };
 
+function isBranch(value: string | Tree): value is Tree {
+	return value instanceof Object;
+}
+
 function leaves(tree: Tree, prefix = ""): Map<string, string> {
 	const out = new Map<string, string>();
 	for (const [key, value] of Object.entries(tree)) {
 		const path = prefix ? `${prefix}.${key}` : key;
-		if (typeof value === "string") out.set(path, value);
-		else for (const [k, v] of leaves(value, path)) out.set(k, v);
+		if (isBranch(value))
+			for (const [k, v] of leaves(value, path)) out.set(k, v);
+		else out.set(path, value);
 	}
 	return out;
 }

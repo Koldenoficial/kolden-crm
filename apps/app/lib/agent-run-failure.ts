@@ -1,6 +1,10 @@
 import { translator } from "@crm/i18n/translator";
 
-const REASON_KEYS: Record<string, string> = {
+type ReasonKey = Parameters<ReturnType<typeof translator<"agentBuilder">>>[0];
+
+type RunFailureReasonKeys = Record<string, ReasonKey>;
+
+const REASON_KEYS: RunFailureReasonKeys = {
 	ACTION_NOT_PERFORMED: "runFailure.reasons.actionNotPerformed",
 	NO_EXECUTOR: "runFailure.reasons.noExecutor",
 	DEPENDENCY_UNAVAILABLE: "runFailure.reasons.dependencyUnavailable",
@@ -23,7 +27,7 @@ export function runFailureReason(
 ): string {
 	const t = translator("agentBuilder");
 	const key = code ? REASON_KEYS[code] : undefined;
-	if (key) return t(key as Parameters<typeof t>[0]);
+	if (key) return t(key);
 	if (message?.trim()) return message.trim();
 	return t("runFailure.unknown");
 }

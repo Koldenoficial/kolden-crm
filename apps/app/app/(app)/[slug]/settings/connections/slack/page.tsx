@@ -151,7 +151,7 @@ async function SlackConnectionPageContent({
 	);
 }
 
-const SCOPE_KEYS: Record<
+type ScopeKeys = Record<
 	string,
 	| "usersRead"
 	| "usersReadEmail"
@@ -170,7 +170,9 @@ const SCOPE_KEYS: Record<
 	| "conversationsConnectWrite"
 	| "linksWrite"
 	| "slackUserInvite"
-> = {
+>;
+
+const SCOPE_KEYS: ScopeKeys = {
 	"users:read": "usersRead",
 	"users:read.email": "usersReadEmail",
 	"channels:read": "channelsRead",
