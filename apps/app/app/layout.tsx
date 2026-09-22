@@ -2,8 +2,10 @@ import "@crm/ui/globals.css";
 import { Toaster } from "@crm/ui/components/sonner";
 import { TooltipProvider } from "@crm/ui/components/tooltip";
 import { cn } from "@crm/ui/lib/utils";
+import { appLocale } from "@crm/i18n";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { LocalDateTimeHydrator } from "@/components/local-date-time";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -42,19 +44,21 @@ export default function RootLayout({
 }>) {
 	return (
 		<html
-			lang="en"
+			lang={appLocale()}
 			suppressHydrationWarning
 			className={cn(fontSans.variable, fontMono.variable, "h-full antialiased")}
 		>
 			<body className="flex min-h-full flex-col font-sans">
-				<NuqsAdapter>
-					<TRPCReactProvider>
-						<ThemeProvider>
-							<TooltipProvider>{children}</TooltipProvider>
-							<Toaster richColors />
-						</ThemeProvider>
-					</TRPCReactProvider>
-				</NuqsAdapter>
+				<NextIntlClientProvider>
+					<NuqsAdapter>
+						<TRPCReactProvider>
+							<ThemeProvider>
+								<TooltipProvider>{children}</TooltipProvider>
+								<Toaster richColors />
+							</ThemeProvider>
+						</TRPCReactProvider>
+					</NuqsAdapter>
+				</NextIntlClientProvider>
 				<LocalDateTimeHydrator />
 			</body>
 		</html>

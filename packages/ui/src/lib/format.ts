@@ -1,3 +1,5 @@
+import { appLocale } from "@crm/i18n";
+
 export function formatCount(
 	count: number,
 	noun: string,
@@ -7,7 +9,7 @@ export function formatCount(
 }
 
 const WELL_FORMED_CURRENCY_CODE = /^[A-Za-z]{3}$/;
-const percentFormat = new Intl.NumberFormat("en-US", {
+const percentFormat = new Intl.NumberFormat(appLocale(), {
 	style: "percent",
 	maximumFractionDigits: 0,
 });
@@ -25,7 +27,7 @@ function fractionDigits(code: string): number {
 	if (cached !== undefined) return cached;
 
 	const digits =
-		new Intl.NumberFormat("en-US", {
+		new Intl.NumberFormat(appLocale(), {
 			style: "currency",
 			currency: code,
 		}).resolvedOptions().maximumFractionDigits ?? 2;
@@ -39,7 +41,7 @@ export function formatMoney(cents: number, currency = "usd"): string {
 	const whole = cents % 100 === 0;
 	const digits = fractionDigits(code);
 
-	return new Intl.NumberFormat(undefined, {
+	return new Intl.NumberFormat(appLocale(), {
 		style: "currency",
 		currency: code,
 		minimumFractionDigits: whole ? 0 : Math.min(2, digits),
@@ -48,7 +50,7 @@ export function formatMoney(cents: number, currency = "usd"): string {
 }
 
 export function formatMoneyCompact(cents: number, currency = "usd"): string {
-	return new Intl.NumberFormat(undefined, {
+	return new Intl.NumberFormat(appLocale(), {
 		style: "currency",
 		currency: displayCurrencyCode(currency),
 		notation: "compact",
@@ -60,7 +62,7 @@ export function formatPercent(rate: number): string {
 	return percentFormat.format(rate);
 }
 
-const dayFormat = new Intl.DateTimeFormat("en-US", {
+const dayFormat = new Intl.DateTimeFormat(appLocale(), {
 	month: "short",
 	day: "numeric",
 	year: "numeric",

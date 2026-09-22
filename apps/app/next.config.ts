@@ -1,7 +1,10 @@
 import { loadRootEnv } from "@crm/env";
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
 loadRootEnv();
+
+const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const apiUrl =
 	process.env.API_URL ??
@@ -23,9 +26,17 @@ const nextConfig: NextConfig = {
 
 	env: {
 		NEXT_PUBLIC_API_URL: apiUrl,
+		NEXT_PUBLIC_CRM_LOCALE: process.env.CRM_LOCALE ?? "",
+		NEXT_PUBLIC_CRM_TIME_ZONE: process.env.CRM_TIME_ZONE ?? "",
 	},
 
-	transpilePackages: ["@crm/auth", "@crm/db", "@crm/telemetry", "@crm/ui"],
+	transpilePackages: [
+		"@crm/auth",
+		"@crm/db",
+		"@crm/i18n",
+		"@crm/telemetry",
+		"@crm/ui",
+	],
 
 	serverExternalPackages: ["@prisma/client", "@prisma/adapter-pg", "pg"],
 
@@ -39,4 +50,4 @@ const nextConfig: NextConfig = {
 	partialPrefetching: true,
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
