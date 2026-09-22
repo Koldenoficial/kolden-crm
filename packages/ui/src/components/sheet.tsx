@@ -4,6 +4,7 @@ import { Button } from "@crm/ui/components/button";
 import { cn } from "@crm/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { XIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Dialog as SheetPrimitive } from "radix-ui";
 import type * as React from "react";
 
@@ -80,6 +81,7 @@ function SheetContent({
 	size?: SheetSize;
 	showCloseButton?: boolean;
 }) {
+	const t = useTranslations("ui");
 	return (
 		<SheetPortal>
 			<SheetOverlay />
@@ -98,7 +100,7 @@ function SheetContent({
 							size="icon-sm"
 						>
 							<XIcon />
-							<span className="sr-only">Close</span>
+							<span className="sr-only">{t("sheet.close")}</span>
 						</Button>
 					</SheetPrimitive.Close>
 				)}

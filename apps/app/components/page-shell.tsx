@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import { Skeleton } from "@crm/ui/components/skeleton";
 import { Spinner } from "@crm/ui/components/spinner";
 import { cn } from "@crm/ui/lib/utils";
@@ -138,6 +139,8 @@ function PageShellLoading() {
 }
 
 function PageShellFallback() {
+	const t = translator("shell");
+
 	return (
 		<PageShell aria-busy="true">
 			<div className="flex flex-col gap-6" aria-hidden="true">
@@ -152,7 +155,7 @@ function PageShellFallback() {
 				</div>
 			</div>
 			<span role="status" className="sr-only">
-				Loading page…
+				{t("pageShell.loading")}
 			</span>
 		</PageShell>
 	);

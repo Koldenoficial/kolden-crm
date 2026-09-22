@@ -1,5 +1,6 @@
 import { auth, DAY_SECONDS } from "@crm/auth";
 import type { Db, Prisma } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import {
 	HttpException,
 	Injectable,
@@ -163,7 +164,7 @@ export class ApiKeysService {
 					STATUS_BY_CODE.get(error.body?.code ?? "") ?? error.statusCode;
 
 				throw new HttpException(
-					error.body?.message ?? "The API key could not be saved.",
+					error.body?.message ?? translator("api")("apiKeys.saveFailed"),
 					status,
 				);
 			}
@@ -174,7 +175,7 @@ export class ApiKeysService {
 			);
 
 			throw new InternalServerErrorException(
-				"Could not reach the auth service.",
+				translator("api")("apiKeys.authUnreachable"),
 			);
 		}
 	}

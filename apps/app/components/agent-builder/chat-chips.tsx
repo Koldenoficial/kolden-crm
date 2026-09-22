@@ -16,6 +16,7 @@ import {
 } from "@crm/ui/components/token-field";
 import { cn } from "@crm/ui/lib/utils";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 type ChatChipVariant = "default" | "composer";
 
@@ -47,6 +48,7 @@ export function ChatReferenceChip({
 	onRemove?: () => void;
 	variant?: ChatChipVariant;
 }) {
+	const t = useTranslations("agentBuilder");
 	const identity = (
 		<ChatReferenceIdentity
 			resource={resource}
@@ -62,7 +64,9 @@ export function ChatReferenceChip({
 				{identity}
 				{onRemove ? (
 					<TokenFieldAction
-						aria-label={`Remove ${resource.label}`}
+						aria-label={t("chatChips.removeResourceAriaLabel", {
+							label: resource.label,
+						})}
 						onClick={onRemove}
 					>
 						<Icon icon={Close} className="size-3" />
@@ -78,7 +82,9 @@ export function ChatReferenceChip({
 			{onRemove ? (
 				<button
 					type="button"
-					aria-label={`Remove ${resource.label}`}
+					aria-label={t("chatChips.removeResourceAriaLabel", {
+						label: resource.label,
+					})}
 					onClick={onRemove}
 					className="flex size-6 shrink-0 items-center justify-center rounded-sm text-muted-foreground outline-none hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/60"
 				>
@@ -133,6 +139,7 @@ export function ChatAttachmentChip({
 	onRemove?: () => void;
 	variant?: ChatChipVariant;
 }) {
+	const t = useTranslations("agentBuilder");
 	const label = `${attachment.name} · ${formatBytes(attachment.size)}`;
 	const image = isPreviewableImage(attachment.type)
 		? (attachment.previewUrl ??
@@ -167,7 +174,9 @@ export function ChatAttachmentChip({
 				<AttachmentActions>
 					<AttachmentAction
 						type="button"
-						aria-label={`Remove ${attachment.name}`}
+						aria-label={t("chatChips.removeAttachmentAriaLabel", {
+							name: attachment.name,
+						})}
 						onClick={onRemove}
 					>
 						<Icon icon={Close} />
@@ -189,13 +198,17 @@ export function ChatCommandChip({
 	onRemove?: () => void;
 	variant?: ChatChipVariant;
 }) {
+	const t = useTranslations("agentBuilder");
 	if (variant === "composer") {
 		return (
 			<TokenFieldItem className="pl-1.5">
 				<Icon icon={icon} className="size-3.5" />
 				<span className="font-medium">{label}</span>
 				{onRemove ? (
-					<TokenFieldAction aria-label={`Remove ${label}`} onClick={onRemove}>
+					<TokenFieldAction
+						aria-label={t("chatChips.removeCommandAriaLabel", { label })}
+						onClick={onRemove}
+					>
 						<Icon icon={Close} className="size-3" />
 					</TokenFieldAction>
 				) : null}
@@ -210,7 +223,7 @@ export function ChatCommandChip({
 			{onRemove ? (
 				<button
 					type="button"
-					aria-label={`Remove ${label}`}
+					aria-label={t("chatChips.removeCommandAriaLabel", { label })}
 					onClick={onRemove}
 					className="-mr-1 flex size-5 items-center justify-center rounded-sm outline-none hover:bg-primary-foreground/15 focus-visible:ring-2 focus-visible:ring-primary-foreground/60"
 				>

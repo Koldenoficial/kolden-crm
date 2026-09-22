@@ -1,1 +1,89 @@
-{}
+{
+	"greeting": {
+		"title": "Welcome back",
+		"descriptionMe": "What you have closed, what is still in play, and what needs you today.",
+		"descriptionEveryone": "What the team has closed, what is still in play, and what needs you today."
+	},
+	"scope": {
+		"me": "Me",
+		"everyone": "Everyone",
+		"ariaLabel": "Whose numbers to show"
+	},
+	"summary": {
+		"dealsInProgress": {
+			"title": "Deals in progress",
+			"description": "The largest open deals, and how long each has sat in its stage",
+			"openDeals": "Open deals",
+			"empty": "Nothing open. Time to fill the pipeline.",
+			"columns": {
+				"deal": "Deal",
+				"stage": "Stage",
+				"shareOfLargest": "Share of the largest",
+				"value": "Value"
+			}
+		},
+		"overdueTasks": {
+			"title": "Overdue tasks",
+			"descriptionNone": "Every task you have logged is either done or still to come",
+			"descriptionCount": "{count, plural, one {# task} other {# tasks}} past due",
+			"empty": "Nothing overdue. Good.",
+			"markDone": "Mark as done",
+			"noDueDate": "No due date",
+			"columns": {
+				"done": "Done",
+				"task": "Task",
+				"overdue": "Overdue"
+			}
+		},
+		"recentActivity": {
+			"titleMe": "Your recent activity",
+			"titleEveryone": "Recent activity",
+			"descriptionMe": "Every note, task and stage change you have logged",
+			"descriptionEveryone": "Every note, task and stage change across the workspace",
+			"allCompanies": "All companies",
+			"empty": "Nothing has happened yet.",
+			"columns": {
+				"activity": "Activity",
+				"company": "Company",
+				"deal": "Deal",
+				"who": "Who",
+				"when": "When"
+			}
+		}
+	},
+	"sales": {
+		"trend": {
+			"closedWon": "Closed won",
+			"newPipeline": "New pipeline"
+		},
+		"closedWonThisMonth": {
+			"label": "Closed won this month",
+			"deltaLabel": "vs. last month",
+			"description": "{count, plural, one {# deal} other {# deals}} · {amount} last month"
+		},
+		"openPipeline": {
+			"label": "Open pipeline",
+			"description": "{count, plural, one {# deal} other {# deals}} in progress · {amount} due this month"
+		},
+		"winRate": {
+			"label": "Win rate ({days}d)",
+			"descriptionNone": "Nothing has closed yet",
+			"description": "{wins} won · {losses} lost"
+		},
+		"averageDeal": {
+			"label": "Average deal ({days}d)",
+			"descriptionNone": "No wins to measure",
+			"description": "{days}-day average cycle"
+		},
+		"unconvertedNote": "Every figure above is in {currency}. {count, plural, one {# deal in {currencies} is not included} other {# deals in {currencies} are not included}} — there is no rate to convert {currencyCount, plural, one {that currency} other {those currencies}} with. <link>Set one</link>.",
+		"chart": {
+			"trendTitle": "Closed won vs. new pipeline",
+			"trendDescription": "Last six months, by the month a deal closed or was created",
+			"trendEmpty": "No deals closed or created yet",
+			"pipelineTitle": "Open pipeline by stage",
+			"pipelineDescription": "Where the value sits right now",
+			"pipelineEmpty": "Nothing open",
+			"centerLabel": "open"
+		}
+	}
+}

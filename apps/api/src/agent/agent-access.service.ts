@@ -6,6 +6,7 @@ import {
 	workspaceRoleOf,
 } from "@crm/auth";
 import type { Db, Prisma } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import {
 	ForbiddenException,
 	Injectable,
@@ -22,7 +23,7 @@ export class AgentAccessService {
 		const role = await workspaceRoleOf(userId);
 
 		if (!role) {
-			throw new ForbiddenException("You are not a member of this workspace.");
+			throw new ForbiddenException(translator("api")("agents.notAMember"));
 		}
 
 		return role;
@@ -41,8 +42,10 @@ export class AgentAccessService {
 			FOR SHARE
 		`;
 
+		const t = translator("api");
+
 		if (!member) {
-			throw new ForbiddenException("You are not a member of this workspace.");
+			throw new ForbiddenException(t("agents.notAMember"));
 		}
 
 		const role = toWorkspaceRole(member.role);
@@ -58,17 +61,15 @@ export class AgentAccessService {
 		});
 
 		if (!agent) {
-			throw new NotFoundException(`No agent with id ${agentId}.`);
+			throw new NotFoundException(t("agents.notFound", { id: agentId }));
 		}
 
 		if (isPrivateAgentDraft(agent.status) && agent.createdById !== userId) {
-			throw new NotFoundException(`No agent with id ${agentId}.`);
+			throw new NotFoundException(t("agents.notFound", { id: agentId }));
 		}
 
 		if (agent.createdById !== userId && !isWorkspaceAdmin(role)) {
-			throw new ForbiddenException(
-				"Only the creator or a workspace admin can change this agent.",
-			);
+			throw new ForbiddenException(t("agents.forbiddenChange"));
 		}
 
 		return agent;
@@ -87,7 +88,9 @@ export class AgentAccessService {
 		});
 
 		if (!agent || !canReadAgent(agent.status, agent.createdById, userId)) {
-			throw new NotFoundException(`No agent with id ${agentId}.`);
+			throw new NotFoundException(
+				translator("api")("agents.notFound", { id: agentId }),
+			);
 		}
 
 		return {

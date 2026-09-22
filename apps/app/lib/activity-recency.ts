@@ -1,5 +1,11 @@
-export const ACTIVITY_FACET_OPTIONS = [
-	{ value: "7", label: "Active within 7 days" },
-	{ value: "30", label: "Active within 30 days" },
-	{ value: "90", label: "Active within 90 days" },
-];
+import { translator } from "@crm/i18n/translator";
+
+const DAYS = ["7", "30", "90"] as const;
+
+export const ACTIVITY_FACET_OPTIONS = DAYS.map((value) => ({
+	value,
+	get label(): string {
+		const t = translator("records");
+		return t("activityRecency.activeWithin", { days: Number(value) });
+	},
+}));

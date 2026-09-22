@@ -1,4 +1,5 @@
 import { ActivityType, type Db, type Prisma } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { activityMeta } from "@crm/validation/activity-meta";
 import {
 	BadRequestException,
@@ -170,12 +171,14 @@ export class ActivitiesService {
 			select: { type: true },
 		});
 
+		const t = translator("api");
+
 		if (!activity) {
-			throw new NotFoundException(`No activity with id ${id}.`);
+			throw new NotFoundException(t("activities.notFound", { id }));
 		}
 
 		if (activity.type !== ActivityType.TASK) {
-			throw new BadRequestException("Only tasks can be completed.");
+			throw new BadRequestException(t("activities.onlyTasksComplete"));
 		}
 
 		const updated = await this.db.activity.update({
@@ -220,9 +223,7 @@ export class ActivitiesService {
 		if (input.dealId) return { dealId: input.dealId };
 		if (input.contactId) return { contactId: input.contactId };
 		if (input.companyId) return { companyId: input.companyId };
-		throw new BadRequestException(
-			"A timeline needs a company, a contact or a deal.",
-		);
+		throw new BadRequestException(translator("api")("activities.needsAnchor"));
 	}
 
 	private async resolveCompanyId(
@@ -236,7 +237,9 @@ export class ActivitiesService {
 				select: { companyId: true },
 			});
 			if (!deal) {
-				throw new NotFoundException(`No deal with id ${input.dealId}.`);
+				throw new NotFoundException(
+					translator("api")("deals.notFound", { id: input.dealId }),
+				);
 			}
 			return deal.companyId;
 		}
@@ -247,7 +250,9 @@ export class ActivitiesService {
 				select: { companyId: true },
 			});
 			if (!contact) {
-				throw new NotFoundException(`No contact with id ${input.contactId}.`);
+				throw new NotFoundException(
+					translator("api")("contacts.notFound", { id: input.contactId }),
+				);
 			}
 			return contact.companyId;
 		}
@@ -312,7 +317,9 @@ function parseDate(value: string | null | undefined): Date | null {
 	if (value === null || value === undefined || value === "") return null;
 	const date = new Date(value);
 	if (Number.isNaN(date.getTime())) {
-		throw new BadRequestException(`"${value}" is not a date.`);
+		throw new BadRequestException(
+			translator("api")("deals.notADate", { value }),
+		);
 	}
 	return date;
 }

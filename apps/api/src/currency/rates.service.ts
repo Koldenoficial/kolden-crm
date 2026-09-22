@@ -10,6 +10,7 @@ import {
 	readReportingCurrency,
 	writeRatesRefreshedAt,
 } from "@crm/db/settings";
+import { translator } from "@crm/i18n/translator";
 import { Injectable, Logger } from "@nestjs/common";
 import { z } from "zod";
 import { InjectDatabase } from "../database/database.constants";
@@ -82,7 +83,9 @@ export class RatesService {
 				base,
 				written: 0,
 				asOf: null,
-				reason: `Could not reach ${RATES_PROVIDER}. Rates entered by hand are unaffected.`,
+				reason: translator("api")("currency.rateProviderUnreachable", {
+					provider: RATES_PROVIDER,
+				}),
 			};
 		}
 

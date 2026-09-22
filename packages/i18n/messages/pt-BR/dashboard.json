@@ -1,1 +1,89 @@
-{}
+{
+	"greeting": {
+		"title": "Bem-vindo de volta",
+		"descriptionMe": "O que você já fechou, o que ainda está em jogo, e o que precisa de você hoje.",
+		"descriptionEveryone": "O que o time já fechou, o que ainda está em jogo, e o que precisa de você hoje."
+	},
+	"scope": {
+		"me": "Eu",
+		"everyone": "Todos",
+		"ariaLabel": "De quem mostrar os números"
+	},
+	"summary": {
+		"dealsInProgress": {
+			"title": "Negócios em andamento",
+			"description": "Os maiores negócios abertos, e há quanto tempo cada um está na etapa",
+			"openDeals": "Negócios abertos",
+			"empty": "Nada aberto. Hora de preencher o pipeline.",
+			"columns": {
+				"deal": "Negócio",
+				"stage": "Etapa",
+				"shareOfLargest": "Participação em relação ao maior",
+				"value": "Valor"
+			}
+		},
+		"overdueTasks": {
+			"title": "Tarefas atrasadas",
+			"descriptionNone": "Toda tarefa que você registrou está feita ou ainda por vir",
+			"descriptionCount": "{count, plural, one {# tarefa} other {# tarefas}} atrasadas",
+			"empty": "Nada atrasado. Muito bem.",
+			"markDone": "Marcar como feita",
+			"noDueDate": "Sem prazo",
+			"columns": {
+				"done": "Feita",
+				"task": "Tarefa",
+				"overdue": "Atrasada"
+			}
+		},
+		"recentActivity": {
+			"titleMe": "Sua atividade recente",
+			"titleEveryone": "Atividade recente",
+			"descriptionMe": "Toda anotação, tarefa e mudança de etapa que você registrou",
+			"descriptionEveryone": "Toda anotação, tarefa e mudança de etapa no workspace",
+			"allCompanies": "Todas as empresas",
+			"empty": "Ainda não aconteceu nada.",
+			"columns": {
+				"activity": "Atividade",
+				"company": "Empresa",
+				"deal": "Negócio",
+				"who": "Quem",
+				"when": "Quando"
+			}
+		}
+	},
+	"sales": {
+		"trend": {
+			"closedWon": "Fechados como ganho",
+			"newPipeline": "Novo pipeline"
+		},
+		"closedWonThisMonth": {
+			"label": "Fechados como ganho este mês",
+			"deltaLabel": "vs. mês passado",
+			"description": "{count, plural, one {# negócio} other {# negócios}} · {amount} no mês passado"
+		},
+		"openPipeline": {
+			"label": "Pipeline aberto",
+			"description": "{count, plural, one {# negócio} other {# negócios}} em andamento · {amount} vencendo este mês"
+		},
+		"winRate": {
+			"label": "Taxa de vitória ({days}d)",
+			"descriptionNone": "Ainda não fechou nada",
+			"description": "{wins} ganhos · {losses} perdidos"
+		},
+		"averageDeal": {
+			"label": "Negócio médio ({days}d)",
+			"descriptionNone": "Sem vitórias para medir",
+			"description": "Ciclo médio de {days} dias"
+		},
+		"unconvertedNote": "Todos os valores acima estão em {currency}. {count, plural, one {# negócio em {currencies} não entra nessa conta} other {# negócios em {currencies} não entram nessa conta}}, porque não existe taxa de conversão para {currencyCount, plural, one {essa moeda} other {essas moedas}}. <link>Definir uma taxa</link>.",
+		"chart": {
+			"trendTitle": "Fechados como ganho vs. novo pipeline",
+			"trendDescription": "Últimos seis meses, pelo mês em que o negócio foi fechado ou criado",
+			"trendEmpty": "Nenhum negócio fechado ou criado ainda",
+			"pipelineTitle": "Pipeline aberto por etapa",
+			"pipelineDescription": "Onde o valor está agora",
+			"pipelineEmpty": "Nada aberto",
+			"centerLabel": "aberto"
+		}
+	}
+}

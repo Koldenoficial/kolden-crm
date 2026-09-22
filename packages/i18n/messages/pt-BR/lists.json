@@ -1,1 +1,240 @@
-{}
+{
+	"detailSheet": {
+		"back": "Voltar",
+		"close": "Fechar",
+		"pending": {
+			"running": "O agente está pesquisando",
+			"idle": "Ainda não se sabe"
+		}
+	},
+	"companies": {
+		"page": {
+			"metaTitle": "Empresas",
+			"title": "Empresas",
+			"description": "Todas as contas no pipeline."
+		},
+		"table": {
+			"searchPlaceholder": "Buscar empresas por nome ou domínio…",
+			"archived": "Arquivadas",
+			"empty": "Nenhuma empresa corresponde a esta visualização.",
+			"emptyArchived": "Nenhuma empresa arquivada.",
+			"columns": {
+				"name": "Empresa",
+				"domain": "Domínio",
+				"industry": "Setor",
+				"owner": "Responsável",
+				"contacts": "Contatos",
+				"deals": "Negócios abertos",
+				"created": "Criada em",
+				"createdLabel": "Data de criação",
+				"lastActivity": "Última atividade",
+				"enrichment": "Enriquecimento",
+				"enrichmentLabel": "Status do enriquecimento",
+				"archived": "Arquivada em",
+				"archivedLabel": "Data de arquivamento"
+			},
+			"facets": {
+				"owner": "Responsável",
+				"unassigned": "Sem responsável",
+				"industry": "Setor",
+				"enrichment": "Enriquecimento",
+				"activity": "Atividade"
+			}
+		},
+		"bulkActions": {
+			"count": "{count, plural, one {# empresa} other {# empresas}}",
+			"unassignedOwner": "Ninguém",
+			"reenrich": "Enriquecer de novo",
+			"lookingUp": "Buscando dados de {companies}, a tabela vai atualizar.",
+			"reassigned": "{count, plural, one {# empresa reatribuída.} other {# empresas reatribuídas.}}",
+			"archive": "Arquivar",
+			"archived": "{count, plural, one {# empresa arquivada.} other {# empresas arquivadas.}}",
+			"restore": "Restaurar",
+			"restored": "{count, plural, one {# empresa restaurada.} other {# empresas restauradas.}}",
+			"deleteForever": "Excluir para sempre",
+			"deletedForever": "{count, plural, one {# empresa excluída para sempre.} other {# empresas excluídas para sempre.}}",
+			"deleteDialog": {
+				"title": "Excluir {companies} para sempre?",
+				"description": "Isso não pode ser desfeito."
+			}
+		},
+		"createSheet": {
+			"trigger": "Nova empresa",
+			"title": "Nova empresa",
+			"description": "Dê um nome e um domínio a ela. O agente preenche o logo, a descrição, o setor, o endereço e as redes sociais.",
+			"fields": {
+				"name": "Nome",
+				"namePlaceholder": "Stripe",
+				"domain": "Domínio",
+				"domainPlaceholder": "stripe.com",
+				"domainDescription": "Uma URL completa também serve, ela é reduzida ao host puro, que precisa ser único.",
+				"owner": "Responsável",
+				"unassigned": "Sem responsável"
+			},
+			"submit": "Adicionar empresa",
+			"cancel": "Cancelar",
+			"added": "{name} adicionada."
+		}
+	},
+	"contacts": {
+		"page": {
+			"metaTitle": "Contatos",
+			"title": "Contatos",
+			"description": "Todo mundo no pipeline."
+		},
+		"table": {
+			"searchPlaceholder": "Buscar por nome, email ou empresa…",
+			"archived": "Arquivados",
+			"empty": "Nenhum contato corresponde a esta visualização.",
+			"emptyArchived": "Nenhum contato arquivado.",
+			"columns": {
+				"name": "Nome",
+				"title": "Cargo",
+				"email": "Email",
+				"company": "Empresa",
+				"owner": "Responsável",
+				"created": "Criado em",
+				"createdLabel": "Data de criação",
+				"lastActivity": "Última atividade",
+				"archived": "Arquivado em",
+				"archivedLabel": "Data de arquivamento"
+			},
+			"facets": {
+				"owner": "Responsável",
+				"unassigned": "Sem responsável",
+				"company": "Empresa",
+				"companySearching": "Buscando…",
+				"companyEmpty": "Nenhuma empresa encontrada.",
+				"noCompany": "Sem empresa",
+				"title": "Cargo",
+				"seniority": "Senioridade",
+				"persona": "Persona",
+				"activity": "Atividade"
+			}
+		},
+		"bulkActions": {
+			"count": "{count, plural, one {# contato} other {# contatos}}",
+			"unassignedOwner": "Ninguém",
+			"moveToCompany": "Mover para empresa",
+			"noCompany": "Sem empresa",
+			"reenrich": "Enriquecer de novo",
+			"lookingUp": "Buscando dados de {contacts}, a tabela vai atualizar.",
+			"reassigned": "{count, plural, one {# contato reatribuído.} other {# contatos reatribuídos.}}",
+			"moved": "{count, plural, one {# contato movido.} other {# contatos movidos.}}",
+			"archive": "Arquivar",
+			"archived": "{count, plural, one {# contato arquivado.} other {# contatos arquivados.}}",
+			"restore": "Restaurar",
+			"restored": "{count, plural, one {# contato restaurado.} other {# contatos restaurados.}}",
+			"deleteForever": "Excluir para sempre",
+			"deletedForever": "{count, plural, one {# contato excluído para sempre.} other {# contatos excluídos para sempre.}}",
+			"deleteDialog": {
+				"title": "Excluir {contacts} para sempre?",
+				"description": "Os emails deles ficam suprimidos, então a sincronização da caixa de entrada não vai arquivá-los de novo. Isso não pode ser desfeito."
+			}
+		},
+		"createSheet": {
+			"trigger": "Novo contato",
+			"title": "Novo contato",
+			"description": "Os emails são únicos, então importar a mesma pessoa duas vezes atualiza o contato em vez de duplicá-lo.",
+			"fields": {
+				"firstName": "Nome",
+				"lastName": "Sobrenome",
+				"email": "Email",
+				"jobTitle": "Cargo",
+				"jobTitlePlaceholder": "Head de Segurança",
+				"company": "Empresa",
+				"noCompany": "Sem empresa",
+				"owner": "Responsável",
+				"unassigned": "Sem responsável"
+			},
+			"submit": "Adicionar contato",
+			"cancel": "Cancelar",
+			"added": "{name} adicionado."
+		}
+	},
+	"deals": {
+		"page": {
+			"metaTitle": "Negócios",
+			"title": "Negócios",
+			"description": "O pipeline, e tudo que já foi fechado."
+		},
+		"table": {
+			"searchPlaceholder": "Buscar negócios por nome ou empresa…",
+			"archived": "Arquivados",
+			"empty": "Nenhum negócio corresponde a esta visualização.",
+			"emptyArchived": "Nenhum negócio arquivado.",
+			"allDealsTab": "Todos os negócios",
+			"openTab": "Abertos",
+			"closedTab": "Fechados",
+			"columns": {
+				"name": "Negócio",
+				"company": "Empresa",
+				"stage": "Etapa",
+				"amount": "Valor",
+				"owner": "Responsável",
+				"closeDate": "Data de fechamento",
+				"created": "Criado em",
+				"createdLabel": "Data de criação",
+				"lastActivity": "Última atividade",
+				"archived": "Arquivado em",
+				"archivedLabel": "Data de arquivamento"
+			},
+			"facets": {
+				"owner": "Responsável",
+				"stage": "Etapa",
+				"closing": "Fechamento"
+			},
+			"meta": {
+				"summary": "{count, plural, one {# negócio} other {# negócios}} · <amount></amount> em pipeline aberto",
+				"unconverted": "{count, plural, one {# negócio não contado (sem taxa de {currencies})} other {# negócios não contados (sem taxa de {currencies})}}"
+			}
+		},
+		"bulkActions": {
+			"count": "{count, plural, one {# negócio} other {# negócios}}",
+			"changeStage": "Mudar etapa",
+			"reassigned": "{count, plural, one {# negócio reatribuído.} other {# negócios reatribuídos.}}",
+			"moved": "{count, plural, one {# negócio movido.} other {# negócios movidos.}}",
+			"archive": "Arquivar",
+			"archived": "{count, plural, one {# negócio arquivado.} other {# negócios arquivados.}}",
+			"restore": "Restaurar",
+			"restored": "{count, plural, one {# negócio restaurado.} other {# negócios restaurados.}}",
+			"deleteForever": "Excluir para sempre",
+			"deletedForever": "{count, plural, one {# negócio excluído para sempre.} other {# negócios excluídos para sempre.}}",
+			"deleteDialog": {
+				"title": "Excluir {deals} para sempre?",
+				"description": "Tudo o que está registrado neles, atividades, anotações, os valores no seu pipeline, vai junto. Isso não pode ser desfeito."
+			},
+			"closeStage": {
+				"closeLostTitle": "{count, plural, one {Fechar # negócio como perdido} other {Fechar # negócios como perdidos}}",
+				"markUnqualifiedTitle": "{count, plural, one {Marcar # negócio como desqualificado} other {Marcar # negócios como desqualificados}}",
+				"description": "O mesmo motivo vale para todos eles, então mantenha o que têm em comum.",
+				"reasonLabel": "Motivo",
+				"reasonPlaceholder": "Orçamento cortado no trimestre",
+				"save": "Salvar",
+				"cancel": "Cancelar"
+			}
+		},
+		"createSheet": {
+			"trigger": "Novo negócio",
+			"title": "Novo negócio",
+			"description": "Todo negócio pertence a uma empresa e tem o nome de alguém responsável por ele.",
+			"fields": {
+				"name": "Nome",
+				"namePlaceholder": "Stripe - Comp AI",
+				"company": "Empresa",
+				"owner": "Responsável",
+				"ownerPlaceholder": "Escolha um responsável",
+				"stage": "Etapa",
+				"stageDescription": "Todo negócio novo é um negócio aberto. Feche-o pelo pipeline quando houver um resultado para registrar.",
+				"amount": "Valor",
+				"amountPlaceholder": "24000",
+				"currency": "Moeda",
+				"closeDate": "Data prevista de fechamento",
+				"closeDatePlaceholder": "Ainda sem data"
+			},
+			"submit": "Adicionar negócio",
+			"cancel": "Cancelar",
+			"added": "{name} adicionado."
+		}
+	}
+}

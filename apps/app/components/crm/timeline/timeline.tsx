@@ -6,12 +6,15 @@ import Email from "@carbon/icons-react/es/Email";
 import Events from "@carbon/icons-react/es/Events";
 import Task from "@carbon/icons-react/es/Task";
 import Time from "@carbon/icons-react/es/Time";
+import { appLocale } from "@crm/i18n";
+import { translator } from "@crm/i18n/translator";
 import { Button } from "@crm/ui/components/button";
 import type { CarbonIcon } from "@crm/ui/components/icon";
 import { Spinner } from "@crm/ui/components/spinner";
 import { ToggleGroup, ToggleGroupItem } from "@crm/ui/components/toggle-group";
 import { cn } from "@crm/ui/lib/utils";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useQueryState } from "nuqs";
 import { DetailSheetEmpty, SECTION_TITLE } from "@/components/detail-sheet";
 import { SEARCH_PARAM } from "@/lib/search-param-keys";
@@ -31,46 +34,22 @@ export type TimelineAnchor =
 	| { contactId: string }
 	| { dealId: string };
 
-const TAB_LABELS = {
-	all: "All",
-	notes: "Notes",
-	email: "Email",
-	meetings: "Meetings",
-	upcoming: "Upcoming",
-	done: "Done",
-} satisfies Record<TimelineTab, string>;
+function tabLabel(
+	tab: TimelineTab,
+	t: ReturnType<typeof useTranslations<"records">>,
+): string {
+	return t(`timeline.tabs.${tab}`);
+}
 
-const EMPTY_STATES = {
-	all: {
-		title: "Nothing has happened yet",
-		description:
-			"Calls, notes, emails and meetings all land here. Log the first one above, or wait for Gmail and Calendar to sync.",
-	},
-	notes: {
-		title: "No notes",
-		description:
-			"Notes are what you write down for the next person to read — what they care about, who else is involved, what you promised.",
-	},
-	email: {
-		title: "No email",
-		description:
-			"Threads appear here as they are synced from Gmail. Nothing from before this mailbox was connected is imported.",
-	},
-	meetings: {
-		title: "No meetings",
-		description:
-			"Calendar events with someone from this record on them show up here, past and upcoming.",
-	},
-	upcoming: {
-		title: "Nothing outstanding",
-		description:
-			"Tasks you have not finished appear here, and at the top of the All tab until they are done.",
-	},
-	done: {
-		title: "Nothing finished yet",
-		description: "Tasks move here once you tick them off.",
-	},
-} satisfies Record<TimelineTab, { title: string; description: string }>;
+function emptyState(
+	tab: TimelineTab,
+	t: ReturnType<typeof useTranslations<"records">>,
+): { title: string; description: string } {
+	return {
+		title: t(`timeline.empty.${tab}.title`),
+		description: t(`timeline.empty.${tab}.description`),
+	};
+}
 
 const EMPTY_ICONS = {
 	all: Time,
@@ -81,7 +60,7 @@ const EMPTY_ICONS = {
 	done: Checkmark,
 } satisfies Record<TimelineTab, CarbonIcon>;
 
-const dayFormat = new Intl.DateTimeFormat("en-US", {
+const dayFormat = new Intl.DateTimeFormat(appLocale(), {
 	weekday: "short",
 	month: "short",
 	day: "numeric",
@@ -89,6 +68,7 @@ const dayFormat = new Intl.DateTimeFormat("en-US", {
 });
 
 function dayLabel(day: string, local: boolean): string {
+	const t = translator("records");
 	const now = new Date();
 	const today = dayKey(now.toISOString(), local);
 	const yesterdayDate = local
@@ -96,8 +76,8 @@ function dayLabel(day: string, local: boolean): string {
 		: new Date(Date.now() - 86_400_000);
 	const yesterday = dayKey(yesterdayDate.toISOString(), local);
 
-	if (day === today) return "Today";
-	if (day === yesterday) return "Yesterday";
+	if (day === today) return t("timeline.today");
+	if (day === yesterday) return t("timeline.yesterday");
 	return dayFormat.format(new Date(`${day}T00:00:00`));
 }
 
@@ -157,6 +137,7 @@ function TimelineDay({
 export function Timeline({ anchor }: { anchor: TimelineAnchor }) {
 	const trpc = useTRPC();
 	const hydrated = useHydrated();
+	const t = useTranslations("records");
 
 	const [tab, setTab] = useQueryState(
 		SEARCH_PARAM.record.timeline,
@@ -200,7 +181,7 @@ export function Timeline({ anchor }: { anchor: TimelineAnchor }) {
 				>
 					{TIMELINE_TABS.map((option) => (
 						<ToggleGroupItem key={option} value={option}>
-							{TAB_LABELS[option]}
+							{tabLabel(option, t)}
 							{counts.data?.[option] ? (
 								<span className="tabular-nums opacity-60">
 									{counts.data[option]}
@@ -218,14 +199,14 @@ export function Timeline({ anchor }: { anchor: TimelineAnchor }) {
 			) : entries.length === 0 && pinnedEntries.length === 0 ? (
 				<DetailSheetEmpty
 					icon={EMPTY_ICONS[tab]}
-					title={EMPTY_STATES[tab].title}
-					description={EMPTY_STATES[tab].description}
+					title={emptyState(tab, t).title}
+					description={emptyState(tab, t).description}
 				/>
 			) : (
 				<div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-5 pb-4">
 					{pinnedEntries.length > 0 ? (
 						<TimelineDay
-							label="Outstanding"
+							label={t("timeline.outstanding")}
 							entries={pinnedEntries}
 							anchor={anchor}
 						/>
@@ -249,7 +230,7 @@ export function Timeline({ anchor }: { anchor: TimelineAnchor }) {
 							onClick={() => history.fetchNextPage()}
 						>
 							{history.isFetchingNextPage ? <Spinner /> : null}
-							Show older
+							{t("timeline.showOlder")}
 						</Button>
 					) : null}
 				</div>

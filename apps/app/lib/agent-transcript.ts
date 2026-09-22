@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import {
 	type EveStreamEvent,
 	eveTurnFailure,
@@ -101,6 +102,52 @@ const VERBS: ToolVerbs = {
 function humanise(tool: string): string {
 	const words = tool.replace(/_/g, " ");
 	return words.charAt(0).toUpperCase() + words.slice(1);
+}
+
+function translatedVerbs(
+	t: ReturnType<typeof translator<"agentBuilder">>,
+): Record<string, string> {
+	return {
+		read_crm_history: t("toolVerbs.readCrmHistory"),
+		read_company_history: t("toolVerbs.readCompanyHistory"),
+		read_deal_history: t("toolVerbs.readDealHistory"),
+		search_crm: t("toolVerbs.searchCrm"),
+		resolve_linkedin_profile: t("toolVerbs.resolveLinkedinProfile"),
+		get_linkedin_profile: t("toolVerbs.getLinkedinProfile"),
+		get_contact_work_history: t("toolVerbs.getContactWorkHistory"),
+		fetch_contact_photo: t("toolVerbs.fetchContactPhoto"),
+		find_contact_socials: t("toolVerbs.findContactSocials"),
+		set_contact_socials: t("toolVerbs.setContactSocials"),
+		identify_contact: t("toolVerbs.identifyContact"),
+		record_fact: t("toolVerbs.recordFact"),
+		write_brief: t("toolVerbs.writeBrief"),
+		write_workspace_profile: t("toolVerbs.writeWorkspaceProfile"),
+		research_person: t("toolVerbs.researchPerson"),
+		research_company: t("toolVerbs.researchCompany"),
+		enrich_company: t("toolVerbs.enrichCompany"),
+		schedule_recheck: t("toolVerbs.scheduleRecheck"),
+		record_job_change: t("toolVerbs.recordJobChange"),
+		list_deals: t("toolVerbs.listDeals"),
+		list_outstanding_work: t("toolVerbs.listOutstandingWork"),
+		set_chat_title: t("toolVerbs.setChatTitle"),
+		list_fields: t("toolVerbs.listFields"),
+		set_field_value: t("toolVerbs.setFieldValue"),
+		manage_fields: t("toolVerbs.manageFields"),
+		archive_field: t("toolVerbs.archiveField"),
+
+		load_skill: t("toolVerbs.loadSkill"),
+		web_search: t("toolVerbs.webSearch"),
+		web_fetch: t("toolVerbs.webFetch"),
+		todo: t("toolVerbs.todo"),
+		ask_question: t("toolVerbs.askQuestion"),
+		agent: t("toolVerbs.agent"),
+		connection_search: t("toolVerbs.connectionSearch"),
+		bash: t("toolVerbs.bash"),
+		read_file: t("toolVerbs.readFile"),
+		write_file: t("toolVerbs.writeFile"),
+		glob: t("toolVerbs.glob"),
+		grep: t("toolVerbs.grep"),
+	};
 }
 
 export type TranscriptMessage = {
@@ -292,11 +339,12 @@ export function toolName(part: EveMessagePart): string {
 export const TOOL_VERBS = VERBS;
 
 export function describe(part: EveMessagePart): string {
+	const t = translator("agentBuilder");
 	const tool = toolName(part);
-	const verb = VERBS[tool] ?? humanise(tool);
+	const verb = translatedVerbs(t)[tool] ?? humanise(tool);
 	const reason = outcome(part)?.reason ?? null;
 
-	return reason === null ? verb : `${verb} — ${reason}`;
+	return reason === null ? verb : t("toolVerbs.withReason", { verb, reason });
 }
 
 export function outcomeTone(part: EveMessagePart): Tone {

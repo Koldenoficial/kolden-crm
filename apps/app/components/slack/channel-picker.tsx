@@ -5,6 +5,7 @@ import Locked from "@carbon/icons-react/es/Locked";
 import { Button } from "@crm/ui/components/button";
 import { Icon } from "@crm/ui/components/icon";
 import { cn } from "@crm/ui/lib/utils";
+import { useTranslations } from "next-intl";
 
 export type PickerChannel = {
 	id: string;
@@ -35,6 +36,7 @@ export function ChannelPicker({
 	pending?: boolean;
 	value?: string | null;
 }) {
+	const t = useTranslations("agentBuilder");
 	return (
 		<div className="flex flex-col divide-y overflow-hidden rounded-lg border">
 			{channels.length === 0 ? empty : null}
@@ -56,7 +58,9 @@ export function ChannelPicker({
 					>
 						{onSelect && selectable ? (
 							<button
-								aria-label={`Choose #${channel.name}`}
+								aria-label={t("slack.channelPicker.chooseAriaLabel", {
+									name: channel.name,
+								})}
 								aria-pressed={selected}
 								className="absolute inset-0"
 								disabled={pending}
@@ -83,7 +87,7 @@ export function ChannelPicker({
 								{channel.name}
 							</span>
 							<span className="text-muted-foreground text-xs">
-								{describe(channel, canInviteItself)}
+								{describe(t, channel, canInviteItself)}
 							</span>
 						</span>
 
@@ -101,7 +105,9 @@ export function ChannelPicker({
 									size="xs"
 									variant="outline"
 								>
-									{channel.inviteRequestedAt ? "Ask again" : "Request"}
+									{channel.inviteRequestedAt
+										? t("slack.channelPicker.askAgain")
+										: t("slack.channelPicker.request")}
 								</Button>
 							) : !channel.isMember && onAdd ? (
 								<Button
@@ -110,7 +116,7 @@ export function ChannelPicker({
 									size="xs"
 									variant="outline"
 								>
-									Add
+									{t("slack.channelPicker.add")}
 								</Button>
 							) : null}
 						</span>
@@ -121,15 +127,22 @@ export function ChannelPicker({
 	);
 }
 
-function describe(channel: PickerChannel, canInviteItself: boolean): string {
+function describe(
+	t: ReturnType<typeof useTranslations<"agentBuilder">>,
+	channel: PickerChannel,
+	canInviteItself: boolean,
+): string {
 	const people =
-		channel.memberCount === null ? "" : ` · ${channel.memberCount} people`;
+		channel.memberCount === null
+			? ""
+			: ` · ${t("slack.channelPicker.peopleCount", { count: channel.memberCount })}`;
 
-	if (channel.isMember) return `Comp AI is in${people}`;
-	if (!channel.classified) return `Not read from Slack yet${people}`;
-	if (!channel.isPrivate) return `Comp AI can join this one${people}`;
-	if (canInviteItself) return `Private. Comp AI joins as you${people}`;
+	if (channel.isMember) return t("slack.channelPicker.isIn", { people });
+	if (!channel.classified)
+		return t("slack.channelPicker.notReadYet", { people });
+	if (!channel.isPrivate) return t("slack.channelPicker.canJoin", { people });
+	if (canInviteItself) return t("slack.channelPicker.joinsAsYou", { people });
 	if (channel.inviteRequestedAt)
-		return `Private. Waiting on an invite${people}`;
-	return `Private. Someone inside has to invite Comp AI${people}`;
+		return t("slack.channelPicker.waitingInvite", { people });
+	return t("slack.channelPicker.needsInvite", { people });
 }

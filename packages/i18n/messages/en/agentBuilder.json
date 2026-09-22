@@ -1,1 +1,609 @@
-{}
+{
+	"common": {
+		"createAgent": "Create agent",
+		"cancel": "Cancel",
+		"tryAgain": "Try again"
+	},
+	"pages": {
+		"chatHome": {
+			"metaTitle": "Chat"
+		},
+		"chat": {
+			"metaTitle": "Agent chat"
+		},
+		"agents": {
+			"metaTitle": "Agents",
+			"title": "Team agents",
+			"description": "Durable automations created from private agent-builder chats."
+		},
+		"teamAgent": {
+			"metaTitle": "Team agent"
+		}
+	},
+	"chat": {
+		"openingChat": "Opening chat…",
+		"unavailable": {
+			"title": "Chat unavailable",
+			"description": "This chat does not exist or you do not have access to it.",
+			"startNewChat": "Start a new chat"
+		},
+		"header": {
+			"fallbackTitle": "Agent chat",
+			"private": "Private",
+			"workingInBackground": "Working in background",
+			"newChatAriaLabel": "Start a new chat"
+		},
+		"shared": {
+			"fallbackTitle": "Agent builder",
+			"readOnly": "Read-only",
+			"sharedBy": "Shared by {name}",
+			"notice": "You can read this builder chat, but only its owner can continue or change it."
+		},
+		"userSubmission": {
+			"unavailable": "Message unavailable",
+			"answerToFollowUp": "Answer to follow-up",
+			"sendFailed": "This message could not be sent."
+		},
+		"assistantMessage": {
+			"reasoning": "Reasoning"
+		},
+		"followUp": {
+			"label": "Follow-up",
+			"answered": "Answered",
+			"waiting": "Waiting for your answer"
+		},
+		"response": {
+			"copyAriaLabel": "Copy response as Markdown",
+			"copiedToast": "Response copied as Markdown.",
+			"rateHelpfulAriaLabel": "Rate response helpful",
+			"rateNotHelpfulAriaLabel": "Rate response not helpful"
+		},
+		"buildingAgent": {
+			"title": "Building the agent",
+			"stepCount": "{completed} of 4",
+			"ariaLabel": "Agent creation",
+			"steps": {
+				"scope": "Scope",
+				"instructions": "Instructions",
+				"manifest": "Manifest",
+				"review": "Review"
+			},
+			"status": {
+				"done": "Done",
+				"working": "Working",
+				"queued": "Queued"
+			},
+			"writingPath": "Writing {path}",
+			"runsInBackground": "Runs in the background",
+			"stop": {
+				"label": "Stop",
+				"pending": "Stopping",
+				"stoppedToast": "Stop requested.",
+				"failedToast": "The agent could not be stopped. Try again."
+			}
+		},
+		"failure": {
+			"rateLimit": "Vercel AI Gateway rate-limited this model before it could start. Try again in a moment or add AI Gateway credits in Vercel.",
+			"restricted": "This model requires paid AI Gateway credits. Add credits in Vercel, then try again.",
+			"credits": "Vercel AI Gateway has no available credits. Add credits in Vercel, then try again.",
+			"unknown": "The builder could not finish this request. Try again.",
+			"creatingAgentTitle": "Agent creation stopped",
+			"responseTitle": "Response stopped",
+			"retryPending": "Retrying"
+		},
+		"review": {
+			"notice": "Your private draft is ready to review.",
+			"status": "Private",
+			"fields": {
+				"when": "When",
+				"find": "Find",
+				"then": "Then",
+				"scope": "Scope"
+			},
+			"scopeFallback": "Bounded CRM read access",
+			"footerNote": "Sandboxed · credentials never enter the sandbox",
+			"viewDetails": "View details"
+		},
+		"deployed": {
+			"status": "Live",
+			"runQueuedToast": "Agent run queued.",
+			"liveStatement": "{name} is live.",
+			"description": "I created the Eve agent, applied its bounded CRM and integration access, and made it live for the team.",
+			"fields": {
+				"trigger": "Trigger",
+				"runsIn": "Runs in",
+				"owner": "Owner"
+			},
+			"manualOnly": "Manual only",
+			"runsInValue": "Eve runtime · isolated sandbox",
+			"ownerValue": "Team · {name}",
+			"footerNote": "The chat stays private. The agent is team-owned.",
+			"run": {
+				"label": "Run now",
+				"pending": "Queueing",
+				"success": "Queued"
+			},
+			"openAgent": "Open agent",
+			"suggestedFollowUps": "Suggested follow-ups",
+			"suggestion1": "Add another teammate to the notification"
+		}
+	},
+	"home": {
+		"title": "What can I help with, {name}?",
+		"defaultName": "there",
+		"description": "Ask about your CRM, tag a record or integration, or describe an agent to build to automate a task.",
+		"privacyNotice": "Chats and agent drafts stay private to you. Deploying an agent makes it available to the whole team.",
+		"suggestedAgents": "Suggested agents",
+		"suggestions": {
+			"brief": "Brief every deal owner before a renewal call",
+			"flag": "Flag deals with no activity for 14 days",
+			"handoff": "Hand new customers from Sales to Onboarding"
+		}
+	},
+	"sidebar": {
+		"chatsHeading": "Chats",
+		"agentChatsAriaLabel": "Agent chats",
+		"loadingAriaLabel": "Loading agent navigation…",
+		"newChatAriaLabel": "New agent chat",
+		"noChats": "No chats in the last 7 days.",
+		"teamAgentsHeading": "Team agents",
+		"dateGroup": {
+			"today": "Today",
+			"yesterday": "Yesterday",
+			"lastSevenDays": "Last 7 days"
+		}
+	},
+	"capabilities": {
+		"actionLabels": {
+			"slackMessagePost": "Post a message",
+			"crmActivityCreate": "Write a note or task on the record",
+			"runSummary": "Write a summary of the run"
+		},
+		"manifestUnreadable": {
+			"title": "This version's manifest cannot be read",
+			"fallback": "The manifest is not in a shape we know."
+		},
+		"savedToast": "Saved. A new version is live.",
+		"inviteAskedToast": "Asked someone to invite Comp AI.",
+		"blocked": {
+			"allActionsOff": "Leave one action on. An agent that does nothing cannot be saved.",
+			"scopeEmptied": "Add one record. An empty list opens every record in the workspace."
+		},
+		"channel": {
+			"title": "Lives in",
+			"summary": "One channel. Comp AI joins it when you save."
+		},
+		"createChannelButton": "Create a channel",
+		"actions": {
+			"title": "What it can do there",
+			"summary": "If it is off here, it cannot do it.",
+			"empty": "Nothing outside the CRM."
+		},
+		"dataScope": {
+			"title": "What it can see",
+			"summaryFallback": "What it reads to do its job.",
+			"everyRecord": "Every record in the workspace",
+			"removeAriaLabel": "Remove {label}",
+			"addRecordType": "Add a record type",
+			"searchPlaceholder": "Search records and integrations",
+			"noMatches": "Nothing matches."
+		},
+		"saveBar": {
+			"blockedTitle": "This change cannot be saved",
+			"movingTitle": "Moving from #{from} to #{to}",
+			"defaultTitle": "Changing what this agent can do",
+			"channelMoveDescription": "Comp AI joins #{to}. It stays in #{from} until you remove it.",
+			"defaultDescription": "The old version stays in the history.",
+			"discard": "Discard",
+			"save": "Save",
+			"saving": "Saving…"
+		}
+	},
+	"code": {
+		"savedToast": "Saved.",
+		"readingFiles": "Reading the agent's files…",
+		"noFiles": "This agent has no files yet. The builder writes them when it deploys.",
+		"title": "Code",
+		"subtitle": "What the agent actually runs.",
+		"hideChanges": "Hide changes",
+		"changes": "Changes",
+		"done": "Done",
+		"edit": "Edit",
+		"saveBar": {
+			"title": "Unsaved code",
+			"description": "{count, plural, one {# file changed} other {# files changed}}. Saving writes a new revision.",
+			"discard": "Discard",
+			"save": "Save",
+			"saving": "Saving…"
+		}
+	},
+	"codeWorkspace": {
+		"ariaLabel": "Generated agent files",
+		"loading": "Loading agent code",
+		"writingTitle": "Writing agent code",
+		"title": "Agent code",
+		"fileCount": "{count, plural, one {# file} other {# files}}",
+		"codeTab": "Code",
+		"changesTab": "Changes",
+		"codeViewAriaLabel": "Code view",
+		"fileTreeAriaLabel": "Agent files"
+	},
+	"composer": {
+		"placeholderHome": "Ask about your CRM or automate a task…",
+		"placeholderChat": "Send a message",
+		"ariaLabel": "Message the agent builder",
+		"command": {
+			"createAgentLabel": "Create agent"
+		},
+		"tagButtonAriaLabel": "Tag CRM records and integrations",
+		"searchCrmPlaceholder": "Search CRM",
+		"crmRecordsLabel": "CRM records",
+		"noMatchingRecords": "No matching records.",
+		"attachFilesAriaLabel": "Attach files",
+		"attachFailedToast": "Those files could not be attached. Try again.",
+		"slashCommandsAriaLabel": "Open slash commands",
+		"sendButton": {
+			"preparingAttachments": "Preparing attachments",
+			"sendMessage": "Send message",
+			"sending": "Sending",
+			"sent": "Sent",
+			"sendFailed": "Send failed"
+		},
+		"fileErrors": {
+			"empty": "{name} is empty.",
+			"tooLarge": "{name} is larger than 2 MB.",
+			"nameTooLong": "That file name is too long.",
+			"unsupportedType": "{name} has an unsupported file type.",
+			"readFailed": "{name} could not be read."
+		}
+	},
+	"history": {
+		"filters": {
+			"all": "All outcomes",
+			"succeeded": "Succeeded",
+			"failed": "Failed",
+			"running": "Running",
+			"queued": "Queued",
+			"waitingForApproval": "Waiting for approval",
+			"cancelled": "Cancelled"
+		},
+		"filterAriaLabel": "Filter run outcomes",
+		"runNumber": "Run #{number}",
+		"triggerTypes": {
+			"manual": "Manual",
+			"event": "Event",
+			"schedule": "Schedule"
+		},
+		"stopButton": "Stop",
+		"stopDialog": {
+			"title": "Stop this run?",
+			"description": "The agent stops where it is and the run is recorded as cancelled. Anything it has already done — a note, a task, a Slack message — stays done.",
+			"keepRunning": "Keep running",
+			"confirm": "Stop run"
+		},
+		"retry": "Retry",
+		"noRuns": "No runs match this outcome.",
+		"runMeta": {
+			"trigger": "Trigger",
+			"initiatedBy": "Initiated by",
+			"model": "Model",
+			"version": "Version",
+			"eveScheduler": "Eve scheduler",
+			"gatewayDefault": "Gateway default"
+		},
+		"externalActions": "{count, plural, one {# external action} other {# external actions}}",
+		"eventLabel": "event",
+		"truncatedSteps": "Showing the first {shown} of {total} steps. This run is too long to display in full.",
+		"duration": {
+			"inProgress": "In progress"
+		},
+		"activityFilters": {
+			"all": "All changes",
+			"agent": "Agent changes",
+			"run": "Run requests"
+		},
+		"activityFilterAriaLabel": "Filter activity",
+		"export": "Export",
+		"activityColumns": {
+			"time": "Time",
+			"change": "Change",
+			"actor": "Actor",
+			"request": "Request"
+		},
+		"noActivity": "No changes match this filter.",
+		"actorPrefix": "Actor · ",
+		"requestPrefix": "Request · "
+	},
+	"runsDrawer": {
+		"title": "History",
+		"description": "Every run and every change, newest first.",
+		"tabs": {
+			"runs": "Runs",
+			"activity": "Activity"
+		}
+	},
+	"chatChips": {
+		"removeResourceAriaLabel": "Remove {label}",
+		"removeAttachmentAriaLabel": "Remove {name}",
+		"removeCommandAriaLabel": "Remove {label}"
+	},
+	"createChannelDialog": {
+		"title": "Create a channel",
+		"description": "Comp AI makes it in Slack and joins it. You can put the agent in it straight after.",
+		"nameLabel": "Name",
+		"examplePlaceholder": "renewals",
+		"slugHint": "Use lowercase letters, numbers and dashes.",
+		"slackWillCallIt": "Slack will call it #{slug}.",
+		"privateLabel": "Private. Only people you invite can see it.",
+		"cancel": "Cancel",
+		"create": "Create channel",
+		"creating": "Creating…",
+		"creatingToast": "Creating the channel in Slack."
+	},
+	"dealListResult": {
+		"columns": {
+			"deal": "Deal",
+			"company": "Company",
+			"stage": "Stage",
+			"amount": "Amount",
+			"owner": "Owner",
+			"close": "Close date",
+			"idle": "Idle"
+		},
+		"empty": "No deals met these pipeline filters.",
+		"title": {
+			"empty": "No matching deals",
+			"count": "{count, plural, one {# {prefix}deal} other {# {prefix}deals}}",
+			"stalePrefix": "stale"
+		},
+		"meta": {
+			"dealCount": "{count, plural, one {# deal} other {# deals}}",
+			"pipelineTotal": "{amount} pipeline",
+			"inactiveDays": "{days}+ days inactive",
+			"moreResults": "More results available"
+		},
+		"asOf": "As of <date></date>",
+		"neverActiveTooltip": "No activity has ever been recorded"
+	},
+	"deleteChatAction": {
+		"deleteAriaLabel": "Delete {title}",
+		"moreActions": "More chat actions",
+		"deleteChat": "Delete chat",
+		"confirmTitle": "Delete {title}?",
+		"confirmDescription": "This permanently deletes the chat, its messages, attachments, and shared link. Any agent created from it stays available.",
+		"cancel": "Cancel",
+		"deleting": "Deleting",
+		"deleted": "Deleted",
+		"tryAgain": "Try again",
+		"deletedToast": "Chat deleted."
+	},
+	"newAgentDialog": {
+		"title": "New agent",
+		"description": "Say what it is and where it lives. The builder writes the rest. You can change all of this later.",
+		"nameLabel": "Name",
+		"namePlaceholder": "Renewal prep brief",
+		"jobLabel": "What it should do",
+		"jobPlaceholder": "A week before a renewal, gather the account history and post a short brief for whoever owns the deal.",
+		"channelLabel": "Lives in",
+		"channelPlaceholder": "Pick a Slack channel",
+		"alreadyIn": "Comp AI is already in #{channel}.",
+		"notInYet": "Comp AI is not in #{channel} yet. It joins when you create this.",
+		"emptyHint": "Leave this empty and the builder will ask.",
+		"allowedToLabel": "Allowed to",
+		"footerNote": "Nothing sends until you turn it on.",
+		"cancel": "Cancel",
+		"handToBuilder": "Hand to the builder",
+		"handingOver": "Handing over…",
+		"handoffFailedToast": "Could not hand this to the builder.",
+		"permission": {
+			"post": "Post a message",
+			"mention": "Mention the deal owner",
+			"thread": "Reply in a thread",
+			"history": "Read the channel history"
+		}
+	},
+	"shareChatDialog": {
+		"shareChat": "Share chat",
+		"close": "Close",
+		"loadingStatus": "Loading sharing status…",
+		"loadError": "Sharing status could not be loaded.",
+		"tryAgain": "Try again",
+		"onlyYou": "Only you",
+		"anyoneWithLink": "Anyone in Comp AI with the link",
+		"readOnly": "Read-only",
+		"activeLinkExists": "An active read-only link exists",
+		"copyLink": "Copy link",
+		"replaceLink": "Replace link",
+		"copying": "Copying",
+		"copied": "Copied",
+		"creatingLink": "Creating link",
+		"linkCreated": "Link created",
+		"linkCopiedToast": "Chat link copied.",
+		"linkRevokedToast": "Chat link revoked.",
+		"notice": "Sharing this chat does not change who can edit or run the agent.",
+		"revokeLink": "Revoke link",
+		"revoking": "Revoking",
+		"revoked": "Revoked",
+		"cancel": "Cancel",
+		"done": "Done"
+	},
+	"teamAgentDetail": {
+		"unavailable": {
+			"title": "Agent unavailable"
+		},
+		"fallbackDescription": "A durable team automation.",
+		"createdBy": "Created by {name}",
+		"privateDraft": "Private draft",
+		"teamAgent": "Team agent",
+		"version": "Version {version}",
+		"visibilityLabel": "Visibility",
+		"triggerLabel": "Trigger",
+		"runsButton": "Runs",
+		"openInChat": "Open in chat",
+		"changeDetails": "Change details",
+		"manualOnly": "Manual only",
+		"runQueuedAgainToast": "Run queued again.",
+		"runStoppedToast": "Run stopped.",
+		"runAlreadyFinishedToast": "That run had already finished.",
+		"deploy": {
+			"label": "Deploy agent",
+			"pending": "Deploying",
+			"success": "Deployed",
+			"deployedToast": "Agent deployed to the team."
+		},
+		"runNow": {
+			"label": "Run now",
+			"pending": "Queueing",
+			"success": "Queued",
+			"runQueuedToast": "Agent run queued."
+		},
+		"pause": {
+			"label": "Pause",
+			"pending": "Pausing",
+			"success": "Paused"
+		},
+		"resume": {
+			"label": "Resume",
+			"pending": "Resuming",
+			"success": "Resumed"
+		},
+		"moreActions": "More agent actions",
+		"deleteAgent": "Delete agent",
+		"confirmTitle": "Delete {name}?",
+		"confirmDescription": "This removes it from the team agent list, disables its triggers, and cancels queued runs. Its run and action history stays in the audit log. A run already in progress may finish.",
+		"cancel": "Cancel",
+		"deleting": "Deleting",
+		"deleted": "Deleted",
+		"tryAgain": "Try again",
+		"deletedToast": "{name} was deleted.",
+		"noDeployedVersion": "This agent has no deployed version yet.",
+		"draftNotice": "This is a draft. Deploy it to the team before you change what it can do."
+	},
+	"teamAgentsIndex": {
+		"status": {
+			"draft": "draft",
+			"live": "live",
+			"paused": "paused"
+		},
+		"noDescription": "No description",
+		"runCount": "{count, plural, one {# run} other {# runs}}",
+		"emptyTitle": "No team agents yet",
+		"emptyDescription": "Create one from a private chat, then review its access before deploying it.",
+		"openChat": "Open chat"
+	},
+	"slack": {
+		"channelPicker": {
+			"chooseAriaLabel": "Choose #{name}",
+			"askAgain": "Ask again",
+			"request": "Request",
+			"add": "Add",
+			"peopleCount": "{count, plural, one {# person} other {# people}}",
+			"isIn": "Comp AI is in{people}",
+			"notReadYet": "Not read from Slack yet{people}",
+			"canJoin": "Comp AI can join this one{people}",
+			"joinsAsYou": "Private. Comp AI joins as you{people}",
+			"waitingInvite": "Private. Waiting on an invite{people}",
+			"needsInvite": "Private. Someone inside has to invite Comp AI{people}"
+		}
+	},
+	"clarificationComposer": {
+		"submitError": "Unable to submit. Check your connection and try again.",
+		"chooseAnswer": "Choose an answer, then submit.",
+		"addDetail": "Add the detail the agent needs to continue.",
+		"anotherAnswerAriaLabel": "Another answer",
+		"yourAnswerAriaLabel": "Your answer",
+		"placeholder": "Add the detail the agent needs",
+		"submit": "Submit answer",
+		"submitting": "Submitting"
+	},
+	"toolVerbs": {
+		"readCrmHistory": "Read our emails and meetings with them",
+		"readCompanyHistory": "Read everything we have on the company",
+		"readDealHistory": "Read the deal and where it has been",
+		"searchCrm": "Looked the record up in the CRM",
+		"resolveLinkedinProfile": "Searched for their LinkedIn profile",
+		"getLinkedinProfile": "Read a LinkedIn profile",
+		"getContactWorkHistory": "Read their work history",
+		"fetchContactPhoto": "Fetched their profile picture",
+		"findContactSocials": "Searched for their other profiles",
+		"setContactSocials": "Checked a profile against the account itself",
+		"identifyContact": "Put a name to the address",
+		"recordFact": "Recorded what it found",
+		"writeBrief": "Wrote the background",
+		"writeWorkspaceProfile": "Wrote up who we are",
+		"researchPerson": "Researched them on the web",
+		"researchCompany": "Read the company's site",
+		"enrichCompany": "Looked up the company",
+		"scheduleRecheck": "Decided when to look again",
+		"recordJobChange": "Raised a job change",
+		"listDeals": "Reviewed the deal pipeline",
+		"listOutstandingWork": "Looked for outstanding work",
+		"setChatTitle": "Named this chat",
+		"listFields": "Read what this workspace tracks",
+		"setFieldValue": "Filled in a custom field",
+		"manageFields": "Changed what the CRM tracks",
+		"archiveField": "Asked to retire a field",
+		"loadSkill": "Read its instructions for this",
+		"webSearch": "Searched the web",
+		"webFetch": "Read a web page",
+		"todo": "Updated its plan",
+		"askQuestion": "Asked a question",
+		"agent": "Handed part of the job to a helper",
+		"connectionSearch": "Looked for a tool it could use",
+		"bash": "Ran a command",
+		"readFile": "Read a file",
+		"writeFile": "Wrote a file",
+		"glob": "Looked for files",
+		"grep": "Searched inside the files",
+		"withReason": "{verb} — {reason}"
+	},
+	"toolLabels": {
+		"artifactNames": {
+			"instructions": "instructions",
+			"manifest": "the manifest",
+			"readme": "the readme"
+		},
+		"writeAgentFile": {
+			"writing": "Writing {name}",
+			"wrote": "Wrote {name}"
+		},
+		"saveAgentDraft": {
+			"saving": "Saving draft",
+			"saved": "Saved draft"
+		},
+		"setChatTitle": {
+			"naming": "Naming this chat",
+			"named": "Named this chat"
+		}
+	},
+	"runFailure": {
+		"reasons": {
+			"actionNotPerformed": "The agent finished without doing what it was built to do. Open the run to see which step it skipped.",
+			"noExecutor": "This agent asks for something the CRM cannot do yet. It needs rebuilding.",
+			"dependencyUnavailable": "A connection this agent needs is missing. Reconnect it, then run again.",
+			"notAuthorised": "The connection refused this. Its access may have been revoked or narrowed.",
+			"providerError": "The outside service rejected this. It is usually worth trying again.",
+			"neverSettled": "The agent stopped without reporting a result. Nothing was left half-done.",
+			"turnFailed": "The model failed part-way through this run.",
+			"deliveryFailed": "The run never reached the agent.",
+			"deliveryExhausted": "This never reached the agent after three attempts. Nothing ran.",
+			"actionRejected": "The agent tried the action and the CRM refused it. Nothing was written.",
+			"agentUnavailable": "The agent was paused or archived when this run started.",
+			"agentDeleted": "The agent was deleted before this run finished.",
+			"cancelledByUser": "Someone stopped this run.",
+			"runTimedOut": "This run took too long and was stopped so later runs could start."
+		},
+		"unknown": "This run failed without saying why."
+	},
+	"handoff": {
+		"slackLabel": "Slack",
+		"slackDetail": "Connected workspace",
+		"channelMemberDetail": "Comp AI is a member",
+		"channelNotMemberDetail": "Comp AI is not in this channel yet",
+		"buildNamed": "Build an agent named \"{name}\".",
+		"postsToChannel": "It posts to the tagged Slack channel #{channel} and nowhere else. Do not ask me where to post.",
+		"permissionsHeader": "These Slack permissions are already decided. Use exactly this list and do not ask about it:",
+		"permissionAllowed": "allowed",
+		"permissionNotAllowed": "not allowed"
+	}
+}

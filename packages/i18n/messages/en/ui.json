@@ -1,1 +1,89 @@
-{}
+{
+	"tablePagination": {
+		"noResults": "No results",
+		"showing": "Showing {start}–{end} of {total}",
+		"previous": "Previous",
+		"next": "Next"
+	},
+	"dataTable": {
+		"selectedCount": "{count, plural, one {# selected} other {# selected}}",
+		"clear": "Clear",
+		"filters": "Filters",
+		"all": "All",
+		"sort": "Sort",
+		"sortBy": "Sort by",
+		"detail": "Detail",
+		"ascending": "Ascending",
+		"descending": "Descending",
+		"columns": "Columns",
+		"toggleColumns": "Toggle columns",
+		"searchFacet": "Search {facet}…",
+		"nothingMatches": "Nothing matches.",
+		"noResultsFound": "No results found.",
+		"selectAllRows": "Select every row on this page",
+		"selectRow": "Select row",
+		"selectRowLabeled": "Select {label}"
+	},
+	"combobox": {
+		"selectOption": "Select an option",
+		"search": "Search…",
+		"nothingMatches": "Nothing matches."
+	},
+	"command": {
+		"paletteTitle": "Command Palette",
+		"paletteDescription": "Search for a command to run..."
+	},
+	"attendeeList": {
+		"accepted": "Accepted",
+		"declined": "Declined",
+		"maybe": "Maybe",
+		"noReply": "No reply"
+	},
+	"dialog": {
+		"close": "Close"
+	},
+	"sheet": {
+		"close": "Close"
+	},
+	"datePicker": {
+		"selectDate": "Select a date",
+		"clear": "Clear"
+	},
+	"asyncAction": {
+		"done": "Done",
+		"tryAgain": "Try again"
+	},
+	"sortableList": {
+		"reorder": "Reorder {label}"
+	},
+	"suggestion": {
+		"accept": "Accept",
+		"dismiss": "Dismiss"
+	},
+	"spinner": {
+		"loading": "Loading"
+	},
+	"messageScroller": {
+		"scrollToEnd": "Scroll to end",
+		"scrollToStart": "Scroll to start"
+	},
+	"questionnaire": {
+		"previous": "Previous",
+		"skip": "Skip",
+		"next": "Next",
+		"submit": "Submit"
+	},
+	"thinkingIndicator": {
+		"label": "Thinking"
+	},
+	"reasoning": {
+		"label": "Reasoning",
+		"streaming": "Thinking…"
+	},
+	"threadMessage": {
+		"noBody": "No message body."
+	},
+	"dotMatrix": {
+		"loading": "Loading"
+	}
+}

@@ -2,6 +2,7 @@ import {
 	MAX_ARCHIVE_RETENTION_DAYS,
 	MIN_ARCHIVE_RETENTION_DAYS,
 } from "@crm/db/settings";
+import { translator } from "@crm/i18n/translator";
 import { z } from "zod";
 
 export const catalogModelOutput = z.object({
@@ -54,12 +55,11 @@ export const setResearchKeyInput = z.object({
 	apiKey: z
 		.string()
 		.trim()
-		.min(8, "That does not look like a Context API key — it is too short.")
-		.max(500, "That does not look like a Context API key — it is too long.")
-		.refine(
-			(value) => !/\s/.test(value),
-			"An API key has no spaces in it. Paste the whole key on its own.",
-		),
+		.min(8, { error: () => translator("api")("settings.keyTooShort") })
+		.max(500, { error: () => translator("api")("settings.keyTooLong") })
+		.refine((value) => !/\s/.test(value), {
+			error: () => translator("api")("settings.keyHasSpaces"),
+		}),
 });
 
 export type SetResearchKeyInput = z.infer<typeof setResearchKeyInput>;

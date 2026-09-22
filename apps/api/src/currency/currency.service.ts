@@ -3,6 +3,7 @@ import type { Db } from "@crm/db";
 import { Prisma, RateSource } from "@crm/db";
 import { CURRENCIES, currencyName, normalizeCurrency } from "@crm/db/currency";
 import { writeReportingCurrency } from "@crm/db/settings";
+import { translator } from "@crm/i18n/translator";
 import {
 	BadRequestException,
 	ForbiddenException,
@@ -104,7 +105,7 @@ export class CurrencyService {
 	private async requireManager(userId: string): Promise<void> {
 		if (!canManageCurrency(await workspaceRoleOf(userId))) {
 			throw new ForbiddenException(
-				"Only an owner or an admin can change how money is reported.",
+				translator("api")("currency.forbiddenManage"),
 			);
 		}
 	}
@@ -150,7 +151,7 @@ export class CurrencyService {
 
 		if (quoteCurrency === baseCurrency) {
 			throw new BadRequestException(
-				`${baseCurrency} is the reporting currency — its rate is always 1.`,
+				translator("api")("currency.isReportingCurrency", { baseCurrency }),
 			);
 		}
 
@@ -214,7 +215,9 @@ export class CurrencyService {
 		const refresh = await this.rates.refresh();
 
 		if (!refresh.ok) {
-			throw new BadRequestException(refresh.reason ?? "Could not fetch rates.");
+			throw new BadRequestException(
+				refresh.reason ?? translator("api")("currency.couldNotFetchRates"),
+			);
 		}
 
 		await this.conversion.fillMissing();

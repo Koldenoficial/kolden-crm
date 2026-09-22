@@ -1,5 +1,6 @@
 "use client";
 
+import { appLocale } from "@crm/i18n";
 import {
 	Card,
 	CardDescription,
@@ -14,38 +15,50 @@ import {
 } from "@crm/ui/components/simple-table";
 import { TableCell } from "@crm/ui/components/table";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useTRPC } from "@/lib/trpc/client";
 
 const CELL = "px-3 py-2.5 align-middle";
 
-const COLUMNS: SimpleTableColumn[] = [
-	{ id: "source", header: "Source" },
-	{ id: "medium", header: "Medium", width: "w-32" },
-	{ id: "views", header: "Page views", width: "w-28", align: "right" },
-	{ id: "contacts", header: "Contacts", width: "w-24", align: "right" },
-];
-
 export function TrafficSources() {
+	const t = useTranslations("settings");
 	const trpc = useTRPC();
 	const sources = useQuery(trpc.tracking.sources.queryOptions());
+
+	const COLUMNS: SimpleTableColumn[] = [
+		{ id: "source", header: t("tracking.trafficSources.headers.source") },
+		{
+			id: "medium",
+			header: t("tracking.trafficSources.headers.medium"),
+			width: "w-32",
+		},
+		{
+			id: "views",
+			header: t("tracking.trafficSources.headers.pageViews"),
+			width: "w-28",
+			align: "right",
+		},
+		{
+			id: "contacts",
+			header: t("tracking.trafficSources.headers.contacts"),
+			width: "w-24",
+			align: "right",
+		},
+	];
 
 	if (!sources.data) return null;
 
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Traffic sources</CardTitle>
+				<CardTitle>{t("tracking.trafficSources.title")}</CardTitle>
 				<CardDescription>
-					Where your visitors come from. Only people who have submitted a form
-					are attributed to a record.
+					{t("tracking.trafficSources.description")}
 				</CardDescription>
 			</CardHeader>
 
 			{sources.data.length === 0 ? (
-				<CardTableEmpty>
-					No sources yet. They appear once the script records its first page
-					view.
-				</CardTableEmpty>
+				<CardTableEmpty>{t("tracking.trafficSources.empty")}</CardTableEmpty>
 			) : (
 				<SimpleTable columns={COLUMNS}>
 					{sources.data.map((row) => (
@@ -55,10 +68,10 @@ export function TrafficSources() {
 								{row.medium ?? "—"}
 							</TableCell>
 							<TableCell className={`${CELL} text-right tabular-nums`}>
-								{row.views.toLocaleString()}
+								{row.views.toLocaleString(appLocale())}
 							</TableCell>
 							<TableCell className={`${CELL} text-right tabular-nums`}>
-								{row.contacts.toLocaleString()}
+								{row.contacts.toLocaleString(appLocale())}
 							</TableCell>
 						</SimpleTableRow>
 					))}

@@ -11,6 +11,7 @@ import {
 	TooltipTrigger,
 } from "@crm/ui/components/tooltip";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import {
 	InlineDateField,
 	InlineField,
@@ -23,6 +24,7 @@ import {
 } from "@/components/crm/record-sheet/record-stack";
 import { DetailSheetProperty } from "@/components/detail-sheet";
 import { useTRPC } from "@/lib/trpc/client";
+import { sheetTitle } from "./fields-copy";
 
 type RecordFieldOption = { id: string; label: string };
 
@@ -38,22 +40,19 @@ export type RecordFieldEntry = {
 
 const NONE = "__none__";
 
-const UNASSIGNED = "Unassigned";
-
-const FORMER_MEMBER = "Former member";
-
 export function FieldsCog({ kind }: { kind: RecordKind }) {
 	const { open } = useFieldsSheet();
+	const title = sheetTitle();
 
 	return (
 		<Tooltip>
 			<TooltipTrigger asChild>
 				<Button variant="ghost" size="icon-sm" onClick={() => open(kind)}>
 					<Icon icon={Settings} />
-					<span className="sr-only">Fields</span>
+					<span className="sr-only">{title}</span>
 				</Button>
 			</TooltipTrigger>
-			<TooltipContent>Fields</TooltipContent>
+			<TooltipContent>{title}</TooltipContent>
 		</Tooltip>
 	);
 }
@@ -68,11 +67,12 @@ export function RecordFields({
 	onSave: (values: Record<string, FieldValueJson>) => void;
 }) {
 	const trpc = useTRPC();
+	const t = useTranslations("records");
 	const users = useQuery(trpc.users.list.queryOptions());
 
 	const userOptionsFor = (value: string) => {
 		const options = [
-			{ value: NONE, label: UNASSIGNED },
+			{ value: NONE, label: t("fields.unassigned") },
 			...(users.data ?? []).map((user) => ({
 				value: user.id,
 				label: user.name,
@@ -80,7 +80,7 @@ export function RecordFields({
 		];
 
 		if (users.data && !options.some((option) => option.value === value)) {
-			options.push({ value, label: FORMER_MEMBER });
+			options.push({ value, label: t("fields.formerMember") });
 		}
 
 		return options;
@@ -139,7 +139,7 @@ export function RecordFields({
 								label={field.label}
 								value={field.value === null ? NONE : String(field.value)}
 								options={[
-									{ value: NONE, label: "None" },
+									{ value: NONE, label: t("inlineField.none") },
 									...field.options.map((option) => ({
 										value: option.id,
 										label: option.label,
@@ -160,7 +160,7 @@ export function RecordFields({
 								label={field.label}
 								value={current}
 								options={userOptionsFor(current)}
-								placeholder={UNASSIGNED}
+								placeholder={t("fields.unassigned")}
 								saving={busy}
 								onSave={(next) => save(next === NONE ? null : next)}
 							/>

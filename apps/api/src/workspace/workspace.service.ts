@@ -9,6 +9,7 @@ import {
 } from "@crm/auth";
 import type { Db, Prisma } from "@crm/db";
 import { isOnboarded, markOnboarded, workspaceSlug } from "@crm/db/workspace";
+import { translator } from "@crm/i18n/translator";
 import {
 	BadRequestException,
 	ForbiddenException,
@@ -74,9 +75,8 @@ export class WorkspaceService {
 		}
 
 		if (!row) {
-			throw new ServiceUnavailableException(
-				"The workspace could not be read. Sign in again in a moment.",
-			);
+			const t = translator("api");
+			throw new ServiceUnavailableException(t("workspace.notReadable"));
 		}
 
 		const role = await workspaceRoleOf(userId);
@@ -98,11 +98,10 @@ export class WorkspaceService {
 		input: UpdateWorkspaceInput,
 	): Promise<Workspace> {
 		const role = await workspaceRoleOf(userId);
+		const t = translator("api");
 
 		if (!canRenameWorkspace(role)) {
-			throw new ForbiddenException(
-				"Only an owner or an admin can change the workspace.",
-			);
+			throw new ForbiddenException(t("workspace.forbiddenRename"));
 		}
 
 		const before = await this.db.organization.findUnique({
@@ -113,9 +112,7 @@ export class WorkspaceService {
 		const website = normalizeDomain(input.website);
 
 		if (!website) {
-			throw new BadRequestException(
-				"That is not a website. Enter the domain, like acme.com.",
-			);
+			throw new BadRequestException(t("workspace.notAWebsite"));
 		}
 
 		await this.db.organization.update({
@@ -177,11 +174,10 @@ export class WorkspaceService {
 		input: SetMemberRoleInput,
 	): Promise<WorkspaceMember> {
 		const role = await workspaceRoleOf(userId);
+		const t = translator("api");
 
 		if (!canChangeRole(role)) {
-			throw new ForbiddenException(
-				"Only an owner or an admin can change a member's role.",
-			);
+			throw new ForbiddenException(t("workspace.forbiddenChangeRole"));
 		}
 
 		const updated = await this.db.$transaction(async (tx) => {
@@ -191,7 +187,7 @@ export class WorkspaceService {
 			});
 
 			if (!target) {
-				throw new NotFoundException("That person is not in this workspace.");
+				throw new NotFoundException(t("workspace.notAMember"));
 			}
 
 			if (target.role === "owner" && input.role !== "owner") {
@@ -202,9 +198,7 @@ export class WorkspaceService {
 				`;
 
 				if (owners.length <= 1) {
-					throw new ForbiddenException(
-						"The workspace needs an owner. Make someone else an owner first.",
-					);
+					throw new ForbiddenException(t("workspace.needsOwner"));
 				}
 			}
 

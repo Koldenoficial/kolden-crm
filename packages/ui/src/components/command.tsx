@@ -15,6 +15,7 @@ import {
 import { cn } from "@crm/ui/lib/utils";
 import { Command as CommandPrimitive } from "cmdk";
 import { CheckIcon, SearchIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type * as React from "react";
 
 function Command({
@@ -34,8 +35,8 @@ function Command({
 }
 
 function CommandDialog({
-	title = "Command Palette",
-	description = "Search for a command to run...",
+	title,
+	description,
 	children,
 	className,
 	showCloseButton = false,
@@ -46,11 +47,14 @@ function CommandDialog({
 	className?: string;
 	showCloseButton?: boolean;
 }) {
+	const t = useTranslations("ui");
 	return (
 		<Dialog {...props}>
 			<DialogHeader className="sr-only">
-				<DialogTitle>{title}</DialogTitle>
-				<DialogDescription>{description}</DialogDescription>
+				<DialogTitle>{title ?? t("command.paletteTitle")}</DialogTitle>
+				<DialogDescription>
+					{description ?? t("command.paletteDescription")}
+				</DialogDescription>
 			</DialogHeader>
 			<DialogContent
 				className={cn(

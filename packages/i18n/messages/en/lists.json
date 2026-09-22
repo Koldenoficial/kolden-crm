@@ -1,1 +1,240 @@
-{}
+{
+	"detailSheet": {
+		"back": "Back",
+		"close": "Close",
+		"pending": {
+			"running": "Agent is researching",
+			"idle": "Not known yet"
+		}
+	},
+	"companies": {
+		"page": {
+			"metaTitle": "Companies",
+			"title": "Companies",
+			"description": "Every account in the pipeline."
+		},
+		"table": {
+			"searchPlaceholder": "Search companies by name or domain…",
+			"archived": "Archived",
+			"empty": "No companies match this view.",
+			"emptyArchived": "No archived companies.",
+			"columns": {
+				"name": "Company",
+				"domain": "Domain",
+				"industry": "Industry",
+				"owner": "Owner",
+				"contacts": "Contacts",
+				"deals": "Open deals",
+				"created": "Created",
+				"createdLabel": "Created date",
+				"lastActivity": "Last activity",
+				"enrichment": "Enrichment",
+				"enrichmentLabel": "Enrichment status",
+				"archived": "Archived",
+				"archivedLabel": "Archived date"
+			},
+			"facets": {
+				"owner": "Owner",
+				"unassigned": "Unassigned",
+				"industry": "Industry",
+				"enrichment": "Enrichment",
+				"activity": "Activity"
+			}
+		},
+		"bulkActions": {
+			"count": "{count, plural, one {# company} other {# companies}}",
+			"unassignedOwner": "Nobody",
+			"reenrich": "Re-enrich",
+			"lookingUp": "Looking up {companies} — the table will update.",
+			"reassigned": "{count, plural, one {# company reassigned.} other {# companies reassigned.}}",
+			"archive": "Archive",
+			"archived": "{count, plural, one {# company archived.} other {# companies archived.}}",
+			"restore": "Restore",
+			"restored": "{count, plural, one {# company restored.} other {# companies restored.}}",
+			"deleteForever": "Delete forever",
+			"deletedForever": "{count, plural, one {# company deleted forever.} other {# companies deleted forever.}}",
+			"deleteDialog": {
+				"title": "Delete {companies} forever?",
+				"description": "This cannot be undone."
+			}
+		},
+		"createSheet": {
+			"trigger": "New company",
+			"title": "New company",
+			"description": "Give it a name and a domain. The agent fills in the logo, description, industry, address and socials.",
+			"fields": {
+				"name": "Name",
+				"namePlaceholder": "Stripe",
+				"domain": "Domain",
+				"domainPlaceholder": "stripe.com",
+				"domainDescription": "A full URL is fine — it is reduced to the bare host, which has to be unique.",
+				"owner": "Owner",
+				"unassigned": "Unassigned"
+			},
+			"submit": "Add company",
+			"cancel": "Cancel",
+			"added": "{name} added."
+		}
+	},
+	"contacts": {
+		"page": {
+			"metaTitle": "Contacts",
+			"title": "Contacts",
+			"description": "Everyone in the pipeline."
+		},
+		"table": {
+			"searchPlaceholder": "Search by name, email or company…",
+			"archived": "Archived",
+			"empty": "No contacts match this view.",
+			"emptyArchived": "No archived contacts.",
+			"columns": {
+				"name": "Name",
+				"title": "Title",
+				"email": "Email",
+				"company": "Company",
+				"owner": "Owner",
+				"created": "Created",
+				"createdLabel": "Created date",
+				"lastActivity": "Last activity",
+				"archived": "Archived",
+				"archivedLabel": "Archived date"
+			},
+			"facets": {
+				"owner": "Owner",
+				"unassigned": "Unassigned",
+				"company": "Company",
+				"companySearching": "Searching…",
+				"companyEmpty": "No company matches.",
+				"noCompany": "No company",
+				"title": "Title",
+				"seniority": "Seniority",
+				"persona": "Persona",
+				"activity": "Activity"
+			}
+		},
+		"bulkActions": {
+			"count": "{count, plural, one {# contact} other {# contacts}}",
+			"unassignedOwner": "Nobody",
+			"moveToCompany": "Move to company",
+			"noCompany": "No company",
+			"reenrich": "Re-enrich",
+			"lookingUp": "Looking up {contacts} — the table will update.",
+			"reassigned": "{count, plural, one {# contact reassigned.} other {# contacts reassigned.}}",
+			"moved": "{count, plural, one {# contact moved.} other {# contacts moved.}}",
+			"archive": "Archive",
+			"archived": "{count, plural, one {# contact archived.} other {# contacts archived.}}",
+			"restore": "Restore",
+			"restored": "{count, plural, one {# contact restored.} other {# contacts restored.}}",
+			"deleteForever": "Delete forever",
+			"deletedForever": "{count, plural, one {# contact deleted forever.} other {# contacts deleted forever.}}",
+			"deleteDialog": {
+				"title": "Delete {contacts} forever?",
+				"description": "Their email addresses are suppressed, so the inbox sync will not file them again. This cannot be undone."
+			}
+		},
+		"createSheet": {
+			"trigger": "New contact",
+			"title": "New contact",
+			"description": "Email addresses are unique, so importing the same person twice updates them rather than duplicating them.",
+			"fields": {
+				"firstName": "First name",
+				"lastName": "Last name",
+				"email": "Email",
+				"jobTitle": "Title",
+				"jobTitlePlaceholder": "Head of Security",
+				"company": "Company",
+				"noCompany": "No company",
+				"owner": "Owner",
+				"unassigned": "Unassigned"
+			},
+			"submit": "Add contact",
+			"cancel": "Cancel",
+			"added": "{name} added."
+		}
+	},
+	"deals": {
+		"page": {
+			"metaTitle": "Deals",
+			"title": "Deals",
+			"description": "The pipeline, and everything that has already closed."
+		},
+		"table": {
+			"searchPlaceholder": "Search deals by name or company…",
+			"archived": "Archived",
+			"empty": "No deals match this view.",
+			"emptyArchived": "No archived deals.",
+			"allDealsTab": "All deals",
+			"openTab": "Open",
+			"closedTab": "Closed",
+			"columns": {
+				"name": "Deal",
+				"company": "Company",
+				"stage": "Stage",
+				"amount": "Amount",
+				"owner": "Owner",
+				"closeDate": "Close date",
+				"created": "Created",
+				"createdLabel": "Created date",
+				"lastActivity": "Last activity",
+				"archived": "Archived",
+				"archivedLabel": "Archived date"
+			},
+			"facets": {
+				"owner": "Owner",
+				"stage": "Stage",
+				"closing": "Closing"
+			},
+			"meta": {
+				"summary": "{count, plural, one {# deal} other {# deals}} · <amount></amount> open pipeline",
+				"unconverted": "{count, plural, one {# deal not counted (no {currencies} rate)} other {# deals not counted (no {currencies} rate)}}"
+			}
+		},
+		"bulkActions": {
+			"count": "{count, plural, one {# deal} other {# deals}}",
+			"changeStage": "Change stage",
+			"reassigned": "{count, plural, one {# deal reassigned.} other {# deals reassigned.}}",
+			"moved": "{count, plural, one {# deal moved.} other {# deals moved.}}",
+			"archive": "Archive",
+			"archived": "{count, plural, one {# deal archived.} other {# deals archived.}}",
+			"restore": "Restore",
+			"restored": "{count, plural, one {# deal restored.} other {# deals restored.}}",
+			"deleteForever": "Delete forever",
+			"deletedForever": "{count, plural, one {# deal deleted forever.} other {# deals deleted forever.}}",
+			"deleteDialog": {
+				"title": "Delete {deals} forever?",
+				"description": "Everything filed against them — activity, notes, the amounts in your pipeline — goes too. This cannot be undone."
+			},
+			"closeStage": {
+				"closeLostTitle": "{count, plural, one {Close # deal as lost} other {Close # deals as lost}}",
+				"markUnqualifiedTitle": "{count, plural, one {Mark # deal as unqualified} other {Mark # deals as unqualified}}",
+				"description": "The same reason goes on every one of them, so keep it to what they have in common.",
+				"reasonLabel": "Reason",
+				"reasonPlaceholder": "Budget pulled for the quarter",
+				"save": "Save",
+				"cancel": "Cancel"
+			}
+		},
+		"createSheet": {
+			"trigger": "New deal",
+			"title": "New deal",
+			"description": "Every deal belongs to a company and has someone's name against it.",
+			"fields": {
+				"name": "Name",
+				"namePlaceholder": "Stripe — Comp AI",
+				"company": "Company",
+				"owner": "Owner",
+				"ownerPlaceholder": "Choose an owner",
+				"stage": "Stage",
+				"stageDescription": "A new deal is an open deal — close it from the pipeline once there is an outcome to record.",
+				"amount": "Amount",
+				"amountPlaceholder": "24000",
+				"currency": "Currency",
+				"closeDate": "Expected close date",
+				"closeDatePlaceholder": "No date yet"
+			},
+			"submit": "Add deal",
+			"cancel": "Cancel",
+			"added": "{name} added."
+		}
+	}
+}

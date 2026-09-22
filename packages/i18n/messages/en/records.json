@@ -1,1 +1,591 @@
-{}
+{
+	"agentConversations": {
+		"newConversation": "New conversation",
+		"nothingYet": "Nothing yet",
+		"untitled": "Untitled",
+		"deleted": "Conversation deleted.",
+		"deleteThis": "Delete this conversation"
+	},
+	"agentPanel": {
+		"stillWorking": "Still working on the last question. Your next one can go in when it finishes.",
+		"ended": "This conversation has ended.",
+		"startNewConversation": "Start a new conversation",
+		"ask": "Ask",
+		"hintNotReachable": "Start it with `bun run dev`, or check AGENT_URL.",
+		"hintNotConfigured": "Set AGENT_BRIDGE_SECRET for both the app and the agent.",
+		"followUp": "Follow-up",
+		"openSource": "Open {title}"
+	},
+	"bulkActions": {
+		"actions": "Actions",
+		"assignOwner": "Assign owner",
+		"nobodyElse": "Nobody else works here yet.",
+		"nothingChanged": "Nothing changed.",
+		"leftAlone": "{count, plural, one {# was left alone.} other {# were left alone.}}",
+		"leftAloneWithMessage": "{count, plural, one {# was left alone — {message}} other {# were left alone — {message}}}"
+	},
+	"common": {
+		"save": "Save",
+		"cancel": "Cancel",
+		"delete": "Delete"
+	},
+	"companyPicker": {
+		"choose": "Choose a company",
+		"search": "Search companies…",
+		"searching": "Searching…",
+		"noMatches": "No company matches.",
+		"label": "Company"
+	},
+	"enrichmentActions": {
+		"lookingUp": "Looking it up — this page will update when it finishes.",
+		"alreadyRunning": "Already running.",
+		"researching": "Researching — the brief lands on the timeline when it finishes.",
+		"alreadyResearching": "Already researching.",
+		"reEnrich": "Re-enrich",
+		"research": "Research",
+		"takingAnotherLook": "Taking another look — this page will update when it finishes."
+	},
+	"fields": {
+		"sheetTitle": "Fields",
+		"subtitle": {
+			"company": "This shapes every company in your CRM.",
+			"contact": "This shapes every contact in your CRM.",
+			"deal": "This shapes every deal in your CRM."
+		},
+		"standardRow": "Standard fields",
+		"standardNote": "reorder and hide only",
+		"suggestedRow": "Suggested fields",
+		"suggestedNote": "one click to add",
+		"add": "Add",
+		"customGroup": "Custom fields",
+		"dragNote": "Drag to order",
+		"archivedRow": "Archived",
+		"archivedNote": "values kept, hidden everywhere",
+		"newField": "New field",
+		"orderNote": "Order here is the order on the sheet",
+		"manualOnly": "Manual only",
+		"tableNote": "also a column on the table",
+		"filterNote": "also a filter",
+		"emptyTitle": "No custom fields yet",
+		"emptyBody": "Create dynamic fields that your agents can research and pre-fill.",
+		"errorTitle": "We could not load your fields",
+		"errorBody": "Your fields are still there. Try again in a moment, before you create anything new.",
+		"retry": "Try again",
+		"labelLabel": "Label",
+		"keyLabel": "Key",
+		"keyHelp": "What the API and your agents call it. Set from the label, fixed once saved — renaming the label later never breaks a caller.",
+		"agentLabel": "Let your agents fill this",
+		"agentHelp": "They propose a value with a source, and never overwrite yours.",
+		"briefLabel": "What counts as an answer",
+		"briefHelp": "Leave it empty and your agents work from the label and type alone.",
+		"typeLabel": "Type",
+		"optionsLabel": "Options",
+		"addOption": "Add option",
+		"allFilled": "Nothing left to fill",
+		"optionLabel": "Option {number}",
+		"addField": "Create field",
+		"cancel": "Cancel",
+		"save": "Save changes",
+		"archive": "Archive",
+		"fillRest": "Fill the rest",
+		"sheetPlacement": {
+			"company": "Show on the company sheet",
+			"contact": "Show on the contact sheet",
+			"deal": "Show on the deal sheet"
+		},
+		"tablePlacement": {
+			"company": "Offer as a column on the Companies table",
+			"contact": "Offer as a column on the Contacts table",
+			"deal": "Offer as a column on the Deals table"
+		},
+		"filterPlacement": {
+			"company": "Offer as a filter on the Companies table",
+			"contact": "Offer as a filter on the Contacts table",
+			"deal": "Offer as a filter on the Deals table"
+		},
+		"typeHint": {
+			"text": "Text — a short line",
+			"longText": "Long text — a paragraph",
+			"number": "Number",
+			"date": "Date",
+			"checkbox": "Checkbox — yes or no",
+			"select": "Select — one of a fixed list",
+			"url": "URL",
+			"email": "Email",
+			"phone": "Phone",
+			"user": "User — someone in the workspace"
+		},
+		"coverageNoun": {
+			"company": "companies",
+			"contact": "contacts",
+			"deal": "deals"
+		},
+		"backfillQueued": "Your agents will pick this up.",
+		"filledOf": "Filled on {filled} of {total} {noun}",
+		"stillToGo": "{count, plural, one {# still to go} other {# still to go}}",
+		"optionFallback": "option",
+		"removeOption": "Remove {label}",
+		"archiveTitle": "Archive {label}?",
+		"archiveDescription": "Hidden everywhere. Its values are kept.",
+		"archiveField": "Archive field",
+		"standardField": {
+			"name": "Name",
+			"domain": "Domain",
+			"website": "Website",
+			"phone": "Phone",
+			"email": "Email",
+			"city": "City",
+			"country": "Country",
+			"owner": "Owner",
+			"firstName": "First name",
+			"lastName": "Last name",
+			"title": "Title",
+			"linkedin": "LinkedIn",
+			"github": "GitHub",
+			"company": "Company",
+			"closeDate": "Close date",
+			"amount": "Amount",
+			"currency": "Currency",
+			"stage": "Stage"
+		},
+		"optionsCount": "{count, plural, one {# option} other {# options}}",
+		"required": "required",
+		"moreFor": "More for {label}",
+		"edit": "Edit",
+		"restore": "Restore",
+		"filledCount": "{label} · {filled} of {total} filled",
+		"yes": "Yes",
+		"no": "No",
+		"unassigned": "Unassigned",
+		"formerMember": "Former member",
+		"typeName": {
+			"text": "Text",
+			"longText": "Long text",
+			"number": "Number",
+			"date": "Date",
+			"checkbox": "Checkbox",
+			"select": "Select",
+			"url": "URL",
+			"email": "Email",
+			"phone": "Phone",
+			"user": "User"
+		}
+	},
+	"facts": {
+		"added": "Added to the record.",
+		"dismissed": "Dismissed — it won't be suggested again."
+	},
+	"inlineField": {
+		"none": "None"
+	},
+	"timelineEntry": {
+		"viaGmail": "via Gmail",
+		"viaCalendar": "via Calendar",
+		"markNotDone": "Mark as not done",
+		"markDone": "Mark as done",
+		"overdue": "Overdue",
+		"due": "Due"
+	},
+	"emailThread": {
+		"messageCount": "{count, plural, one {# message} other {# messages}}",
+		"openIn": "Open in {mailbox}"
+	},
+	"meetingEntry": {
+		"allDay": "All day",
+		"joinCall": "Join call"
+	},
+	"timeline": {
+		"tabs": {
+			"all": "All",
+			"notes": "Notes",
+			"email": "Email",
+			"meetings": "Meetings",
+			"upcoming": "Upcoming",
+			"done": "Done"
+		},
+		"empty": {
+			"all": {
+				"title": "Nothing has happened yet",
+				"description": "Calls, notes, emails and meetings all land here. Log the first one above, or wait for Gmail and Calendar to sync."
+			},
+			"notes": {
+				"title": "No notes",
+				"description": "Notes are what you write down for the next person to read — what they care about, who else is involved, what you promised."
+			},
+			"email": {
+				"title": "No email",
+				"description": "Threads appear here as they are synced from Gmail. Nothing from before this mailbox was connected is imported."
+			},
+			"meetings": {
+				"title": "No meetings",
+				"description": "Calendar events with someone from this record on them show up here, past and upcoming."
+			},
+			"upcoming": {
+				"title": "Nothing outstanding",
+				"description": "Tasks you have not finished appear here, and at the top of the All tab until they are done."
+			},
+			"done": {
+				"title": "Nothing finished yet",
+				"description": "Tasks move here once you tick them off."
+			}
+		},
+		"today": "Today",
+		"yesterday": "Yesterday",
+		"outstanding": "Outstanding",
+		"showOlder": "Show older"
+	},
+	"activityComposer": {
+		"placeholder": {
+			"note": "Log a note, call, email, meeting or task…",
+			"call": "What came out of the call?",
+			"email": "What was said?",
+			"meeting": "What came out of the meeting?",
+			"task": "What needs doing?"
+		},
+		"whatHappened": "What happened",
+		"dueDate": "Due date",
+		"addTask": "Add task",
+		"log": "Log {type}"
+	},
+	"quickAdd": {
+		"contactAdded": "{name} added.",
+		"addContact": "Add contact",
+		"firstName": "First name",
+		"lastName": "Last name",
+		"email": "Email",
+		"title": "Title",
+		"titlePlaceholder": "Head of Security",
+		"onTheDeal": "{name} is on the deal.",
+		"addedToDeal": "Added to the deal.",
+		"loading": "Loading…",
+		"everybodyOnIt": "Everybody at {company} is already on it",
+		"chooseSomebody": "Choose somebody",
+		"addToDeal": "Add to deal",
+		"person": "Person",
+		"role": "Role",
+		"rolePlaceholder": "Champion",
+		"dealCreated": "{name} created.",
+		"noOwner": "Could not work out who should own this deal.",
+		"createDeal": "Create deal",
+		"dealName": "Name",
+		"dealNamePlaceholder": "{company} — Comp AI",
+		"amount": "Amount",
+		"expectedClose": "Expected close",
+		"noDateYet": "No date yet"
+	},
+	"dealSheet": {
+		"currencyUnsupported": "{currency} — no longer supported",
+		"inCurrency": "In {currency}",
+		"noRate": "No {currency} rate — left out of totals",
+		"columns": {
+			"name": "Name",
+			"role": "Role",
+			"title": "Title",
+			"email": "Email",
+			"remove": "Remove"
+		},
+		"tabs": {
+			"overview": "Overview",
+			"contacts": "Contacts",
+			"activity": "Activity",
+			"agent": "Agent"
+		},
+		"dealFallback": "Deal",
+		"consequence": "Its stage history, notes and agent conversations go too. {company} and the {count, plural, one {person} other {people}} on it stay in the CRM.",
+		"stats": {
+			"amount": "Amount",
+			"expectedClose": "Expected close",
+			"inStage": "In stage",
+			"owner": "Owner"
+		},
+		"stage": "Stage",
+		"closed": "Closed",
+		"reason": "Reason",
+		"details": "Details",
+		"fields": {
+			"name": "Name",
+			"amount": "Amount",
+			"currency": "Currency",
+			"closeDate": "Close date",
+			"owner": "Owner"
+		},
+		"amountMustBeNumber": "Amount has to be a number.",
+		"description": "Description",
+		"descriptionPlaceholder": "What {company} is buying, why now, and what stands in the way.",
+		"whereItStands": "Where it stands",
+		"opened": "Opened",
+		"inStageSince": "In stage since",
+		"onIt": "On it",
+		"nobodyAttached": "Nobody from {company} is attached yet.",
+		"noContacts": {
+			"title": "No contacts on this deal",
+			"description": "Nobody from {company} is attached yet. Bring the people you are selling to onto the deal and it says who to chase."
+		},
+		"addContact": "Add contact",
+		"roleFor": "Role on this deal for {name}",
+		"rolePlaceholder": "Champion",
+		"takeOff": "Take {name} off this deal",
+		"takeOffThisDeal": "Take off this deal"
+	},
+	"contactSheet": {
+		"primaryUpdated": "Primary contact updated.",
+		"tabs": {
+			"overview": "Overview",
+			"deals": "Deals",
+			"activity": "Activity",
+			"agent": "Agent"
+		},
+		"contactFallback": "Contact",
+		"primaryAt": "Primary contact at {company}",
+		"thisCompany": "this company",
+		"email": "Email",
+		"makePrimary": "Make primary",
+		"consequenceBase": "Their notes, agent conversations and everything the agent found go too; emails and meetings stay filed against the company.",
+		"consequenceEmailNote": " The sync will not bring {email} back — only adding them yourself will.",
+		"stats": {
+			"company": "Company",
+			"email": "Email",
+			"phone": "Phone",
+			"owner": "Owner"
+		},
+		"details": "Details",
+		"fields": {
+			"firstName": "First name",
+			"lastName": "Last name",
+			"title": "Title",
+			"email": "Email",
+			"phone": "Phone",
+			"owner": "Owner"
+		},
+		"titlePlaceholder": "Head of Security",
+		"noCompany": "No company",
+		"links": "Links",
+		"background": {
+			"title": "Background",
+			"currentRole": "Current role",
+			"tenure": "Tenure",
+			"seniority": "Seniority",
+			"function": "Function",
+			"based": "Based",
+			"source": "Source",
+			"previously": "Previously",
+			"roleCount": "{count, plural, one {# role} other {# roles}}"
+		},
+		"weKnowThem": {
+			"title": "We know them",
+			"emails": "Emails",
+			"lastReply": "last reply",
+			"neverReplied": "{name} has never replied",
+			"meetings": "Meetings",
+			"nextMeeting": "Next meeting",
+			"meeting": "Meeting",
+			"alsoHere": "Also here"
+		},
+		"notOnDeals": {
+			"title": "Not on any deals",
+			"description": "{name} is not attached to anything being sold yet. Deals are opened on the company, then people are added to them."
+		},
+		"columns": {
+			"deal": "Deal",
+			"role": "Role",
+			"stage": "Stage",
+			"amount": "Amount",
+			"owner": "Owner"
+		}
+	},
+	"companySheet": {
+		"companyFallback": "Company",
+		"pending": {
+			"industry": "industry",
+			"description": "description",
+			"socialLinks": "social links"
+		},
+		"consequenceDeals": "{count, plural, =0 {Everything filed against the account goes too.} one {Its one deal and everything filed against the account go too.} other {All # of its deals and everything filed against the account go too.}}",
+		"consequenceContacts": "{count, plural, =0 {} one { The one person who works there stays in the CRM, without a company.} other { The # people who work there stay in the CRM, without a company.}}",
+		"columns": {
+			"primary": "Primary",
+			"name": "Name",
+			"title": "Title",
+			"email": "Email",
+			"owner": "Owner",
+			"deal": "Deal",
+			"stage": "Stage",
+			"amount": "Amount",
+			"closeDate": "Close date"
+		},
+		"tabs": {
+			"overview": "Overview",
+			"contacts": "Contacts",
+			"deals": "Deals",
+			"activity": "Activity",
+			"agent": "Agent"
+		},
+		"stats": {
+			"openPipeline": "Open pipeline",
+			"unconverted": "{count, plural, one {+# unconverted} other {+# unconverted}}",
+			"openDeals": "Open deals",
+			"nextClose": "Next close",
+			"owner": "Owner"
+		},
+		"about": "About",
+		"details": "Details",
+		"links": "Links",
+		"fields": {
+			"name": "Name",
+			"domain": "Domain",
+			"website": "Website",
+			"phone": "Phone",
+			"email": "Email",
+			"city": "City",
+			"country": "Country",
+			"owner": "Owner"
+		},
+		"noContacts": {
+			"title": "No contacts yet",
+			"description": "Everyone you talk to at {company} lives here — add the first person and their calls, emails and notes hang off them."
+		},
+		"addContact": "Add contact",
+		"primaryContact": "Primary contact",
+		"makePrimary": "Make primary",
+		"noDeals": {
+			"title": "No deals yet",
+			"description": "Nothing is being sold to {company} right now. Open one and it joins the pipeline and the forecast."
+		},
+		"newDeal": "New deal"
+	},
+	"recordActions": {
+		"noun": {
+			"company": "company",
+			"contact": "contact",
+			"deal": "deal"
+		},
+		"theNoun": {
+			"company": "The company",
+			"contact": "The contact",
+			"deal": "The deal"
+		},
+		"archived": {
+			"company": "{name} was archived.",
+			"contact": "{name} was archived.",
+			"deal": "{name} was archived."
+		},
+		"restored": {
+			"company": "{name} was restored.",
+			"contact": "{name} was restored.",
+			"deal": "{name} was restored."
+		},
+		"deletedForever": {
+			"company": "{name} was deleted forever.",
+			"contact": "{name} was deleted forever.",
+			"deal": "{name} was deleted forever."
+		},
+		"moreActions": "More actions",
+		"restoreNoun": "Restore {noun}",
+		"deleteNounForever": "Delete {noun} forever",
+		"archiveNoun": "Archive {noun}",
+		"deleteForeverTitle": "Delete {name} forever?",
+		"deleteForever": "Delete forever"
+	},
+	"recordParts": {
+		"loadError": "This record could not be loaded"
+	},
+	"quickSwitcher": {
+		"companies": "Companies",
+		"contacts": "Contacts",
+		"deals": "Deals",
+		"title": "Search",
+		"description": "Jump to a company, contact or deal",
+		"placeholder": "Search companies, contacts and deals…",
+		"typeMore": "Type at least two characters.",
+		"noMatches": "Nothing matches."
+	},
+	"stageChange": {
+		"dealClosed": "Deal closed.",
+		"closeAsLost": "Close as lost",
+		"markUnqualified": "Mark as unqualified",
+		"lostDescription": "What did we lose it to? This is the only place that answer gets recorded.",
+		"unqualifiedDescription": "Why is this not a fit? It goes on the timeline so nobody re-runs the same deal.",
+		"reason": "Reason",
+		"reasonPlaceholder": "Went with an incumbent vendor"
+	},
+	"stageStepper": {
+		"stageUpdated": "Stage updated."
+	},
+	"websiteActivity": {
+		"title": "Website activity",
+		"pageViews": "Page views",
+		"lastSeen": "last seen",
+		"originalSource": "Original source",
+		"topPage": "Top page",
+		"views": "{count, plural, one {view} other {views}}",
+		"latestSource": "Latest source",
+		"firstSeen": "First seen",
+		"campaign": "Campaign",
+		"unknown": "Unknown"
+	},
+	"activityType": {
+		"note": "Note",
+		"call": "Call",
+		"email": "Email",
+		"meeting": "Meeting",
+		"task": "Task",
+		"stageChange": "Stage change",
+		"enrichment": "Enrichment"
+	},
+	"activityRecency": {
+		"activeWithin": "Active within {days} days"
+	},
+	"dealStage": {
+		"demoBooked": "Demo booked",
+		"qualifiedToBuy": "Qualified to buy",
+		"decisionMakerBoughtIn": "Decision maker in",
+		"contractSent": "Contract sent",
+		"closedWon": "Closed won",
+		"closedLost": "Closed lost",
+		"unqualified": "Unqualified"
+	},
+	"enrichmentStatus": {
+		"pending": "Not researched",
+		"running": "Researching",
+		"complete": "Enriched",
+		"failed": "Enrichment failed",
+		"skipped": "Nothing found",
+		"queued": "Queued"
+	},
+	"socialLinks": {
+		"pricing": "Pricing",
+		"careers": "Careers"
+	},
+	"agentRecord": {
+		"contact": {
+			"title": "Ask about this person",
+			"blurb": "Every step is shown as it happens — including the leads it throws away.",
+			"placeholder": "Are they still there?",
+			"suggestions": {
+				"0": "Who is this person?",
+				"1": "Are they still there?",
+				"2": "What should I know before a call?"
+			}
+		},
+		"company": {
+			"title": "Ask about this company",
+			"blurb": "It reads their site and our own history with them, and shows its working.",
+			"placeholder": "What do they sell?",
+			"suggestions": {
+				"0": "What do they do?",
+				"1": "Who do we know here?",
+				"2": "What has changed recently?"
+			}
+		},
+		"deal": {
+			"title": "Ask about this deal",
+			"blurb": "It can read the thread, the meetings and the people on both sides of it.",
+			"placeholder": "Where has this stalled?",
+			"suggestions": {
+				"0": "Where does this stand?",
+				"1": "Who else should be involved?",
+				"2": "What is the risk here?"
+			}
+		}
+	}
+}

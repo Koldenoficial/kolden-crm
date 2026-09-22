@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import { PersonAvatar } from "@crm/ui/components/person-avatar";
 import {
 	type StatusTone,
@@ -27,13 +28,6 @@ const RESPONSE_TONE: Record<string, StatusTone> = {
 	needsAction: "neutral",
 };
 
-const RESPONSE_LABEL: Record<string, string> = {
-	accepted: "Accepted",
-	declined: "Declined",
-	tentative: "Maybe",
-	needsAction: "No reply",
-};
-
 function AttendeeList({
 	attendees,
 	max = 5,
@@ -44,6 +38,14 @@ function AttendeeList({
 	max?: number;
 }) {
 	if (attendees.length === 0) return null;
+
+	const t = translator("ui");
+	const RESPONSE_LABEL: Record<string, string> = {
+		accepted: t("attendeeList.accepted"),
+		declined: t("attendeeList.declined"),
+		tentative: t("attendeeList.maybe"),
+		needsAction: t("attendeeList.noReply"),
+	};
 
 	const shown = attendees.slice(0, max);
 	const overflow = attendees.length - shown.length;
@@ -76,7 +78,7 @@ function AttendeeList({
 									tone={RESPONSE_TONE[attendee.responseStatus ?? "needsAction"] ?? "neutral"}
 									label={
 										RESPONSE_LABEL[attendee.responseStatus ?? "needsAction"] ??
-										"No reply"
+										t("attendeeList.noReply")
 									}
 								/>
 							</span>

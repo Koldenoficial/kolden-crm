@@ -14,6 +14,7 @@ import {
 	InputGroupAddon,
 	InputGroupInput,
 } from "@crm/ui/components/input-group";
+import { useTranslations } from "next-intl";
 import type { RouterOutputs } from "@/lib/trpc/types";
 import { CopyValue } from "../copy-value";
 
@@ -26,13 +27,18 @@ export function CreatedApiKeyDialog({
 	apiKey: CreatedApiKey | null;
 	onOpenChange: (open: boolean) => void;
 }) {
+	const t = useTranslations("settings");
+	const keyLabel = t("apiKeys.created.keyLabel");
+
 	return (
 		<Dialog open={apiKey !== null} onOpenChange={onOpenChange}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>{apiKey?.name ?? "API key"} created</DialogTitle>
+					<DialogTitle>
+						{t("apiKeys.created.title", { name: apiKey?.name ?? keyLabel })}
+					</DialogTitle>
 					<DialogDescription>
-						Copy it now. Nobody, including us, can show it to you again.
+						{t("apiKeys.created.description")}
 					</DialogDescription>
 				</DialogHeader>
 
@@ -43,12 +49,14 @@ export function CreatedApiKeyDialog({
 						className="font-mono"
 					/>
 					<InputGroupAddon align="inline-end">
-						<CopyValue value={apiKey?.key ?? ""} label="API key" />
+						<CopyValue value={apiKey?.key ?? ""} label={keyLabel} />
 					</InputGroupAddon>
 				</InputGroup>
 
 				<DialogFooter>
-					<Button onClick={() => onOpenChange(false)}>Done</Button>
+					<Button onClick={() => onOpenChange(false)}>
+						{t("apiKeys.created.done")}
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

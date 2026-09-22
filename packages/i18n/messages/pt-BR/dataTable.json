@@ -1,1 +1,16 @@
-{}
+{
+	"savedViews": {
+		"trigger": "Visualizações",
+		"saveCurrent": "Salvar visualização atual…",
+		"myViews": "Minhas visualizações",
+		"sharedWithTeam": "Compartilhadas com o time",
+		"dialogTitle": "Salvar esta visualização",
+		"nameLabel": "Nome",
+		"shareLabel": "Compartilhar com o time",
+		"cancel": "Cancelar",
+		"save": "Salvar",
+		"saved": "Visualização salva.",
+		"deleted": "Visualização excluída.",
+		"deleteView": "Excluir {name}"
+	}
+}

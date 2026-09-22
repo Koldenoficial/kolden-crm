@@ -3,6 +3,7 @@
 import { Provenance } from "@crm/ui/components/sourced-value";
 import { Suggestion } from "@crm/ui/components/suggestion";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { LocalDateTime } from "@/components/local-date-time";
 import type { ContactFact } from "@/lib/contact-facts";
@@ -34,15 +35,12 @@ export function FactSuggestion({
 }) {
 	const trpc = useTRPC();
 	const cache = useCrmCache();
+	const t = useTranslations("records");
 
 	const decide = useMutation(
 		trpc.contacts.decideFact.mutationOptions({
 			onSuccess: (result) => {
-				toast.success(
-					result.applied
-						? "Added to the record."
-						: "Dismissed — it won't be suggested again.",
-				);
+				toast.success(result.applied ? t("facts.added") : t("facts.dismissed"));
 				return cache.contact(contactId, { settle: "record" });
 			},
 			onError: (error) => toast.error(error.message),

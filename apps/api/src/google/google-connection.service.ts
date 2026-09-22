@@ -1,5 +1,6 @@
 import { isGoogleConfigured, signsInWithGoogle } from "@crm/auth";
 import type { Db, Prisma } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { normalizeDomain } from "../companies/domain";
 import { ActivityStampService } from "../crm/activity-stamp.service";
@@ -169,7 +170,9 @@ export class GoogleConnectionService {
 	): Promise<void> {
 		const row = await this.state.get(userId, source);
 		if (!row) {
-			throw new NotFoundException(`${source} is not connected.`);
+			throw new NotFoundException(
+				translator("api")("connections.notConnected", { source }),
+			);
 		}
 
 		await this.state.setAutoCreate(userId, source, enabled);
@@ -180,15 +183,14 @@ export class GoogleConnectionService {
 		options: { reason?: string; purge: boolean },
 	): Promise<SuppressDomainOutput> {
 		const normalised = normalizeDomain(domain);
+		const t = translator("api");
 		if (!normalised) {
-			throw new NotFoundException(`"${domain}" is not a domain.`);
+			throw new NotFoundException(t("connections.notADomain", { domain }));
 		}
 
 		const ours = await this.match.internalIdentity();
 		if (ours.domains.has(normalised)) {
-			throw new NotFoundException(
-				"That is our own domain — it is already excluded.",
-			);
+			throw new NotFoundException(t("connections.ownDomainExcluded"));
 		}
 
 		await this.db.suppressedDomain.upsert({

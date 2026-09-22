@@ -1,5 +1,6 @@
 import { DealStage, EnrichmentStatus, RecordSource } from "@crm/db";
 import { FIELD_TYPES } from "@crm/db/fields";
+import { translator } from "@crm/i18n/translator";
 import { z } from "zod";
 import { bulkIdsInput } from "../crm/bulk";
 import { fieldEntity, recordFieldValues } from "../fields/fields.contracts";
@@ -18,7 +19,12 @@ export const companyListInput = listInput.extend({
 export type CompanyListInput = z.infer<typeof companyListInput>;
 
 export const companyCreateInput = z.object({
-	name: z.string().trim().min(1, "A company needs a name."),
+	name: z
+		.string()
+		.trim()
+		.min(1, {
+			error: () => translator("api")("companies.nameRequired"),
+		}),
 	domain: z.string().trim().optional(),
 	ownerId: z.string().nullable().optional(),
 });

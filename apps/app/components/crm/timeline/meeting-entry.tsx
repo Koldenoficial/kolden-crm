@@ -2,6 +2,7 @@
 
 import { AttendeeList } from "@crm/ui/components/attendee-list";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import {
 	LocalDateTime,
 	LocalDateTimeRange,
@@ -36,6 +37,7 @@ export function MeetingEntry({
 	conferenceUrl: string | null;
 }) {
 	const trpc = useTRPC();
+	const t = useTranslations("records");
 
 	const event = useQuery({
 		...trpc.google.event.queryOptions({ eventId }),
@@ -47,7 +49,8 @@ export function MeetingEntry({
 			<span className="text-muted-foreground text-xs">
 				{isAllDay ? (
 					<>
-						<LocalDateTime date={startsAt} options={DAY_OPTIONS} /> · All day
+						<LocalDateTime date={startsAt} options={DAY_OPTIONS} /> {"· "}
+						{t("meetingEntry.allDay")}
 					</>
 				) : (
 					<LocalDateTimeRange
@@ -69,7 +72,7 @@ export function MeetingEntry({
 					rel="noreferrer"
 					className="text-muted-foreground text-xs underline underline-offset-3 hover:text-foreground"
 				>
-					Join call
+					{t("meetingEntry.joinCall")}
 				</a>
 			) : null}
 		</div>

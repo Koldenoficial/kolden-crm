@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import { Injectable, Logger } from "@nestjs/common";
 import { z } from "zod";
 import { bridge } from "./bridge";
@@ -29,11 +30,12 @@ export class ResearchKeyService {
 	async verify(apiKey: string): Promise<KeyCheck> {
 		const agent = bridge();
 
+		const t = translator("api");
+
 		if (!agent) {
 			return {
 				outcome: "unknown",
-				reason:
-					"This install has no AGENT_BRIDGE_SECRET, so nothing can check.",
+				reason: t("researchKey.noBridgeSecret"),
 			};
 		}
 
@@ -49,7 +51,9 @@ export class ResearchKeyService {
 			});
 
 			if (!response.ok) {
-				return this.cannotTell(`The agent answered ${response.status}.`);
+				return this.cannotTell(
+					t("researchKey.agentAnswered", { status: response.status }),
+				);
 			}
 
 			const body = verifyAnswer.parse(await response.json());
@@ -59,11 +63,11 @@ export class ResearchKeyService {
 			if (body.outcome === "invalid") {
 				return {
 					outcome: "invalid",
-					reason: body.reason || "Context did not recognise that API key.",
+					reason: body.reason || t("contextKey.notRecognised"),
 				};
 			}
 
-			return this.cannotTell(body.reason ?? "No answer.");
+			return this.cannotTell(body.reason ?? t("researchKey.noAnswer"));
 		} catch (error) {
 			return this.cannotTell(
 				error instanceof Error ? error.message : String(error),

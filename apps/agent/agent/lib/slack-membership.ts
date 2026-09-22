@@ -1,4 +1,5 @@
 import { db } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { schemas } from "@crm/validation";
 import { z } from "zod";
 import { SLACK } from "./slack-config";
@@ -132,15 +133,21 @@ export async function joinSlackChannel(
 		select: { id: true, isPrivate: true, isMember: true },
 	});
 
+	const t = translator("api");
+
 	if (!channel) {
-		return { joined: false, reason: "No such channel.", needsHuman: false };
+		return {
+			joined: false,
+			reason: t("slack.noSuchChannel"),
+			needsHuman: false,
+		};
 	}
 
 	const bot = await slackAccessToken();
 	if (!bot) {
 		return {
 			joined: false,
-			reason: "Slack is not connected.",
+			reason: t("slack.notConnected"),
 			needsHuman: true,
 		};
 	}
@@ -203,22 +210,23 @@ function needsHuman(error: string): boolean {
 }
 
 function explain(error: string): string {
+	const t = translator("api");
 	switch (error) {
 		case "no_user_grant":
-			return "This workspace did not grant Comp AI permission to add itself to a private channel.";
+			return t("slack.noUserGrant");
 		case "channel_not_found":
-			return "Slack cannot see this channel. A member has to invite Comp AI.";
+			return t("slack.channelNotFound");
 		case "is_archived":
-			return "This channel is archived. Somebody has to unarchive it before Comp AI can join.";
+			return t("slack.channelArchived");
 		case "missing_scope":
-			return "Slack refused: a permission is missing. Reconnect Slack.";
+			return t("slack.missingScope");
 		case "invalid_auth":
 		case "token_revoked":
-			return "Slack needs to be reconnected.";
+			return t("slack.needsReconnect");
 		case "unknown_bot_user":
-			return "Slack did not report which user Comp AI is.";
+			return t("slack.unknownBotUser");
 		default:
-			return `Slack refused the request (${error}).`;
+			return t("slack.requestRefused", { error });
 	}
 }
 
@@ -229,12 +237,11 @@ export async function createSlackChannel(
 	const user = await slackUserToken();
 	const bot = await slackAccessToken();
 	const token = isPrivate ? user : (user ?? bot);
+	const t = translator("api");
 
 	if (!token) {
 		return {
-			error: isPrivate
-				? "This workspace did not grant Comp AI permission to create a private channel."
-				: "Slack is not connected.",
+			error: isPrivate ? t("slack.noPrivateGrant") : t("slack.notConnected"),
 		};
 	}
 
@@ -249,8 +256,7 @@ export async function createSlackChannel(
 	});
 
 	const parsed = schemas.slack.createReply.safeParse(await response.json());
-	if (!parsed.success)
-		return { error: "Slack sent back something unreadable." };
+	if (!parsed.success) return { error: t("slack.unreadableReply") };
 
 	if (!parsed.data.ok || !parsed.data.channel) {
 		return { error: explain(parsed.data.error ?? "rejected") };

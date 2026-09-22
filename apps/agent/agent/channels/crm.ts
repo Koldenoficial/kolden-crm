@@ -1,6 +1,7 @@
 import { timingSafeEqual } from "node:crypto";
 import { EnrichmentStatus, Prisma } from "@crm/db";
 import { MAX_ATTEMPTS } from "@crm/db/agent-tasks";
+import { translator } from "@crm/i18n/translator";
 import { schemas } from "@crm/validation";
 import { eveTurnFailure } from "@crm/validation/eve-stream";
 import { defineChannel, GET, POST } from "eve/channels";
@@ -185,7 +186,11 @@ export default defineChannel({
 				await request.json().catch(() => null),
 			);
 			if (!runId) {
-				return Response.json({ error: "No run id was sent." }, { status: 400 });
+				const t = translator("api");
+				return Response.json(
+					{ error: t("cancelRun.noRunId") },
+					{ status: 400 },
+				);
 			}
 
 			return Response.json(
@@ -203,8 +208,9 @@ export default defineChannel({
 			);
 
 			if (!parsed.success) {
+				const t = translator("api");
 				return Response.json(
-					{ error: "That channel name is not usable." },
+					{ error: t("slack.channelNameInvalid") },
 					{ status: 400 },
 				);
 			}
@@ -229,8 +235,9 @@ export default defineChannel({
 			);
 
 			if (!apiKey) {
+				const t = translator("api");
 				return Response.json(
-					{ outcome: "invalid", reason: "No API key was sent." },
+					{ outcome: "invalid", reason: t("verifyKey.noKeySent") },
 					{ status: 400 },
 				);
 			}

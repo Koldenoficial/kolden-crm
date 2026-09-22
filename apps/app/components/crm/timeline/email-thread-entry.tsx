@@ -9,6 +9,7 @@ import {
 import { Skeleton } from "@crm/ui/components/skeleton";
 import { ThreadMessage } from "@crm/ui/components/thread-message";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { LocalDateTime } from "@/components/local-date-time";
 import { useTRPC } from "@/lib/trpc/client";
@@ -28,6 +29,7 @@ export function EmailThreadEntry({
 	messageCount: number;
 }) {
 	const trpc = useTRPC();
+	const t = useTranslations("records");
 	const [opened, setOpened] = useState(false);
 
 	const thread = useQuery({
@@ -45,7 +47,7 @@ export function EmailThreadEntry({
 		>
 			<AccordionItem value={threadId}>
 				<AccordionTrigger variant="subtle">
-					{messageCount === 1 ? "1 message" : `${messageCount} messages`}
+					{t("emailThread.messageCount", { count: messageCount })}
 				</AccordionTrigger>
 
 				<AccordionContent>
@@ -82,7 +84,9 @@ export function EmailThreadEntry({
 												rel="noreferrer"
 												className="text-muted-foreground underline underline-offset-3 hover:text-foreground"
 											>
-												Open in {message.mailboxName}
+												{t("emailThread.openIn", {
+													mailbox: message.mailboxName ?? "",
+												})}
 											</a>
 										) : null
 									}

@@ -31,6 +31,7 @@ import {
 } from "@crm/ui/components/sheet";
 import { Spinner } from "@crm/ui/components/spinner";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { parseAsBoolean, useQueryState } from "nuqs";
 import { type ComponentProps, Suspense, useId, useState } from "react";
 import { toast } from "sonner";
@@ -44,10 +45,11 @@ import { useTRPC } from "@/lib/trpc/client";
 const UNSET = "";
 
 function AddButton(props: ComponentProps<typeof Button>) {
+	const t = useTranslations("lists.deals.createSheet");
 	return (
 		<Button {...props}>
 			<Icon icon={Add} data-icon="inline-start" />
-			New deal
+			{t("trigger")}
 		</Button>
 	);
 }
@@ -61,6 +63,7 @@ export function CreateDealSheet({ companyId }: { companyId?: string }) {
 }
 
 function CreateDealForm({ companyId }: { companyId?: string }) {
+	const t = useTranslations("lists.deals.createSheet");
 	const openRecord = useOpenRecord();
 	const trpc = useTRPC();
 	const cache = useCrmCache();
@@ -93,7 +96,7 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 		trpc.deals.create.mutationOptions({
 			onSuccess: async (deal) => {
 				await cache.deal(deal.id);
-				toast.success(`${deal.name} added.`);
+				toast.success(t("added", { name: deal.name }));
 				await setOpen(null);
 				setName("");
 				setAmount("");
@@ -115,10 +118,8 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 			</SheetTrigger>
 			<SheetContent side="right">
 				<SheetHeader>
-					<SheetTitle>New deal</SheetTitle>
-					<SheetDescription>
-						Every deal belongs to a company and has someone's name against it.
-					</SheetDescription>
+					<SheetTitle>{t("title")}</SheetTitle>
+					<SheetDescription>{t("description")}</SheetDescription>
 				</SheetHeader>
 
 				<form
@@ -142,19 +143,21 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 				>
 					<FieldGroup>
 						<Field>
-							<FieldLabel htmlFor={nameId}>Name</FieldLabel>
+							<FieldLabel htmlFor={nameId}>{t("fields.name")}</FieldLabel>
 							<Input
 								id={nameId}
 								value={name}
 								onChange={(event) => setName(event.target.value)}
-								placeholder="Stripe — Comp AI"
+								placeholder={t("fields.namePlaceholder")}
 								autoComplete="off"
 								required
 							/>
 						</Field>
 
 						<Field>
-							<FieldLabel htmlFor="create-deal-company">Company</FieldLabel>
+							<FieldLabel htmlFor="create-deal-company">
+								{t("fields.company")}
+							</FieldLabel>
 							<CompanyPicker
 								id="create-deal-company"
 								value={company}
@@ -163,10 +166,12 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 						</Field>
 
 						<Field>
-							<FieldLabel htmlFor="create-deal-owner">Owner</FieldLabel>
+							<FieldLabel htmlFor="create-deal-owner">
+								{t("fields.owner")}
+							</FieldLabel>
 							<Select value={resolvedOwner} onValueChange={setOwnerId}>
 								<SelectTrigger id="create-deal-owner">
-									<SelectValue placeholder="Choose an owner" />
+									<SelectValue placeholder={t("fields.ownerPlaceholder")} />
 								</SelectTrigger>
 								<SelectContent>
 									{(users.data ?? []).map((user) => (
@@ -179,7 +184,9 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 						</Field>
 
 						<Field>
-							<FieldLabel htmlFor="create-deal-stage">Stage</FieldLabel>
+							<FieldLabel htmlFor="create-deal-stage">
+								{t("fields.stage")}
+							</FieldLabel>
 							<Select value={stage} onValueChange={setStage}>
 								<SelectTrigger id="create-deal-stage">
 									<SelectValue />
@@ -193,25 +200,24 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 								</SelectContent>
 							</Select>
 							<FieldDescription>
-								A new deal is an open deal — close it from the pipeline once
-								there is an outcome to record.
+								{t("fields.stageDescription")}
 							</FieldDescription>
 						</Field>
 
 						<Field>
-							<FieldLabel htmlFor={amountId}>Amount</FieldLabel>
+							<FieldLabel htmlFor={amountId}>{t("fields.amount")}</FieldLabel>
 							<div className="flex gap-2">
 								<Input
 									id={amountId}
 									value={amount}
 									onChange={(event) => setAmount(event.target.value)}
-									placeholder="24000"
+									placeholder={t("fields.amountPlaceholder")}
 									inputMode="decimal"
 									autoComplete="off"
 								/>
 								<Select value={resolvedCurrency} onValueChange={setCurrency}>
 									<SelectTrigger
-										aria-label="Currency"
+										aria-label={t("fields.currency")}
 										className="w-28 shrink-0"
 									>
 										<SelectValue />
@@ -228,12 +234,14 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 						</Field>
 
 						<Field>
-							<FieldLabel htmlFor={closeDateId}>Expected close date</FieldLabel>
+							<FieldLabel htmlFor={closeDateId}>
+								{t("fields.closeDate")}
+							</FieldLabel>
 							<DatePicker
 								id={closeDateId}
 								value={closeDate}
 								onChange={setCloseDate}
-								placeholder="No date yet"
+								placeholder={t("fields.closeDatePlaceholder")}
 							/>
 						</Field>
 					</FieldGroup>
@@ -246,10 +254,10 @@ function CreateDealForm({ companyId }: { companyId?: string }) {
 						disabled={create.isPending || !ready}
 					>
 						{create.isPending ? <Spinner /> : null}
-						Add deal
+						{t("submit")}
 					</Button>
 					<SheetClose asChild>
-						<Button variant="outline">Cancel</Button>
+						<Button variant="outline">{t("cancel")}</Button>
 					</SheetClose>
 				</SheetFooter>
 			</SheetContent>

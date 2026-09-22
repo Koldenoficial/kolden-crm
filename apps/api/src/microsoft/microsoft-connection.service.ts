@@ -1,5 +1,6 @@
 import { isMicrosoftConfigured, signsInWithMicrosoft } from "@crm/auth";
 import type { Db, Prisma } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { Injectable, Logger, NotFoundException } from "@nestjs/common";
 import { ActivityStampService } from "../crm/activity-stamp.service";
 import { InjectDatabase } from "../database/database.constants";
@@ -165,7 +166,9 @@ export class MicrosoftConnectionService {
 	): Promise<void> {
 		const row = await this.state.get(userId, source);
 		if (!row) {
-			throw new NotFoundException(`${source} is not connected.`);
+			throw new NotFoundException(
+				translator("api")("connections.notConnected", { source }),
+			);
 		}
 
 		await this.state.setAutoCreate(userId, source, enabled);

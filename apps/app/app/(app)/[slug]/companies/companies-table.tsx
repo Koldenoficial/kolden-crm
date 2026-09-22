@@ -14,6 +14,7 @@ import {
 } from "@crm/ui/components/entity-logo";
 import { useTableSelection } from "@crm/ui/hooks/use-table-selection";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { EnrichmentIndicator } from "@/components/crm/enrichment-status";
 import { useFieldColumns } from "@/components/crm/fields/field-columns";
@@ -38,139 +39,149 @@ import { companiesSearchParams } from "./companies-search-params";
 
 type CompanyRow = RouterOutputs["companies"]["list"]["rows"][number];
 
-const COLUMNS: DataTableColumn<CompanyRow>[] = [
-	{
-		id: "name",
-		header: "Company",
-		sortable: true,
-		hideable: false,
-		width: "w-[26%]",
-		cell: (row) => (
-			<span className="flex min-w-0 items-center gap-2.5">
-				<EntityLogo
-					src={row.iconUrl ?? row.logoUrl}
-					darkSrc={row.iconDarkUrl}
-					tone={row.iconTone as EntityLogoTone | null | undefined}
-					name={row.name}
-					size="sm"
+type ListsTranslator = ReturnType<typeof useTranslations>;
+
+function buildColumns(t: ListsTranslator): DataTableColumn<CompanyRow>[] {
+	return [
+		{
+			id: "name",
+			header: t("companies.table.columns.name"),
+			sortable: true,
+			hideable: false,
+			width: "w-[26%]",
+			cell: (row) => (
+				<span className="flex min-w-0 items-center gap-2.5">
+					<EntityLogo
+						src={row.iconUrl ?? row.logoUrl}
+						darkSrc={row.iconDarkUrl}
+						tone={row.iconTone as EntityLogoTone | null | undefined}
+						name={row.name}
+						size="sm"
+					/>
+					<span className="truncate font-medium">{row.name}</span>
+				</span>
+			),
+		},
+		{
+			id: "domain",
+			header: t("companies.table.columns.domain"),
+			sortable: true,
+			width: "w-[16%]",
+			hideBelow: "md",
+			cell: (row) =>
+				row.domain ? (
+					<span className="truncate text-muted-foreground">{row.domain}</span>
+				) : (
+					<EmptyCellValue />
+				),
+		},
+		{
+			id: "industry",
+			header: t("companies.table.columns.industry"),
+			sortable: true,
+			width: "w-[16%]",
+			hideBelow: "lg",
+			cell: (row) =>
+				row.industry ? (
+					<span className="truncate">{row.industry}</span>
+				) : (
+					<EmptyCellValue />
+				),
+		},
+		{
+			id: "owner",
+			header: t("companies.table.columns.owner"),
+			sortable: true,
+			width: "w-[16%]",
+			hideBelow: "md",
+			cell: (row) => <OwnerCell owner={row.owner} />,
+		},
+		{
+			id: "contacts",
+			header: t("companies.table.columns.contacts"),
+			sortable: true,
+			align: "right",
+			width: "w-[9%]",
+			hideBelow: "lg",
+			cell: (row) => <span className="tabular-nums">{row.contactCount}</span>,
+		},
+		{
+			id: "deals",
+			header: t("companies.table.columns.deals"),
+			sortable: true,
+			align: "right",
+			width: "w-[9%]",
+			cell: (row) => <span className="tabular-nums">{row.openDealCount}</span>,
+		},
+		{
+			id: "createdAt",
+			header: t("companies.table.columns.created"),
+			label: t("companies.table.columns.createdLabel"),
+			sortable: true,
+			align: "right",
+			width: "w-[10%]",
+			defaultHidden: true,
+			cell: (row) => (
+				<span className="text-muted-foreground">
+					<LocalRelativeTime date={row.createdAt} />
+				</span>
+			),
+		},
+		{
+			id: "lastActivity",
+			header: t("companies.table.columns.lastActivity"),
+			sortable: true,
+			align: "right",
+			width: "w-[12%]",
+			hideBelow: "sm",
+			cell: (row) => (
+				<span className="text-muted-foreground">
+					{row.lastActivityAt ? (
+						<LocalRelativeTime date={row.lastActivityAt} />
+					) : (
+						<EmptyCellValue />
+					)}
+				</span>
+			),
+		},
+		{
+			id: "enrichment",
+			header: t("companies.table.columns.enrichment"),
+			label: t("companies.table.columns.enrichmentLabel"),
+			defaultHidden: true,
+			width: "w-[14%]",
+			cell: (row) => (
+				<EnrichmentIndicator
+					status={row.enrichmentStatus}
+					queued={row.queued}
 				/>
-				<span className="truncate font-medium">{row.name}</span>
-			</span>
-		),
-	},
-	{
-		id: "domain",
-		header: "Domain",
-		sortable: true,
-		width: "w-[16%]",
-		hideBelow: "md",
-		cell: (row) =>
-			row.domain ? (
-				<span className="truncate text-muted-foreground">{row.domain}</span>
-			) : (
-				<EmptyCellValue />
 			),
-	},
-	{
-		id: "industry",
-		header: "Industry",
-		sortable: true,
-		width: "w-[16%]",
-		hideBelow: "lg",
-		cell: (row) =>
-			row.industry ? (
-				<span className="truncate">{row.industry}</span>
-			) : (
-				<EmptyCellValue />
-			),
-	},
-	{
-		id: "owner",
-		header: "Owner",
-		sortable: true,
-		width: "w-[16%]",
-		hideBelow: "md",
-		cell: (row) => <OwnerCell owner={row.owner} />,
-	},
-	{
-		id: "contacts",
-		header: "Contacts",
-		sortable: true,
-		align: "right",
-		width: "w-[9%]",
-		hideBelow: "lg",
-		cell: (row) => <span className="tabular-nums">{row.contactCount}</span>,
-	},
-	{
-		id: "deals",
-		header: "Open deals",
-		sortable: true,
-		align: "right",
-		width: "w-[9%]",
-		cell: (row) => <span className="tabular-nums">{row.openDealCount}</span>,
-	},
-	{
-		id: "createdAt",
-		header: "Created",
-		label: "Created date",
-		sortable: true,
-		align: "right",
-		width: "w-[10%]",
-		defaultHidden: true,
-		cell: (row) => (
-			<span className="text-muted-foreground">
-				<LocalRelativeTime date={row.createdAt} />
-			</span>
-		),
-	},
-	{
-		id: "lastActivity",
-		header: "Last activity",
+		},
+	];
+}
+
+function buildArchivedColumn(t: ListsTranslator): DataTableColumn<CompanyRow> {
+	return {
+		id: "archivedAt",
+		header: t("companies.table.columns.archived"),
+		label: t("companies.table.columns.archivedLabel"),
 		sortable: true,
 		align: "right",
 		width: "w-[12%]",
-		hideBelow: "sm",
 		cell: (row) => (
 			<span className="text-muted-foreground">
-				{row.lastActivityAt ? (
-					<LocalRelativeTime date={row.lastActivityAt} />
+				{row.archivedAt ? (
+					<LocalRelativeTime date={row.archivedAt} />
 				) : (
 					<EmptyCellValue />
 				)}
 			</span>
 		),
-	},
-	{
-		id: "enrichment",
-		header: "Enrichment",
-		label: "Enrichment status",
-		defaultHidden: true,
-		width: "w-[14%]",
-		cell: (row) => (
-			<EnrichmentIndicator status={row.enrichmentStatus} queued={row.queued} />
-		),
-	},
-];
-
-const ARCHIVED_COLUMN: DataTableColumn<CompanyRow> = {
-	id: "archivedAt",
-	header: "Archived",
-	label: "Archived date",
-	sortable: true,
-	align: "right",
-	width: "w-[12%]",
-	cell: (row) => (
-		<span className="text-muted-foreground">
-			{row.archivedAt ? (
-				<LocalRelativeTime date={row.archivedAt} />
-			) : (
-				<EmptyCellValue />
-			)}
-		</span>
-	),
-};
+	};
+}
 
 export function CompaniesTable() {
+	const t = useTranslations("lists");
 	const openRecord = useOpenRecord();
 	const trpc = useTRPC();
 	const prefetchRecord = usePrefetchRecord();
@@ -200,9 +211,9 @@ export function CompaniesTable() {
 	const facets: DataTableFacet[] = [
 		{
 			id: "owner",
-			label: "Owner",
+			label: t("companies.table.facets.owner"),
 			options: [
-				{ value: "unassigned", label: "Unassigned" },
+				{ value: "unassigned", label: t("companies.table.facets.unassigned") },
 				...(users.data ?? []).map((user) => ({
 					value: user.id,
 					label: user.name,
@@ -211,21 +222,21 @@ export function CompaniesTable() {
 		},
 		{
 			id: "industry",
-			label: "Industry",
+			label: t("companies.table.facets.industry"),
 			options: Object.keys(facetCounts?.industry ?? {})
 				.sort()
 				.map((value) => ({ value, label: value })),
 		},
 		{
 			id: "enrichment",
-			label: "Enrichment",
+			label: t("companies.table.facets.enrichment"),
 			options: ENRICHMENT_FACET_OPTIONS.filter(
 				(option) => (facetCounts?.enrichment?.[option.value] ?? 0) > 0,
 			),
 		},
 		{
 			id: "activity",
-			label: "Activity",
+			label: t("companies.table.facets.activity"),
 			options: ACTIVITY_FACET_OPTIONS.filter(
 				(option) => (facetCounts?.activity?.[option.value] ?? 0) > 0,
 			),
@@ -237,15 +248,17 @@ export function CompaniesTable() {
 	const columns = useMemo(
 		() =>
 			input.archived
-				? [...COLUMNS, ARCHIVED_COLUMN, ...fieldColumns]
-				: [...COLUMNS, ...fieldColumns],
-		[fieldColumns, input.archived],
+				? [...buildColumns(t), buildArchivedColumn(t), ...fieldColumns]
+				: [...buildColumns(t), ...fieldColumns],
+		[fieldColumns, input.archived, t],
 	);
 
 	return (
 		<DataTable
 			query={query}
-			search={<ListSearch placeholder="Search companies by name or domain…" />}
+			search={
+				<ListSearch placeholder={t("companies.table.searchPlaceholder")} />
+			}
 			actions={
 				<>
 					<SavedViewsMenu entity="COMPANY" table={table} />
@@ -256,7 +269,7 @@ export function CompaniesTable() {
 						onClick={() => setArchived(!input.archived)}
 					>
 						<Archive data-icon="inline-start" />
-						Archived
+						{t("companies.table.archived")}
 					</Button>
 				</>
 			}
@@ -282,8 +295,8 @@ export function CompaniesTable() {
 			onRowClick={(row) => openRecord({ kind: "company", id: row.id })}
 			empty={
 				input.archived
-					? "No archived companies."
-					: "No companies match this view."
+					? t("companies.table.emptyArchived")
+					: t("companies.table.empty")
 			}
 		/>
 	);

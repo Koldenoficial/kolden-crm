@@ -1,4 +1,5 @@
 import { ActivityType } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { activityMeta } from "@crm/validation/activity-meta";
 import { z } from "zod";
 
@@ -65,12 +66,12 @@ export const activityCreateInput = z
 		dealId: z.string().optional(),
 	})
 	.refine((input) => input.companyId || input.contactId || input.dealId, {
-		message: "An activity has to be about a company, a contact or a deal.",
+		error: () => translator("api")("activities.needsRecord"),
 	})
 	.refine(
 		(input) => input.type !== ActivityType.TASK || Boolean(input.subject),
 		{
-			message: "A task needs a subject — it is the thing to do.",
+			error: () => translator("api")("activities.taskNeedsSubject"),
 			path: ["subject"],
 		},
 	);
