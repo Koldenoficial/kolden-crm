@@ -4,6 +4,7 @@ import { Button } from "@crm/ui/components/button";
 import { cn } from "@crm/ui/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { useWorkspaceUrl } from "@/lib/use-workspace-url";
 
@@ -14,15 +15,19 @@ type SettingsNavItem = {
 
 const ROOT = "/settings";
 
-const ITEMS: SettingsNavItem[] = [
-	{ title: "General", href: ROOT },
-	{ title: "Tracking & Analytics", href: `${ROOT}/tracking` },
-	{ title: "Connections", href: `${ROOT}/connections` },
-	{ title: "Currencies", href: `${ROOT}/currencies` },
-	{ title: "Members", href: `${ROOT}/members` },
-	{ title: "API Keys", href: `${ROOT}/api-keys` },
-	{ title: "SSO", href: `${ROOT}/sso` },
-];
+function navItems(
+	t: ReturnType<typeof useTranslations<"settings">>,
+): SettingsNavItem[] {
+	return [
+		{ title: t("nav.general"), href: ROOT },
+		{ title: t("nav.tracking"), href: `${ROOT}/tracking` },
+		{ title: t("nav.connections"), href: `${ROOT}/connections` },
+		{ title: t("nav.currencies"), href: `${ROOT}/currencies` },
+		{ title: t("nav.members"), href: `${ROOT}/members` },
+		{ title: t("nav.apiKeys"), href: `${ROOT}/api-keys` },
+		{ title: t("nav.sso"), href: `${ROOT}/sso` },
+	];
+}
 
 function isActive(href: string, root: string, pathname: string): boolean {
 	return href === root ? pathname === href : pathname.startsWith(href);
@@ -61,15 +66,18 @@ function NavLink({
 }
 
 export function SettingsSidebarFallback() {
+	const t = useTranslations("settings");
+	const items = navItems(t);
+
 	return (
 		<>
 			<aside className="hidden w-56 shrink-0 border-r md:block [view-transition-name:settings-sidebar]">
 				<nav
-					aria-label="Workspace settings"
+					aria-label={t("nav.ariaLabel")}
 					aria-busy="true"
 					className="flex flex-col gap-0.5 p-3"
 				>
-					{ITEMS.map((item) => (
+					{items.map((item) => (
 						<Button
 							key={item.href}
 							variant="ghost"
@@ -83,11 +91,11 @@ export function SettingsSidebarFallback() {
 			</aside>
 
 			<nav
-				aria-label="Workspace settings"
+				aria-label={t("nav.ariaLabel")}
 				aria-busy="true"
 				className="flex gap-1 overflow-x-auto border-b p-2 md:hidden [view-transition-name:settings-sidebar]"
 			>
-				{ITEMS.map((item) => (
+				{items.map((item) => (
 					<Button
 						key={item.href}
 						variant="ghost"
@@ -103,20 +111,22 @@ export function SettingsSidebarFallback() {
 }
 
 export function SettingsSidebar() {
+	const t = useTranslations("settings");
 	const pathname = usePathname();
 	const workspaceUrl = useWorkspaceUrl();
 
 	const root = workspaceUrl(ROOT);
 	const items = useMemo(
-		() => ITEMS.map((item) => ({ ...item, href: workspaceUrl(item.href) })),
-		[workspaceUrl],
+		() =>
+			navItems(t).map((item) => ({ ...item, href: workspaceUrl(item.href) })),
+		[t, workspaceUrl],
 	);
 
 	return (
 		<>
 			<aside className="hidden w-56 shrink-0 border-r md:block [view-transition-name:settings-sidebar]">
 				<nav
-					aria-label="Workspace settings"
+					aria-label={t("nav.ariaLabel")}
 					className="flex flex-col gap-0.5 p-3"
 				>
 					{items.map((item) => (
@@ -131,7 +141,7 @@ export function SettingsSidebar() {
 			</aside>
 
 			<nav
-				aria-label="Workspace settings"
+				aria-label={t("nav.ariaLabel")}
 				className="flex gap-1 overflow-x-auto border-b p-2 md:hidden [view-transition-name:settings-sidebar]"
 			>
 				{items.map((item) => (

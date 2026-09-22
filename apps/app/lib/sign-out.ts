@@ -1,13 +1,15 @@
 "use client";
 
 import { signOut } from "@crm/auth/client";
+import { translator } from "@crm/i18n/translator";
 import { toast } from "sonner";
 
 export async function signOutAndRedirect() {
 	const { error } = await signOut();
 
 	if (error) {
-		toast.error(error.message ?? "Could not sign out.");
+		const t = translator("shell");
+		toast.error(error.message ?? t("signOutError"));
 		return;
 	}
 

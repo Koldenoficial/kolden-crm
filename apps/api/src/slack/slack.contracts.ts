@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import { z } from "zod";
 import { SLACK, SLACK_SYNC_STATES } from "./slack-config";
 
@@ -21,7 +22,9 @@ export const slackCreateChannelInput = z.object({
 		.trim()
 		.min(1)
 		.max(80)
-		.regex(/^[a-z0-9-_]+$/, "Use lowercase letters, numbers and dashes."),
+		.regex(/^[a-z0-9-_]+$/, {
+			error: () => translator("api")("slack.channelNameFormat"),
+		}),
 	isPrivate: z.boolean().default(false),
 });
 

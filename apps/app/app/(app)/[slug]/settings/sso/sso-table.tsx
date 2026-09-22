@@ -16,6 +16,7 @@ import { Button } from "@crm/ui/components/button";
 import { DataTable, type DataTableColumn } from "@crm/ui/components/data-table";
 import { Icon } from "@crm/ui/components/icon";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { ListSearch } from "@/components/data-table/list-search";
 import { useTableQuery } from "@/components/data-table/use-table-query";
@@ -28,6 +29,7 @@ import { ssoSearchParams } from "./sso-search-params";
 type ProviderRow = RouterOutputs["sso"]["list"]["rows"][number];
 
 function columns(
+	t: ReturnType<typeof useTranslations<"settings">>,
 	canConfigure: boolean,
 	onRemove: (provider: ProviderRow) => void,
 	pending: boolean,
@@ -35,7 +37,7 @@ function columns(
 	return [
 		{
 			id: "providerId",
-			header: "Provider",
+			header: t("sso.table.provider"),
 			sortable: true,
 			hideable: false,
 			width: "w-[30%]",
@@ -44,14 +46,16 @@ function columns(
 					<span className="truncate font-medium">{row.name}</span>
 					<span className="truncate text-muted-foreground text-xs">
 						{row.type === "saml" ? "SAML" : "OpenID Connect"}
-						{row.clientIdLastFour ? ` · client …${row.clientIdLastFour}` : ""}
+						{row.clientIdLastFour
+							? ` · ${t("sso.table.clientLastFour", { lastFour: row.clientIdLastFour })}`
+							: ""}
 					</span>
 				</span>
 			),
 		},
 		{
 			id: "domain",
-			header: "Email domain",
+			header: t("sso.table.domain"),
 			sortable: true,
 			width: "w-[22%]",
 			hideBelow: "sm",
@@ -63,7 +67,7 @@ function columns(
 		},
 		{
 			id: "issuer",
-			header: "Issuer",
+			header: t("sso.table.issuer"),
 			sortable: true,
 			width: "w-[22%]",
 			hideBelow: "md",
@@ -73,20 +77,23 @@ function columns(
 		},
 		{
 			id: "callbackURL",
-			header: "Redirect URI",
+			header: t("sso.table.redirectUri"),
 			width: "w-[20%]",
 			hideBelow: "lg",
 			cell: (row) => (
 				<span className="flex min-w-0 items-center gap-1 text-muted-foreground">
 					<span className="truncate">{row.callbackURL}</span>
-					<CopyValue value={row.callbackURL} label="Redirect URI" />
+					<CopyValue
+						value={row.callbackURL}
+						label={t("sso.table.redirectUri")}
+					/>
 				</span>
 			),
 		},
 		{
 			id: "actions",
-			header: <span className="sr-only">Actions</span>,
-			label: "Actions",
+			header: <span className="sr-only">{t("sso.table.actions")}</span>,
+			label: t("sso.table.actions"),
 			hideable: false,
 			align: "right",
 			width: "w-[6%]",
@@ -96,26 +103,29 @@ function columns(
 						<AlertDialogTrigger asChild>
 							<Button variant="ghost" size="icon" disabled={pending}>
 								<Icon icon={TrashCan} />
-								<span className="sr-only">Remove {row.name}</span>
+								<span className="sr-only">
+									{t("sso.table.removeSr", { name: row.name })}
+								</span>
 							</Button>
 						</AlertDialogTrigger>
 
 						<AlertDialogContent>
 							<AlertDialogHeader>
-								<AlertDialogTitle>Remove {row.name}?</AlertDialogTitle>
+								<AlertDialogTitle>
+									{t("sso.table.removeConfirmTitle", { name: row.name })}
+								</AlertDialogTitle>
 								<AlertDialogDescription>
-									Nobody can sign in through it again. If this is the only
-									provider, the sign-in page goes back to Google.
+									{t("sso.table.removeConfirmDescription")}
 								</AlertDialogDescription>
 							</AlertDialogHeader>
 
 							<AlertDialogFooter>
-								<AlertDialogCancel>Cancel</AlertDialogCancel>
+								<AlertDialogCancel>{t("sso.table.cancel")}</AlertDialogCancel>
 								<AlertDialogAction
 									variant="destructive"
 									onClick={() => onRemove(row)}
 								>
-									Remove
+									{t("sso.table.remove")}
 								</AlertDialogAction>
 							</AlertDialogFooter>
 						</AlertDialogContent>
@@ -126,6 +136,7 @@ function columns(
 }
 
 export function SsoTable() {
+	const t = useTranslations("settings");
 	const trpc = useTRPC();
 	const cache = useCrmCache();
 	const { query, input } = useTableQuery(ssoSearchParams);
@@ -140,7 +151,7 @@ export function SsoTable() {
 		trpc.sso.remove.mutationOptions({
 			onSuccess: async () => {
 				await cache.sso();
-				toast.success("Identity provider removed.");
+				toast.success(t("sso.table.removed"));
 			},
 			onError: (error) => toast.error(error.message),
 		}),
@@ -149,8 +160,9 @@ export function SsoTable() {
 	return (
 		<DataTable
 			query={query}
-			search={<ListSearch placeholder="Search by name, domain or issuer…" />}
+			search={<ListSearch placeholder={t("sso.table.searchPlaceholder")} />}
 			columns={columns(
+				t,
 				settings.data?.canConfigure ?? false,
 				(provider) => remove.mutate({ providerId: provider.providerId }),
 				remove.isPending,
@@ -159,7 +171,7 @@ export function SsoTable() {
 			total={providers.data?.total ?? 0}
 			getRowId={(row) => row.providerId}
 			loading={providers.isFetching}
-			empty="No identity provider yet — everyone signs in with Google."
+			empty={t("sso.table.empty")}
 		/>
 	);
 }

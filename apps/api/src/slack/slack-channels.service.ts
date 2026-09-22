@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import {
 	BadRequestException,
 	Injectable,
@@ -17,11 +18,10 @@ export class SlackChannelsService {
 
 	async create(name: string, isPrivate: boolean) {
 		const agent = bridge();
+		const t = translator("api");
 
 		if (!agent) {
-			throw new ServiceUnavailableException(
-				"This install has no AGENT_BRIDGE_SECRET, so nothing can reach Slack.",
-			);
+			throw new ServiceUnavailableException(t("slack.noBridgeSecret"));
 		}
 
 		let response: Response;
@@ -45,9 +45,7 @@ export class SlackChannelsService {
 				{ message: "Could not reach the agent to create a channel", name },
 				error instanceof Error ? error.stack : String(error),
 			);
-			throw new ServiceUnavailableException(
-				"The agent is not answering, so the channel was not created.",
-			);
+			throw new ServiceUnavailableException(t("slack.agentNotAnswering"));
 		}
 
 		if (response.status >= SERVER_ERROR_STATUS) {
@@ -56,9 +54,7 @@ export class SlackChannelsService {
 				name,
 				status: response.status,
 			});
-			throw new ServiceUnavailableException(
-				"The agent failed, so the channel was not created.",
-			);
+			throw new ServiceUnavailableException(t("slack.agentFailed"));
 		}
 
 		const reply = slackCreateChannelReply.safeParse(
@@ -71,9 +67,7 @@ export class SlackChannelsService {
 				name,
 				status: response.status,
 			});
-			throw new ServiceUnavailableException(
-				"The agent answered with something unreadable, so the channel was not created.",
-			);
+			throw new ServiceUnavailableException(t("slack.agentUnreadableReply"));
 		}
 
 		if ("error" in reply.data) {
@@ -81,7 +75,7 @@ export class SlackChannelsService {
 		}
 
 		if (!response.ok) {
-			throw new BadRequestException("Slack refused to create that channel.");
+			throw new BadRequestException(t("slack.channelCreationRefused"));
 		}
 
 		return { channel: reply.data.channel };

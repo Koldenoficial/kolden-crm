@@ -6,7 +6,6 @@ export const AGENT_DISPATCH = {
 	heartbeat: { everyMs: MINUTE_MS },
 	cancel: {
 		errorCode: "CANCELLED_BY_USER",
-		message: "A workspace member stopped this run.",
 		redeliverWithinMs: 10 * MINUTE_MS,
 		redeliverBatch: 20,
 	},

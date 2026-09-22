@@ -1,4 +1,5 @@
 import { FIELD_ENTITIES } from "@crm/db/fields";
+import { translator } from "@crm/i18n/translator";
 import { savedViewFilters } from "@crm/validation/saved-view";
 import { z } from "zod";
 
@@ -12,7 +13,11 @@ export type SavedViewListInput = z.infer<typeof savedViewListInput>;
 
 export const savedViewCreateInput = z.object({
 	entity: savedViewEntity,
-	name: z.string().trim().min(1, "A view needs a name.").max(120),
+	name: z
+		.string()
+		.trim()
+		.min(1, { error: () => translator("api")("savedViews.nameRequired") })
+		.max(120),
 	shared: z.boolean().default(false),
 	filters: savedViewFilters,
 });

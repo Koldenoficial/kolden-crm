@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { WORKSPACE_ID } from "@crm/auth";
 import type { Db, Prisma } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import {
 	ForbiddenException,
 	Injectable,
@@ -136,7 +137,9 @@ export class ConversationSharingService {
 		});
 
 		if (!share) {
-			throw new NotFoundException("That shared conversation is unavailable.");
+			throw new NotFoundException(
+				translator("api")("conversations.sharedUnavailable"),
+			);
 		}
 
 		const { conversation } = share;
@@ -218,7 +221,9 @@ export class ConversationSharingService {
 
 	private missingBuilder(conversationId: string): never {
 		throw new NotFoundException(
-			`No builder conversation with id ${conversationId}.`,
+			translator("api")("conversations.builderNotFound", {
+				id: conversationId,
+			}),
 		);
 	}
 
@@ -232,7 +237,7 @@ export class ConversationSharingService {
 
 		if (!member) {
 			throw new ForbiddenException(
-				"This conversation belongs to another team.",
+				translator("api")("conversations.belongsToAnotherTeam"),
 			);
 		}
 	}

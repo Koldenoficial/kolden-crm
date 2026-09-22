@@ -22,6 +22,7 @@ import {
 	verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { Button } from "@crm/ui/components/button";
 import { Icon } from "@crm/ui/components/icon";
@@ -88,6 +89,7 @@ export function SortableItem({
 		transition,
 		isDragging,
 	} = useSortable({ id });
+	const t = useTranslations("ui");
 
 	return (
 		<div
@@ -109,7 +111,7 @@ export function SortableItem({
 				{...listeners}
 			>
 				<Icon icon={Draggable} />
-				<span className="sr-only">Reorder {label}</span>
+				<span className="sr-only">{t("sortableList.reorder", { label })}</span>
 			</Button>
 			{children}
 		</div>

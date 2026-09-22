@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import { Skeleton } from "@crm/ui/components/skeleton";
 
 export function AgentBuilderShell({
@@ -16,13 +17,14 @@ export function AgentBuilderShell({
 }
 
 export function AgentBuilderSidebarFallback() {
+	const t = translator("agentBuilder");
 	return (
 		<aside
 			className="hidden w-[213px] flex-none flex-col border-r p-4 md:flex"
 			aria-busy="true"
 		>
 			<div className="flex h-7 items-center pl-2 font-medium text-xs">
-				Chats
+				{t("sidebar.chatsHeading")}
 			</div>
 			<div className="mt-3 space-y-2 px-2" aria-hidden="true">
 				<Skeleton className="h-2.5 w-16" />
@@ -30,7 +32,7 @@ export function AgentBuilderSidebarFallback() {
 				<Skeleton className="h-7 w-full" />
 			</div>
 			<span role="status" className="sr-only">
-				Loading agent navigation…
+				{t("sidebar.loadingAriaLabel")}
 			</span>
 		</aside>
 	);

@@ -1,0 +1,591 @@
+{
+	"agentConversations": {
+		"newConversation": "Nova conversa",
+		"nothingYet": "Nada ainda",
+		"untitled": "Sem título",
+		"deleted": "Conversa excluída.",
+		"deleteThis": "Excluir esta conversa"
+	},
+	"agentPanel": {
+		"stillWorking": "Ainda trabalhando na última pergunta. A próxima pode entrar quando essa terminar.",
+		"ended": "Esta conversa terminou.",
+		"startNewConversation": "Iniciar uma nova conversa",
+		"ask": "Perguntar",
+		"hintNotReachable": "Inicie com `bun run dev`, ou verifique o AGENT_URL.",
+		"hintNotConfigured": "Defina AGENT_BRIDGE_SECRET no app e no agente.",
+		"followUp": "Acompanhamento",
+		"openSource": "Abrir {title}"
+	},
+	"bulkActions": {
+		"actions": "Ações",
+		"assignOwner": "Atribuir responsável",
+		"nobodyElse": "Ainda não tem mais ninguém aqui.",
+		"nothingChanged": "Nada mudou.",
+		"leftAlone": "{count, plural, one {# ficou sem alteração.} other {# ficaram sem alteração.}}",
+		"leftAloneWithMessage": "{count, plural, one {# ficou sem alteração: {message}} other {# ficaram sem alteração: {message}}}"
+	},
+	"common": {
+		"save": "Salvar",
+		"cancel": "Cancelar",
+		"delete": "Excluir"
+	},
+	"companyPicker": {
+		"choose": "Escolha uma empresa",
+		"search": "Buscar empresas…",
+		"searching": "Buscando…",
+		"noMatches": "Nenhuma empresa encontrada.",
+		"label": "Empresa"
+	},
+	"enrichmentActions": {
+		"lookingUp": "Vamos pesquisar: esta página atualiza quando terminar.",
+		"alreadyRunning": "Já está em andamento.",
+		"researching": "Pesquisando: o resumo entra na linha do tempo quando terminar.",
+		"alreadyResearching": "Já está pesquisando.",
+		"reEnrich": "Enriquecer de novo",
+		"research": "Pesquisar",
+		"takingAnotherLook": "Dando outra olhada: esta página atualiza quando terminar."
+	},
+	"fields": {
+		"sheetTitle": "Campos",
+		"subtitle": {
+			"company": "Isso molda toda empresa no seu CRM.",
+			"contact": "Isso molda todo contato no seu CRM.",
+			"deal": "Isso molda todo negócio no seu CRM."
+		},
+		"standardRow": "Campos padrão",
+		"standardNote": "só reordenar e ocultar",
+		"suggestedRow": "Campos sugeridos",
+		"suggestedNote": "um clique para adicionar",
+		"add": "Adicionar",
+		"customGroup": "Campos personalizados",
+		"dragNote": "Arraste para ordenar",
+		"archivedRow": "Arquivados",
+		"archivedNote": "valores mantidos, ocultos em todo lugar",
+		"newField": "Novo campo",
+		"orderNote": "A ordem aqui é a ordem na ficha",
+		"manualOnly": "Só manual",
+		"tableNote": "também vira coluna na tabela",
+		"filterNote": "também vira filtro",
+		"emptyTitle": "Ainda não há campos personalizados",
+		"emptyBody": "Crie campos dinâmicos que seus agentes podem pesquisar e preencher.",
+		"errorTitle": "Não deu para carregar seus campos",
+		"errorBody": "Seus campos continuam aí. Tente de novo daqui a pouco, antes de criar algo novo.",
+		"retry": "Tentar de novo",
+		"labelLabel": "Rótulo",
+		"keyLabel": "Chave",
+		"keyHelp": "É como a API e seus agentes chamam esse campo. Definida a partir do rótulo e fixada ao salvar: mudar o rótulo depois nunca quebra quem já usa a chave.",
+		"agentLabel": "Deixar seus agentes preencherem isso",
+		"agentHelp": "Eles propõem um valor com a fonte, e nunca sobrescrevem o seu.",
+		"briefLabel": "O que conta como resposta",
+		"briefHelp": "Deixe em branco e seus agentes trabalham só com o rótulo e o tipo.",
+		"typeLabel": "Tipo",
+		"optionsLabel": "Opções",
+		"addOption": "Adicionar opção",
+		"allFilled": "Nada mais para preencher",
+		"optionLabel": "Opção {number}",
+		"addField": "Criar campo",
+		"cancel": "Cancelar",
+		"save": "Salvar alterações",
+		"archive": "Arquivar",
+		"fillRest": "Preencher o resto",
+		"sheetPlacement": {
+			"company": "Mostrar na ficha da empresa",
+			"contact": "Mostrar na ficha do contato",
+			"deal": "Mostrar na ficha do negócio"
+		},
+		"tablePlacement": {
+			"company": "Oferecer como coluna na tabela de Empresas",
+			"contact": "Oferecer como coluna na tabela de Contatos",
+			"deal": "Oferecer como coluna na tabela de Negócios"
+		},
+		"filterPlacement": {
+			"company": "Oferecer como filtro na tabela de Empresas",
+			"contact": "Oferecer como filtro na tabela de Contatos",
+			"deal": "Oferecer como filtro na tabela de Negócios"
+		},
+		"typeHint": {
+			"text": "Texto: uma linha curta",
+			"longText": "Texto longo: um parágrafo",
+			"number": "Número",
+			"date": "Data",
+			"checkbox": "Caixa de seleção: sim ou não",
+			"select": "Seleção: uma opção de uma lista fixa",
+			"url": "URL",
+			"email": "E-mail",
+			"phone": "Telefone",
+			"user": "Usuário: alguém do workspace"
+		},
+		"coverageNoun": {
+			"company": "empresas",
+			"contact": "contatos",
+			"deal": "negócios"
+		},
+		"backfillQueued": "Seus agentes vão cuidar disso.",
+		"filledOf": "Preenchido em {filled} de {total} {noun}",
+		"stillToGo": "{count, plural, one {falta #} other {faltam #}}",
+		"optionFallback": "opção",
+		"removeOption": "Remover {label}",
+		"archiveTitle": "Arquivar {label}?",
+		"archiveDescription": "Fica oculto em todo lugar. Os valores são mantidos.",
+		"archiveField": "Arquivar campo",
+		"standardField": {
+			"name": "Nome",
+			"domain": "Domínio",
+			"website": "Site",
+			"phone": "Telefone",
+			"email": "E-mail",
+			"city": "Cidade",
+			"country": "País",
+			"owner": "Responsável",
+			"firstName": "Nome",
+			"lastName": "Sobrenome",
+			"title": "Cargo",
+			"linkedin": "LinkedIn",
+			"github": "GitHub",
+			"company": "Empresa",
+			"closeDate": "Data de fechamento",
+			"amount": "Valor",
+			"currency": "Moeda",
+			"stage": "Etapa"
+		},
+		"optionsCount": "{count, plural, one {# opção} other {# opções}}",
+		"required": "obrigatório",
+		"moreFor": "Mais opções para {label}",
+		"edit": "Editar",
+		"restore": "Restaurar",
+		"filledCount": "{label} · {filled} de {total} preenchidos",
+		"yes": "Sim",
+		"no": "Não",
+		"unassigned": "Sem responsável",
+		"formerMember": "Ex-integrante",
+		"typeName": {
+			"text": "Texto",
+			"longText": "Texto longo",
+			"number": "Número",
+			"date": "Data",
+			"checkbox": "Caixa de seleção",
+			"select": "Seleção",
+			"url": "URL",
+			"email": "E-mail",
+			"phone": "Telefone",
+			"user": "Usuário"
+		}
+	},
+	"facts": {
+		"added": "Adicionado ao registro.",
+		"dismissed": "Descartado. Não será sugerido de novo."
+	},
+	"inlineField": {
+		"none": "Nenhum"
+	},
+	"timelineEntry": {
+		"viaGmail": "via Gmail",
+		"viaCalendar": "via Calendar",
+		"markNotDone": "Marcar como não concluída",
+		"markDone": "Marcar como concluída",
+		"overdue": "Atrasada",
+		"due": "Prazo"
+	},
+	"emailThread": {
+		"messageCount": "{count, plural, one {# mensagem} other {# mensagens}}",
+		"openIn": "Abrir no {mailbox}"
+	},
+	"meetingEntry": {
+		"allDay": "Dia todo",
+		"joinCall": "Entrar na chamada"
+	},
+	"timeline": {
+		"tabs": {
+			"all": "Tudo",
+			"notes": "Anotações",
+			"email": "E-mail",
+			"meetings": "Reuniões",
+			"upcoming": "Próximas",
+			"done": "Concluídas"
+		},
+		"empty": {
+			"all": {
+				"title": "Ainda não aconteceu nada",
+				"description": "Ligações, anotações, e-mails e reuniões ficam todos aqui. Registre o primeiro acima, ou espere o Gmail e o Calendar sincronizarem."
+			},
+			"notes": {
+				"title": "Sem anotações",
+				"description": "Anotações são o que você registra para a próxima pessoa ler: o que ela precisa saber, quem mais está envolvido, o que você prometeu."
+			},
+			"email": {
+				"title": "Sem e-mails",
+				"description": "As conversas aparecem aqui conforme são sincronizadas do Gmail. Nada de antes da caixa de e-mail ser conectada é importado."
+			},
+			"meetings": {
+				"title": "Sem reuniões",
+				"description": "Eventos de agenda com alguém deste registro aparecem aqui, passados e futuros."
+			},
+			"upcoming": {
+				"title": "Nada pendente",
+				"description": "Tarefas que você ainda não terminou aparecem aqui, e no topo da aba Tudo até serem concluídas."
+			},
+			"done": {
+				"title": "Ainda nada concluído",
+				"description": "As tarefas vêm para cá assim que você marca como feitas."
+			}
+		},
+		"today": "Hoje",
+		"yesterday": "Ontem",
+		"outstanding": "Pendente",
+		"showOlder": "Mostrar mais antigas"
+	},
+	"activityComposer": {
+		"placeholder": {
+			"note": "Registre uma anotação, ligação, e-mail, reunião ou tarefa…",
+			"call": "O que saiu da ligação?",
+			"email": "O que foi dito?",
+			"meeting": "O que saiu da reunião?",
+			"task": "O que precisa ser feito?"
+		},
+		"whatHappened": "O que aconteceu",
+		"dueDate": "Prazo",
+		"addTask": "Adicionar tarefa",
+		"log": "Registrar {type}"
+	},
+	"quickAdd": {
+		"contactAdded": "{name} adicionado.",
+		"addContact": "Adicionar contato",
+		"firstName": "Nome",
+		"lastName": "Sobrenome",
+		"email": "E-mail",
+		"title": "Cargo",
+		"titlePlaceholder": "Diretor de Segurança",
+		"onTheDeal": "{name} está no negócio.",
+		"addedToDeal": "Adicionado ao negócio.",
+		"loading": "Carregando…",
+		"everybodyOnIt": "Todo mundo na {company} já está no negócio",
+		"chooseSomebody": "Escolha alguém",
+		"addToDeal": "Adicionar ao negócio",
+		"person": "Pessoa",
+		"role": "Papel",
+		"rolePlaceholder": "Patrocinador",
+		"dealCreated": "{name} criado.",
+		"noOwner": "Não foi possível descobrir quem deveria ser o responsável por este negócio.",
+		"createDeal": "Criar negócio",
+		"dealName": "Nome",
+		"dealNamePlaceholder": "{company} - Comp AI",
+		"amount": "Valor",
+		"expectedClose": "Fechamento previsto",
+		"noDateYet": "Ainda sem data"
+	},
+	"dealSheet": {
+		"currencyUnsupported": "{currency}: não é mais aceita",
+		"inCurrency": "Em {currency}",
+		"noRate": "Sem taxa de {currency}: fica fora dos totais",
+		"columns": {
+			"name": "Nome",
+			"role": "Papel",
+			"title": "Cargo",
+			"email": "E-mail",
+			"remove": "Remover"
+		},
+		"tabs": {
+			"overview": "Visão geral",
+			"contacts": "Contatos",
+			"activity": "Atividade",
+			"agent": "Agente"
+		},
+		"dealFallback": "Negócio",
+		"consequence": "O histórico de etapas, as anotações e as conversas com o agente vão junto. {company} e {count, plural, one {a pessoa} other {as pessoas}} nele continuam no CRM.",
+		"stats": {
+			"amount": "Valor",
+			"expectedClose": "Fechamento previsto",
+			"inStage": "Nesta etapa",
+			"owner": "Responsável"
+		},
+		"stage": "Etapa",
+		"closed": "Fechado",
+		"reason": "Motivo",
+		"details": "Detalhes",
+		"fields": {
+			"name": "Nome",
+			"amount": "Valor",
+			"currency": "Moeda",
+			"closeDate": "Data de fechamento",
+			"owner": "Responsável"
+		},
+		"amountMustBeNumber": "O valor precisa ser um número.",
+		"description": "Descrição",
+		"descriptionPlaceholder": "O que a {company} está comprando, por que agora, e o que está no caminho.",
+		"whereItStands": "Como está",
+		"opened": "Aberto em",
+		"inStageSince": "Nesta etapa desde",
+		"onIt": "Envolvidos",
+		"nobodyAttached": "Ainda ninguém da {company} está vinculado.",
+		"noContacts": {
+			"title": "Nenhum contato neste negócio",
+			"description": "Ainda ninguém da {company} está vinculado. Traga as pessoas para quem você está vendendo para o negócio, e ele mostra quem cobrar."
+		},
+		"addContact": "Adicionar contato",
+		"roleFor": "Papel neste negócio para {name}",
+		"rolePlaceholder": "Patrocinador",
+		"takeOff": "Tirar {name} deste negócio",
+		"takeOffThisDeal": "Tirar deste negócio"
+	},
+	"contactSheet": {
+		"primaryUpdated": "Contato principal atualizado.",
+		"tabs": {
+			"overview": "Visão geral",
+			"deals": "Negócios",
+			"activity": "Atividade",
+			"agent": "Agente"
+		},
+		"contactFallback": "Contato",
+		"primaryAt": "Contato principal em {company}",
+		"thisCompany": "esta empresa",
+		"email": "E-mail",
+		"makePrimary": "Tornar principal",
+		"consequenceBase": "As anotações, conversas com o agente e tudo que o agente encontrou vão junto; e-mails e reuniões continuam registrados na empresa.",
+		"consequenceEmailNote": " A sincronização não vai trazer {email} de volta: só adicionando a pessoa de novo.",
+		"stats": {
+			"company": "Empresa",
+			"email": "E-mail",
+			"phone": "Telefone",
+			"owner": "Responsável"
+		},
+		"details": "Detalhes",
+		"fields": {
+			"firstName": "Nome",
+			"lastName": "Sobrenome",
+			"title": "Cargo",
+			"email": "E-mail",
+			"phone": "Telefone",
+			"owner": "Responsável"
+		},
+		"titlePlaceholder": "Diretor de Segurança",
+		"noCompany": "Sem empresa",
+		"links": "Links",
+		"background": {
+			"title": "Histórico",
+			"currentRole": "Cargo atual",
+			"tenure": "Tempo de casa",
+			"seniority": "Senioridade",
+			"function": "Função",
+			"based": "Baseado em",
+			"source": "Fonte",
+			"previously": "Anteriormente",
+			"roleCount": "{count, plural, one {# cargo} other {# cargos}}"
+		},
+		"weKnowThem": {
+			"title": "O que já sabemos",
+			"emails": "E-mails",
+			"lastReply": "última resposta",
+			"neverReplied": "{name} nunca respondeu",
+			"meetings": "Reuniões",
+			"nextMeeting": "Próxima reunião",
+			"meeting": "Reunião",
+			"alsoHere": "Também está aqui"
+		},
+		"notOnDeals": {
+			"title": "Não está em nenhum negócio",
+			"description": "{name} ainda não está ligado a nada sendo vendido. Negócios são abertos na empresa, e depois as pessoas são adicionadas a eles."
+		},
+		"columns": {
+			"deal": "Negócio",
+			"role": "Papel",
+			"stage": "Etapa",
+			"amount": "Valor",
+			"owner": "Responsável"
+		}
+	},
+	"companySheet": {
+		"companyFallback": "Empresa",
+		"pending": {
+			"industry": "setor",
+			"description": "descrição",
+			"socialLinks": "redes sociais"
+		},
+		"consequenceDeals": "{count, plural, =0 {Tudo o que está registrado na conta também vai junto.} one {O único negócio dela e tudo que está registrado na conta vão junto.} other {Todos os # negócios dela e tudo que está registrado na conta vão junto.}}",
+		"consequenceContacts": "{count, plural, =0 {} one { A única pessoa que trabalha lá continua no CRM, sem empresa.} other { As # pessoas que trabalham lá continuam no CRM, sem empresa.}}",
+		"columns": {
+			"primary": "Principal",
+			"name": "Nome",
+			"title": "Cargo",
+			"email": "E-mail",
+			"owner": "Responsável",
+			"deal": "Negócio",
+			"stage": "Etapa",
+			"amount": "Valor",
+			"closeDate": "Data de fechamento"
+		},
+		"tabs": {
+			"overview": "Visão geral",
+			"contacts": "Contatos",
+			"deals": "Negócios",
+			"activity": "Atividade",
+			"agent": "Agente"
+		},
+		"stats": {
+			"openPipeline": "Pipeline aberto",
+			"unconverted": "{count, plural, one {+# sem conversão} other {+# sem conversão}}",
+			"openDeals": "Negócios abertos",
+			"nextClose": "Próximo fechamento",
+			"owner": "Responsável"
+		},
+		"about": "Sobre",
+		"details": "Detalhes",
+		"links": "Links",
+		"fields": {
+			"name": "Nome",
+			"domain": "Domínio",
+			"website": "Site",
+			"phone": "Telefone",
+			"email": "E-mail",
+			"city": "Cidade",
+			"country": "País",
+			"owner": "Responsável"
+		},
+		"noContacts": {
+			"title": "Ainda não há contatos",
+			"description": "Todo mundo que você fala na {company} fica aqui: adicione a primeira pessoa e as ligações, e-mails e anotações ficam junto dela."
+		},
+		"addContact": "Adicionar contato",
+		"primaryContact": "Contato principal",
+		"makePrimary": "Tornar principal",
+		"noDeals": {
+			"title": "Ainda não há negócios",
+			"description": "Nada está sendo vendido para {company} agora. Abra um negócio e ele entra no pipeline e na previsão."
+		},
+		"newDeal": "Novo negócio"
+	},
+	"recordActions": {
+		"noun": {
+			"company": "empresa",
+			"contact": "contato",
+			"deal": "negócio"
+		},
+		"theNoun": {
+			"company": "A empresa",
+			"contact": "O contato",
+			"deal": "O negócio"
+		},
+		"archived": {
+			"company": "{name} foi arquivada.",
+			"contact": "{name} foi arquivado.",
+			"deal": "{name} foi arquivado."
+		},
+		"restored": {
+			"company": "{name} foi restaurada.",
+			"contact": "{name} foi restaurado.",
+			"deal": "{name} foi restaurado."
+		},
+		"deletedForever": {
+			"company": "{name} foi excluída para sempre.",
+			"contact": "{name} foi excluído para sempre.",
+			"deal": "{name} foi excluído para sempre."
+		},
+		"moreActions": "Mais ações",
+		"restoreNoun": "Restaurar {noun}",
+		"deleteNounForever": "Excluir {noun} para sempre",
+		"archiveNoun": "Arquivar {noun}",
+		"deleteForeverTitle": "Excluir {name} para sempre?",
+		"deleteForever": "Excluir para sempre"
+	},
+	"recordParts": {
+		"loadError": "Não foi possível carregar este registro"
+	},
+	"quickSwitcher": {
+		"companies": "Empresas",
+		"contacts": "Contatos",
+		"deals": "Negócios",
+		"title": "Buscar",
+		"description": "Vá direto a uma empresa, contato ou negócio",
+		"placeholder": "Buscar empresas, contatos e negócios…",
+		"typeMore": "Digite pelo menos dois caracteres.",
+		"noMatches": "Nada encontrado."
+	},
+	"stageChange": {
+		"dealClosed": "Negócio fechado.",
+		"closeAsLost": "Fechar como perdido",
+		"markUnqualified": "Marcar como desqualificado",
+		"lostDescription": "Para quem a gente perdeu? Essa é a única resposta que fica registrada.",
+		"unqualifiedDescription": "Por que não é um bom encaixe? Isso entra na linha do tempo para ninguém repetir o mesmo negócio.",
+		"reason": "Motivo",
+		"reasonPlaceholder": "Ficou com o fornecedor atual"
+	},
+	"stageStepper": {
+		"stageUpdated": "Etapa atualizada."
+	},
+	"websiteActivity": {
+		"title": "Atividade no site",
+		"pageViews": "Visualizações de página",
+		"lastSeen": "visto pela última vez",
+		"originalSource": "Origem inicial",
+		"topPage": "Página mais vista",
+		"views": "{count, plural, one {visualização} other {visualizações}}",
+		"latestSource": "Origem mais recente",
+		"firstSeen": "Primeira vez visto",
+		"campaign": "Campanha",
+		"unknown": "Desconhecido"
+	},
+	"activityType": {
+		"note": "Anotação",
+		"call": "Ligação",
+		"email": "E-mail",
+		"meeting": "Reunião",
+		"task": "Tarefa",
+		"stageChange": "Mudança de etapa",
+		"enrichment": "Enriquecimento"
+	},
+	"activityRecency": {
+		"activeWithin": "Ativo nos últimos {days} dias"
+	},
+	"dealStage": {
+		"demoBooked": "Demonstração agendada",
+		"qualifiedToBuy": "Qualificado para comprar",
+		"decisionMakerBoughtIn": "Decisor engajado",
+		"contractSent": "Contrato enviado",
+		"closedWon": "Fechado ganho",
+		"closedLost": "Fechado perdido",
+		"unqualified": "Desqualificado"
+	},
+	"enrichmentStatus": {
+		"pending": "Não pesquisado",
+		"running": "Pesquisando",
+		"complete": "Enriquecido",
+		"failed": "Falha no enriquecimento",
+		"skipped": "Nada encontrado",
+		"queued": "Na fila"
+	},
+	"socialLinks": {
+		"pricing": "Preços",
+		"careers": "Carreiras"
+	},
+	"agentRecord": {
+		"contact": {
+			"title": "Pergunte sobre esta pessoa",
+			"blurb": "Cada passo aparece assim que acontece, inclusive os leads que ele descarta.",
+			"placeholder": "Ainda está por lá?",
+			"suggestions": {
+				"0": "Quem é essa pessoa?",
+				"1": "Ainda está por lá?",
+				"2": "O que eu preciso saber antes de ligar?"
+			}
+		},
+		"company": {
+			"title": "Pergunte sobre esta empresa",
+			"blurb": "Ele lê o site da empresa e nosso histórico com ela, e mostra o raciocínio.",
+			"placeholder": "O que eles vendem?",
+			"suggestions": {
+				"0": "O que eles fazem?",
+				"1": "Quem a gente conhece aqui?",
+				"2": "O que mudou recentemente?"
+			}
+		},
+		"deal": {
+			"title": "Pergunte sobre este negócio",
+			"blurb": "Ele lê a conversa, as reuniões e as pessoas dos dois lados do negócio.",
+			"placeholder": "Onde isso travou?",
+			"suggestions": {
+				"0": "Como está esse negócio?",
+				"1": "Quem mais deveria participar?",
+				"2": "Qual é o risco aqui?"
+			}
+		}
+	}
+}

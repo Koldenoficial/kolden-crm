@@ -1,0 +1,609 @@
+{
+	"common": {
+		"createAgent": "Criar agente",
+		"cancel": "Cancelar",
+		"tryAgain": "Tentar de novo"
+	},
+	"pages": {
+		"chatHome": {
+			"metaTitle": "Chat"
+		},
+		"chat": {
+			"metaTitle": "Chat do agente"
+		},
+		"agents": {
+			"metaTitle": "Agentes",
+			"title": "Agentes do time",
+			"description": "Automações duráveis criadas a partir de chats privados do construtor de agentes."
+		},
+		"teamAgent": {
+			"metaTitle": "Agente do time"
+		}
+	},
+	"chat": {
+		"openingChat": "Abrindo o chat…",
+		"unavailable": {
+			"title": "Chat indisponível",
+			"description": "Esse chat não existe ou você não tem acesso a ele.",
+			"startNewChat": "Começar um novo chat"
+		},
+		"header": {
+			"fallbackTitle": "Chat do agente",
+			"private": "Privado",
+			"workingInBackground": "Trabalhando em segundo plano",
+			"newChatAriaLabel": "Começar um novo chat"
+		},
+		"shared": {
+			"fallbackTitle": "Construtor de agentes",
+			"readOnly": "Somente leitura",
+			"sharedBy": "Compartilhado por {name}",
+			"notice": "Você pode ler este chat do construtor, mas só o dono dele pode continuar ou mudar algo."
+		},
+		"userSubmission": {
+			"unavailable": "Mensagem indisponível",
+			"answerToFollowUp": "Resposta ao acompanhamento",
+			"sendFailed": "Essa mensagem não pôde ser enviada."
+		},
+		"assistantMessage": {
+			"reasoning": "Raciocínio"
+		},
+		"followUp": {
+			"label": "Acompanhamento",
+			"answered": "Respondido",
+			"waiting": "Esperando sua resposta"
+		},
+		"response": {
+			"copyAriaLabel": "Copiar resposta como Markdown",
+			"copiedToast": "Resposta copiada como Markdown.",
+			"rateHelpfulAriaLabel": "Avaliar resposta como útil",
+			"rateNotHelpfulAriaLabel": "Avaliar resposta como não útil"
+		},
+		"buildingAgent": {
+			"title": "Construindo o agente",
+			"stepCount": "{completed} de 4",
+			"ariaLabel": "Criação do agente",
+			"steps": {
+				"scope": "Escopo",
+				"instructions": "Instruções",
+				"manifest": "Manifesto",
+				"review": "Revisão"
+			},
+			"status": {
+				"done": "Feito",
+				"working": "Em andamento",
+				"queued": "Na fila"
+			},
+			"writingPath": "Escrevendo {path}",
+			"runsInBackground": "Roda em segundo plano",
+			"stop": {
+				"label": "Parar",
+				"pending": "Parando",
+				"stoppedToast": "Pedido de parada enviado.",
+				"failedToast": "Não foi possível parar o agente. Tente de novo."
+			}
+		},
+		"failure": {
+			"rateLimit": "O Vercel AI Gateway limitou este modelo antes de ele começar. Tente de novo em instantes ou adicione créditos de AI Gateway na Vercel.",
+			"restricted": "Este modelo exige créditos pagos de AI Gateway. Adicione créditos na Vercel e tente de novo.",
+			"credits": "O Vercel AI Gateway está sem créditos disponíveis. Adicione créditos na Vercel e tente de novo.",
+			"unknown": "O construtor não conseguiu terminar este pedido. Tente de novo.",
+			"creatingAgentTitle": "Criação do agente interrompida",
+			"responseTitle": "Resposta interrompida",
+			"retryPending": "Tentando de novo"
+		},
+		"review": {
+			"notice": "Seu rascunho privado está pronto para revisão.",
+			"status": "Privado",
+			"fields": {
+				"when": "Quando",
+				"find": "Buscar",
+				"then": "Então",
+				"scope": "Escopo"
+			},
+			"scopeFallback": "Acesso de leitura limitado ao CRM",
+			"footerNote": "Isolado em sandbox · credenciais nunca entram na sandbox",
+			"viewDetails": "Ver detalhes"
+		},
+		"deployed": {
+			"status": "Ativo",
+			"runQueuedToast": "Execução do agente enfileirada.",
+			"liveStatement": "{name} está ativo.",
+			"description": "Eu criei o agente no Eve, apliquei seu acesso limitado ao CRM e às integrações, e o deixei ativo para o time.",
+			"fields": {
+				"trigger": "Gatilho",
+				"runsIn": "Roda em",
+				"owner": "Responsável"
+			},
+			"manualOnly": "Só manual",
+			"runsInValue": "Runtime do Eve · sandbox isolada",
+			"ownerValue": "Time · {name}",
+			"footerNote": "O chat continua privado. O agente pertence ao time.",
+			"run": {
+				"label": "Rodar agora",
+				"pending": "Enfileirando",
+				"success": "Enfileirado"
+			},
+			"openAgent": "Abrir agente",
+			"suggestedFollowUps": "Próximos passos sugeridos",
+			"suggestion1": "Adicionar outro colega de time à notificação"
+		}
+	},
+	"home": {
+		"title": "Com o que posso ajudar, {name}?",
+		"defaultName": "você",
+		"description": "Pergunte sobre seu CRM, marque um registro ou integração, ou descreva um agente para automatizar uma tarefa.",
+		"privacyNotice": "Chats e rascunhos de agentes ficam privados para você. Publicar um agente o deixa disponível para todo o time.",
+		"suggestedAgents": "Agentes sugeridos",
+		"suggestions": {
+			"brief": "Resumir cada negócio para o responsável antes de uma ligação de renovação",
+			"flag": "Sinalizar negócios sem atividade há 14 dias",
+			"handoff": "Passar novos clientes de Vendas para Onboarding"
+		}
+	},
+	"sidebar": {
+		"chatsHeading": "Chats",
+		"agentChatsAriaLabel": "Chats de agentes",
+		"loadingAriaLabel": "Carregando navegação de agentes…",
+		"newChatAriaLabel": "Novo chat de agente",
+		"noChats": "Nenhum chat nos últimos 7 dias.",
+		"teamAgentsHeading": "Agentes do time",
+		"dateGroup": {
+			"today": "Hoje",
+			"yesterday": "Ontem",
+			"lastSevenDays": "Últimos 7 dias"
+		}
+	},
+	"capabilities": {
+		"actionLabels": {
+			"slackMessagePost": "Postar uma mensagem",
+			"crmActivityCreate": "Escrever uma anotação ou tarefa no registro",
+			"runSummary": "Escrever um resumo da execução"
+		},
+		"manifestUnreadable": {
+			"title": "O manifesto desta versão não pôde ser lido",
+			"fallback": "O manifesto não está num formato conhecido."
+		},
+		"savedToast": "Salvo. Uma nova versão está ativa.",
+		"inviteAskedToast": "Pedimos para alguém convidar o Comp AI.",
+		"blocked": {
+			"allActionsOff": "Deixe uma ação ativa. Um agente que não faz nada não pode ser salvo.",
+			"scopeEmptied": "Adicione um registro. Uma lista vazia abre todo registro do workspace."
+		},
+		"channel": {
+			"title": "Vive em",
+			"summary": "Um canal. O Comp AI entra nele quando você salva."
+		},
+		"createChannelButton": "Criar um canal",
+		"actions": {
+			"title": "O que ele pode fazer lá",
+			"summary": "Se está desligado aqui, ele não consegue fazer.",
+			"empty": "Nada fora do CRM."
+		},
+		"dataScope": {
+			"title": "O que ele pode ver",
+			"summaryFallback": "O que ele lê para fazer o trabalho.",
+			"everyRecord": "Todo registro do workspace",
+			"removeAriaLabel": "Remover {label}",
+			"addRecordType": "Adicionar um tipo de registro",
+			"searchPlaceholder": "Buscar registros e integrações",
+			"noMatches": "Nada encontrado."
+		},
+		"saveBar": {
+			"blockedTitle": "Essa mudança não pode ser salva",
+			"movingTitle": "Movendo de #{from} para #{to}",
+			"defaultTitle": "Mudando o que este agente pode fazer",
+			"channelMoveDescription": "O Comp AI entra em #{to}. Ele continua em #{from} até você removê-lo.",
+			"defaultDescription": "A versão antiga continua no histórico.",
+			"discard": "Descartar",
+			"save": "Salvar",
+			"saving": "Salvando…"
+		}
+	},
+	"code": {
+		"savedToast": "Salvo.",
+		"readingFiles": "Lendo os arquivos do agente…",
+		"noFiles": "Este agente ainda não tem arquivos. O construtor os escreve quando publica.",
+		"title": "Código",
+		"subtitle": "O que o agente realmente executa.",
+		"hideChanges": "Ocultar mudanças",
+		"changes": "Mudanças",
+		"done": "Pronto",
+		"edit": "Editar",
+		"saveBar": {
+			"title": "Código não salvo",
+			"description": "{count, plural, one {# arquivo alterado} other {# arquivos alterados}}. Salvar cria uma nova revisão.",
+			"discard": "Descartar",
+			"save": "Salvar",
+			"saving": "Salvando…"
+		}
+	},
+	"codeWorkspace": {
+		"ariaLabel": "Arquivos gerados do agente",
+		"loading": "Carregando código do agente",
+		"writingTitle": "Escrevendo código do agente",
+		"title": "Código do agente",
+		"fileCount": "{count, plural, one {# arquivo} other {# arquivos}}",
+		"codeTab": "Código",
+		"changesTab": "Mudanças",
+		"codeViewAriaLabel": "Visualização do código",
+		"fileTreeAriaLabel": "Arquivos do agente"
+	},
+	"composer": {
+		"placeholderHome": "Pergunte sobre seu CRM ou automatize uma tarefa…",
+		"placeholderChat": "Envie uma mensagem",
+		"ariaLabel": "Mensagem para o construtor de agentes",
+		"command": {
+			"createAgentLabel": "Criar agente"
+		},
+		"tagButtonAriaLabel": "Marcar registros e integrações do CRM",
+		"searchCrmPlaceholder": "Buscar no CRM",
+		"crmRecordsLabel": "Registros do CRM",
+		"noMatchingRecords": "Nenhum registro encontrado.",
+		"attachFilesAriaLabel": "Anexar arquivos",
+		"attachFailedToast": "Não foi possível anexar esses arquivos. Tente de novo.",
+		"slashCommandsAriaLabel": "Abrir comandos de barra",
+		"sendButton": {
+			"preparingAttachments": "Preparando anexos",
+			"sendMessage": "Enviar mensagem",
+			"sending": "Enviando",
+			"sent": "Enviado",
+			"sendFailed": "Falha ao enviar"
+		},
+		"fileErrors": {
+			"empty": "{name} está vazio.",
+			"tooLarge": "{name} é maior que 2 MB.",
+			"nameTooLong": "Esse nome de arquivo é longo demais.",
+			"unsupportedType": "{name} tem um tipo de arquivo não suportado.",
+			"readFailed": "{name} não pôde ser lido."
+		}
+	},
+	"history": {
+		"filters": {
+			"all": "Todos os resultados",
+			"succeeded": "Concluído",
+			"failed": "Falhou",
+			"running": "Em execução",
+			"queued": "Na fila",
+			"waitingForApproval": "Esperando aprovação",
+			"cancelled": "Cancelado"
+		},
+		"filterAriaLabel": "Filtrar resultados de execução",
+		"runNumber": "Execução #{number}",
+		"triggerTypes": {
+			"manual": "Manual",
+			"event": "Evento",
+			"schedule": "Agendado"
+		},
+		"stopButton": "Parar",
+		"stopDialog": {
+			"title": "Parar esta execução?",
+			"description": "O agente para onde estiver, e a execução é registrada como cancelada. O que ele já fez (uma anotação, uma tarefa, uma mensagem no Slack) continua feito.",
+			"keepRunning": "Continuar rodando",
+			"confirm": "Parar execução"
+		},
+		"retry": "Tentar de novo",
+		"noRuns": "Nenhuma execução corresponde a esse resultado.",
+		"runMeta": {
+			"trigger": "Gatilho",
+			"initiatedBy": "Iniciado por",
+			"model": "Modelo",
+			"version": "Versão",
+			"eveScheduler": "Agendador do Eve",
+			"gatewayDefault": "Padrão do gateway"
+		},
+		"externalActions": "{count, plural, one {# ação externa} other {# ações externas}}",
+		"eventLabel": "evento",
+		"truncatedSteps": "Mostrando os primeiros {shown} de {total} passos. Esta execução é longa demais para exibir por completo.",
+		"duration": {
+			"inProgress": "Em andamento"
+		},
+		"activityFilters": {
+			"all": "Todas as mudanças",
+			"agent": "Mudanças no agente",
+			"run": "Pedidos de execução"
+		},
+		"activityFilterAriaLabel": "Filtrar atividade",
+		"export": "Exportar",
+		"activityColumns": {
+			"time": "Hora",
+			"change": "Mudança",
+			"actor": "Autor",
+			"request": "Pedido"
+		},
+		"noActivity": "Nenhuma mudança corresponde a esse filtro.",
+		"actorPrefix": "Autor · ",
+		"requestPrefix": "Pedido · "
+	},
+	"runsDrawer": {
+		"title": "Histórico",
+		"description": "Toda execução e toda mudança, das mais recentes às mais antigas.",
+		"tabs": {
+			"runs": "Execuções",
+			"activity": "Atividade"
+		}
+	},
+	"chatChips": {
+		"removeResourceAriaLabel": "Remover {label}",
+		"removeAttachmentAriaLabel": "Remover {name}",
+		"removeCommandAriaLabel": "Remover {label}"
+	},
+	"createChannelDialog": {
+		"title": "Criar um canal",
+		"description": "O Comp AI cria o canal no Slack e entra nele. Você pode colocar o agente nele logo em seguida.",
+		"nameLabel": "Nome",
+		"examplePlaceholder": "renovacoes",
+		"slugHint": "Use letras minúsculas, números e hífens.",
+		"slackWillCallIt": "O Slack vai chamá-lo de #{slug}.",
+		"privateLabel": "Privado. Só quem você convidar pode vê-lo.",
+		"cancel": "Cancelar",
+		"create": "Criar canal",
+		"creating": "Criando…",
+		"creatingToast": "Criando o canal no Slack."
+	},
+	"dealListResult": {
+		"columns": {
+			"deal": "Negócio",
+			"company": "Empresa",
+			"stage": "Etapa",
+			"amount": "Valor",
+			"owner": "Responsável",
+			"close": "Data de fechamento",
+			"idle": "Parado"
+		},
+		"empty": "Nenhum negócio corresponde a esses filtros de pipeline.",
+		"title": {
+			"empty": "Nenhum negócio encontrado",
+			"count": "{count, plural, one {# negócio {prefix}} other {# negócios {prefix}}}",
+			"stalePrefix": "obsoletos"
+		},
+		"meta": {
+			"dealCount": "{count, plural, one {# negócio} other {# negócios}}",
+			"pipelineTotal": "{amount} em pipeline",
+			"inactiveDays": "{days}+ dias sem atividade",
+			"moreResults": "Há mais resultados disponíveis"
+		},
+		"asOf": "Em <date></date>",
+		"neverActiveTooltip": "Nenhuma atividade jamais foi registrada"
+	},
+	"deleteChatAction": {
+		"deleteAriaLabel": "Excluir {title}",
+		"moreActions": "Mais ações do chat",
+		"deleteChat": "Excluir chat",
+		"confirmTitle": "Excluir {title}?",
+		"confirmDescription": "Isso exclui definitivamente o chat, suas mensagens, anexos e o link compartilhado. Qualquer agente criado a partir dele continua disponível.",
+		"cancel": "Cancelar",
+		"deleting": "Excluindo",
+		"deleted": "Excluído",
+		"tryAgain": "Tentar de novo",
+		"deletedToast": "Chat excluído."
+	},
+	"newAgentDialog": {
+		"title": "Novo agente",
+		"description": "Diga o que ele é e onde vive. O construtor escreve o resto. Você pode mudar tudo isso depois.",
+		"nameLabel": "Nome",
+		"namePlaceholder": "Resumo de preparação de renovação",
+		"jobLabel": "O que ele deve fazer",
+		"jobPlaceholder": "Uma semana antes de uma renovação, reúna o histórico da conta e poste um resumo curto para quem for responsável pelo negócio.",
+		"channelLabel": "Vive em",
+		"channelPlaceholder": "Escolha um canal do Slack",
+		"alreadyIn": "O Comp AI já está em #{channel}.",
+		"notInYet": "O Comp AI ainda não está em #{channel}. Ele entra quando você criar isto.",
+		"emptyHint": "Deixe isso vazio e o construtor vai perguntar.",
+		"allowedToLabel": "Permitido a",
+		"footerNote": "Nada é enviado até você ativar.",
+		"cancel": "Cancelar",
+		"handToBuilder": "Passar para o construtor",
+		"handingOver": "Passando…",
+		"handoffFailedToast": "Não foi possível passar isso para o construtor.",
+		"permission": {
+			"post": "Publicar uma mensagem",
+			"mention": "Mencionar o responsável pelo negócio",
+			"thread": "Responder em uma thread",
+			"history": "Ler o histórico do canal"
+		}
+	},
+	"shareChatDialog": {
+		"shareChat": "Compartilhar chat",
+		"close": "Fechar",
+		"loadingStatus": "Carregando status de compartilhamento…",
+		"loadError": "Não foi possível carregar o status de compartilhamento.",
+		"tryAgain": "Tentar de novo",
+		"onlyYou": "Só você",
+		"anyoneWithLink": "Qualquer pessoa no Comp AI com o link",
+		"readOnly": "Somente leitura",
+		"activeLinkExists": "Existe um link ativo de somente leitura",
+		"copyLink": "Copiar link",
+		"replaceLink": "Substituir link",
+		"copying": "Copiando",
+		"copied": "Copiado",
+		"creatingLink": "Criando link",
+		"linkCreated": "Link criado",
+		"linkCopiedToast": "Link do chat copiado.",
+		"linkRevokedToast": "Link do chat revogado.",
+		"notice": "Compartilhar este chat não muda quem pode editar ou rodar o agente.",
+		"revokeLink": "Revogar link",
+		"revoking": "Revogando",
+		"revoked": "Revogado",
+		"cancel": "Cancelar",
+		"done": "Concluído"
+	},
+	"teamAgentDetail": {
+		"unavailable": {
+			"title": "Agente indisponível"
+		},
+		"fallbackDescription": "Uma automação durável do time.",
+		"createdBy": "Criado por {name}",
+		"privateDraft": "Rascunho privado",
+		"teamAgent": "Agente do time",
+		"version": "Versão {version}",
+		"visibilityLabel": "Visibilidade",
+		"triggerLabel": "Gatilho",
+		"runsButton": "Execuções",
+		"openInChat": "Abrir no chat",
+		"changeDetails": "Mudar detalhes",
+		"manualOnly": "Só manual",
+		"runQueuedAgainToast": "Execução enfileirada de novo.",
+		"runStoppedToast": "Execução parada.",
+		"runAlreadyFinishedToast": "Essa execução já tinha terminado.",
+		"deploy": {
+			"label": "Publicar agente",
+			"pending": "Publicando",
+			"success": "Publicado",
+			"deployedToast": "Agente publicado para o time."
+		},
+		"runNow": {
+			"label": "Rodar agora",
+			"pending": "Enfileirando",
+			"success": "Enfileirado",
+			"runQueuedToast": "Execução do agente enfileirada."
+		},
+		"pause": {
+			"label": "Pausar",
+			"pending": "Pausando",
+			"success": "Pausado"
+		},
+		"resume": {
+			"label": "Retomar",
+			"pending": "Retomando",
+			"success": "Retomado"
+		},
+		"moreActions": "Mais ações do agente",
+		"deleteAgent": "Excluir agente",
+		"confirmTitle": "Excluir {name}?",
+		"confirmDescription": "Isso o remove da lista de agentes do time, desativa seus gatilhos e cancela execuções na fila. O histórico de execuções e ações continua no log de auditoria. Uma execução já em andamento pode terminar.",
+		"cancel": "Cancelar",
+		"deleting": "Excluindo",
+		"deleted": "Excluído",
+		"tryAgain": "Tentar de novo",
+		"deletedToast": "{name} foi excluído.",
+		"noDeployedVersion": "Este agente ainda não tem uma versão publicada.",
+		"draftNotice": "Isto é um rascunho. Publique-o para o time antes de mudar o que ele pode fazer."
+	},
+	"teamAgentsIndex": {
+		"status": {
+			"draft": "rascunho",
+			"live": "ativo",
+			"paused": "pausado"
+		},
+		"noDescription": "Sem descrição",
+		"runCount": "{count, plural, one {# execução} other {# execuções}}",
+		"emptyTitle": "Ainda não há agentes do time",
+		"emptyDescription": "Crie um a partir de um chat privado e revise seu acesso antes de publicá-lo.",
+		"openChat": "Abrir chat"
+	},
+	"slack": {
+		"channelPicker": {
+			"chooseAriaLabel": "Escolher #{name}",
+			"askAgain": "Pedir de novo",
+			"request": "Solicitar",
+			"add": "Adicionar",
+			"peopleCount": "{count, plural, one {# pessoa} other {# pessoas}}",
+			"isIn": "O Comp AI está em{people}",
+			"notReadYet": "Ainda não lido do Slack{people}",
+			"canJoin": "O Comp AI pode entrar nele{people}",
+			"joinsAsYou": "Privado. O Comp AI entra como você{people}",
+			"waitingInvite": "Privado. Esperando um convite{people}",
+			"needsInvite": "Privado. Alguém de dentro precisa convidar o Comp AI{people}"
+		}
+	},
+	"clarificationComposer": {
+		"submitError": "Não foi possível enviar. Verifique sua conexão e tente de novo.",
+		"chooseAnswer": "Escolha uma resposta e envie.",
+		"addDetail": "Adicione o detalhe que o agente precisa para continuar.",
+		"anotherAnswerAriaLabel": "Outra resposta",
+		"yourAnswerAriaLabel": "Sua resposta",
+		"placeholder": "Adicione o detalhe que o agente precisa",
+		"submit": "Enviar resposta",
+		"submitting": "Enviando"
+	},
+	"toolVerbs": {
+		"readCrmHistory": "Leu nossos e-mails e reuniões com eles",
+		"readCompanyHistory": "Leu tudo que temos sobre a empresa",
+		"readDealHistory": "Leu o negócio e seu histórico",
+		"searchCrm": "Consultou o registro no CRM",
+		"resolveLinkedinProfile": "Procurou o perfil deles no LinkedIn",
+		"getLinkedinProfile": "Leu um perfil do LinkedIn",
+		"getContactWorkHistory": "Leu o histórico profissional deles",
+		"fetchContactPhoto": "Buscou a foto de perfil deles",
+		"findContactSocials": "Procurou os outros perfis deles",
+		"setContactSocials": "Conferiu um perfil com a própria conta",
+		"identifyContact": "Deu um nome ao endereço",
+		"recordFact": "Registrou o que encontrou",
+		"writeBrief": "Escreveu o histórico",
+		"writeWorkspaceProfile": "Escreveu quem somos",
+		"researchPerson": "Pesquisou sobre eles na web",
+		"researchCompany": "Leu o site da empresa",
+		"enrichCompany": "Consultou a empresa",
+		"scheduleRecheck": "Decidiu quando olhar de novo",
+		"recordJobChange": "Registrou uma mudança de emprego",
+		"listDeals": "Revisou o pipeline de negócios",
+		"listOutstandingWork": "Procurou trabalho pendente",
+		"setChatTitle": "Nomeou este chat",
+		"listFields": "Leu o que este workspace rastreia",
+		"setFieldValue": "Preencheu um campo personalizado",
+		"manageFields": "Mudou o que o CRM rastreia",
+		"archiveField": "Pediu para aposentar um campo",
+		"loadSkill": "Leu as instruções para isso",
+		"webSearch": "Pesquisou na web",
+		"webFetch": "Leu uma página da web",
+		"todo": "Atualizou seu plano",
+		"askQuestion": "Fez uma pergunta",
+		"agent": "Passou parte do trabalho para um ajudante",
+		"connectionSearch": "Procurou uma ferramenta que pudesse usar",
+		"bash": "Rodou um comando",
+		"readFile": "Leu um arquivo",
+		"writeFile": "Escreveu um arquivo",
+		"glob": "Procurou arquivos",
+		"grep": "Pesquisou dentro dos arquivos",
+		"withReason": "{verb}: {reason}"
+	},
+	"toolLabels": {
+		"artifactNames": {
+			"instructions": "as instruções",
+			"manifest": "o manifesto",
+			"readme": "o README"
+		},
+		"writeAgentFile": {
+			"writing": "Escrevendo {name}",
+			"wrote": "Escreveu {name}"
+		},
+		"saveAgentDraft": {
+			"saving": "Salvando rascunho",
+			"saved": "Rascunho salvo"
+		},
+		"setChatTitle": {
+			"naming": "Nomeando este chat",
+			"named": "Nomeou este chat"
+		}
+	},
+	"runFailure": {
+		"reasons": {
+			"actionNotPerformed": "O agente terminou sem fazer o que foi construído para fazer. Abra a execução para ver qual passo ele pulou.",
+			"noExecutor": "Este agente pede algo que o CRM ainda não consegue fazer. Ele precisa ser reconstruído.",
+			"dependencyUnavailable": "Falta uma conexão de que este agente precisa. Reconecte e rode de novo.",
+			"notAuthorised": "A conexão recusou isto. O acesso dela pode ter sido revogado ou reduzido.",
+			"providerError": "O serviço externo rejeitou isto. Em geral vale a pena tentar de novo.",
+			"neverSettled": "O agente parou sem reportar um resultado. Nada ficou pela metade.",
+			"turnFailed": "O modelo falhou no meio desta execução.",
+			"deliveryFailed": "A execução nunca chegou ao agente.",
+			"deliveryExhausted": "Isto nunca chegou ao agente depois de três tentativas. Nada rodou.",
+			"actionRejected": "O agente tentou a ação e o CRM a recusou. Nada foi gravado.",
+			"agentUnavailable": "O agente estava pausado ou arquivado quando esta execução começou.",
+			"agentDeleted": "O agente foi excluído antes de esta execução terminar.",
+			"cancelledByUser": "Alguém parou esta execução.",
+			"runTimedOut": "Esta execução demorou demais e foi parada para liberar as próximas."
+		},
+		"unknown": "Esta execução falhou sem dizer por quê."
+	},
+	"handoff": {
+		"slackLabel": "Slack",
+		"slackDetail": "Workspace conectado",
+		"channelMemberDetail": "O Comp AI é membro",
+		"channelNotMemberDetail": "O Comp AI ainda não está neste canal",
+		"buildNamed": "Construa um agente chamado \"{name}\".",
+		"postsToChannel": "Ele posta no canal do Slack marcado, #{channel}, e em nenhum outro lugar. Não me pergunte onde postar.",
+		"permissionsHeader": "Estas permissões do Slack já foram decididas. Use exatamente esta lista e não pergunte sobre isso:",
+		"permissionAllowed": "permitido",
+		"permissionNotAllowed": "não permitido"
+	}
+}

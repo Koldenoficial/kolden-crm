@@ -1,0 +1,214 @@
+{
+	"activities": {
+		"briefCustomers": "Clientes: {value}",
+		"briefPricing": "Preço: {value}",
+		"briefRecently": "Recentemente:\n{value}",
+		"briefSellsTo": "Vende para: {value}",
+		"jobChangeAdvice": "Vale uma conversa de qualquer jeito: um apoiador em uma nova cadeira é a\nintrodução mais quente que existe, e quem ficou no lugar dele na conta\nantiga é um relacionamento que ninguém está cuidando ainda.",
+		"jobChangeSubject": "{name} foi para {to}",
+		"jobChangeSummary": "Parece que {name} saiu de {from} e foi para {to}.",
+		"needsAnchor": "Uma linha do tempo precisa de uma empresa, um contato ou um negócio.",
+		"needsRecord": "Uma atividade precisa estar ligada a uma empresa, um contato ou um negócio.",
+		"notFound": "Nenhuma atividade com o id {id}.",
+		"onlyTasksComplete": "Só tarefas podem ser concluídas.",
+		"researchBriefSubject": "Resumo de pesquisa {name}",
+		"taskNeedsSubject": "Uma tarefa precisa de um assunto. É o que precisa ser feito."
+	},
+	"agentRuns": {
+		"alreadyActive": "Este agente já tem uma execução ativa. Pare ou espere ela terminar.",
+		"cancelledByUser": "Um membro do workspace parou esta execução.",
+		"forbiddenCancel": "Só quem iniciou esta execução, ou um admin do workspace, pode pará-la.",
+		"notFinished": "Esta execução ainda não terminou.",
+		"notFound": "Nenhum agente com o id {id}.",
+		"notLive": "Este agente ainda não está publicado.",
+		"requestAlreadyUsed": "Esse pedido de execução já foi usado.",
+		"runNotFound": "Nenhuma execução com o id {id}."
+	},
+	"agents": {
+		"deletedBeforeRunCompleted": "O agente foi excluído antes desta execução terminar.",
+		"deployRequestAlreadyUsed": "Esse pedido de publicação já foi usado.",
+		"fileNotFound": "Nenhum arquivo em {path}.",
+		"forbiddenChange": "Só quem criou o agente, ou um admin do workspace, pode alterá-lo.",
+		"manifestUnreadable": "O manifesto desta versão não pode ser lido, então não pode ser alterado.",
+		"needsOneAction": "Um agente precisa de pelo menos uma ação.",
+		"noChannelAction": "Nenhuma das ações deste agente publica em um canal, então o canal dele não pode ser alterado.",
+		"noDeployedVersion": "Este agente não tem uma versão publicada.",
+		"notAMember": "Você não é membro deste workspace.",
+		"notFound": "Nenhum agente com o id {id}.",
+		"onlyArchivedCanRestore": "Só um agente arquivado pode ser restaurado.",
+		"onlyLiveCanPause": "Só um agente publicado pode ser pausado.",
+		"onlyLiveOrPausedCanArchive": "Só um agente publicado ou pausado pode ser arquivado.",
+		"onlyPausedCanResume": "Só um agente pausado pode ser retomado.",
+		"versionNotFound": "Nenhuma versão com o id {id}.",
+		"versionNotValidated": "Só uma versão validada do agente pode ser publicada."
+	},
+	"apiKeys": {
+		"authUnreachable": "Não foi possível conectar ao serviço de autenticação.",
+		"saveFailed": "Não foi possível salvar a chave de API."
+	},
+	"auth": {
+		"userNotFound": "Nenhum usuário com o id {id}."
+	},
+	"bulk": {
+		"nothingSelected": "Nada foi selecionado.",
+		"ownerGone": "Esse responsável não trabalha mais aqui.",
+		"somethingWentWrong": "Algo deu errado.",
+		"tooManyAtOnce": "Muitos registros de uma vez. Selecione uma página por vez."
+	},
+	"cancelRun": {
+		"noRunId": "Nenhum id de execução foi enviado."
+	},
+	"companies": {
+		"contactNotHere": "Esse contato não trabalha nesta empresa.",
+		"domainTaken": "Outra empresa já usa esse domínio.",
+		"domainTakenBy": "{name} já usa o domínio {domain}.",
+		"nameRequired": "Uma empresa precisa de um nome.",
+		"needsDomain": "Não há nada para ler sem um domínio. Adicione um primeiro.",
+		"notADomain": "\"{domain}\" não é um domínio. Tente algo como \"stripe.com\".",
+		"notFound": "Nenhuma empresa com o id {id}."
+	},
+	"connections": {
+		"notADomain": "\"{domain}\" não é um domínio.",
+		"notConnected": "{source} não está conectado.",
+		"ownDomainExcluded": "Esse é o nosso próprio domínio. Ele já está excluído."
+	},
+	"contacts": {
+		"emailAlreadyUsed": "Outro contato já usa esse endereço de e-mail.",
+		"emailTaken": "{name} já usa {email}.",
+		"factNotFound": "Nenhum dado com o id {id}.",
+		"factSettled": "Essa sugestão já foi resolvida.",
+		"firstNameRequired": "Um contato precisa de um primeiro nome.",
+		"notAnEmail": "Isso não é um endereço de e-mail.",
+		"notFound": "Nenhum contato com o id {id}."
+	},
+	"contextKey": {
+		"notRecognised": "A Context não reconheceu essa chave de API."
+	},
+	"conversations": {
+		"answerUnavailable": "Essa resposta não está disponível para esta pergunta.",
+		"attachmentSizeMismatch": "O tamanho do anexo não bate com o conteúdo dele.",
+		"attachmentUnavailable": "Esse anexo não está disponível.",
+		"attachmentsUnavailable": "Um ou mais anexos não estão mais disponíveis.",
+		"belongsToAnotherTeam": "Essa conversa pertence a outro time.",
+		"builderNotFound": "Nenhuma conversa do criador com o id {id}.",
+		"cannotMoveRecord": "Uma conversa não pode ser movida para outro registro do CRM.",
+		"chooseAnswerFirst": "Escolha uma resposta antes de enviar.",
+		"chooseAvailableAnswer": "Escolha uma das respostas disponíveis para esta pergunta.",
+		"chooseOneAnswer": "Escolha uma opção ou digite uma resposta.",
+		"chooseOneRecord": "Escolha exatamente um contato, uma empresa ou um negócio.",
+		"invalidBase64": "O conteúdo do anexo precisa ser um base64 válido.",
+		"notFound": "Nenhuma conversa com o id {id}.",
+		"notWaitingForAnswer": "O agente não está mais esperando essa resposta.",
+		"noWorkspaceMembership": "Nenhuma associação a este workspace foi encontrada.",
+		"questionAlreadyAnswered": "Essa pergunta de acompanhamento já foi respondida.",
+		"questionNoLongerActive": "Essa pergunta de acompanhamento não está mais ativa.",
+		"recordConversationNotFound": "Nenhuma conversa de registro com a sessão {sessionId}.",
+		"requestAlreadyUsed": "Esse pedido já foi usado.",
+		"sharedUnavailable": "Essa conversa compartilhada não está disponível."
+	},
+	"currency": {
+		"codeInvalid": "Um código de moeda tem três letras, como USD.",
+		"codeUnsupported": "Essa não é uma moeda que este CRM consegue converter.",
+		"couldNotFetchRates": "Não foi possível buscar as taxas.",
+		"forbiddenManage": "Só um proprietário ou um admin pode mudar como o dinheiro é reportado.",
+		"isReportingCurrency": "{baseCurrency} é a moeda de referência. A taxa dela é sempre 1.",
+		"rateProviderUnreachable": "Não foi possível conectar a {provider}. As taxas cadastradas manualmente continuam valendo."
+	},
+	"deals": {
+		"amountTooLarge": "Esse valor é grande demais para ser registrado.",
+		"chooseContact": "Escolha alguém para trazer para o negócio.",
+		"companyRequired": "Um negócio pertence a uma empresa.",
+		"contactNotOnDeal": "Esse contato não está neste negócio.",
+		"contactWrongCompany": "Esse contato não trabalha em {name}.",
+		"nameRequired": "Um negócio precisa de um nome.",
+		"needsLostReason": "Diga por que foi perdido. Um negócio perdido sem motivo não ensina nada.",
+		"needsLostReasonBulk": "Diga por que foram perdidos. Um negócio perdido sem motivo não ensina nada.",
+		"notADate": "\"{value}\" não é uma data.",
+		"notFound": "Nenhum negócio com o id {id}.",
+		"ownerRequired": "Um negócio precisa de um responsável.",
+		"relationsGone": "Essa empresa ou responsável não existe mais.",
+		"roleTooLong": "Esse cargo é longo demais."
+	},
+	"fields": {
+		"alreadyExists": "Já existe um campo chamado \"{key}\".",
+		"invalidValue": "Um campo guarda texto, número, verdadeiro ou falso, ou nada.",
+		"labelNotUsable": "Esse rótulo não gera uma chave utilizável.",
+		"labelRequired": "Um campo precisa de um rótulo.",
+		"notAgentFilled": "Seus agentes não preenchem este campo, então não há nada para rodar.",
+		"notFound": "Esse campo não existe.",
+		"optionLabelRequired": "Uma opção precisa de um rótulo.",
+		"orderNamesForeignField": "Essa ordem nomeia um campo que não pertence a este tipo de registro.",
+		"selectNeedsOption": "Uma seleção precisa de pelo menos uma opção.",
+		"typeLocked": "Este campo já tem valores, então o tipo dele não pode mudar. Arquive-o e crie um novo."
+	},
+	"google": {
+		"eventNotFound": "Nenhum evento de agenda com o id {id}.",
+		"threadNotFound": "Nenhuma conversa de e-mail com o id {id}."
+	},
+	"researchKey": {
+		"agentAnswered": "O agente respondeu {status}.",
+		"noAnswer": "Sem resposta.",
+		"noBridgeSecret": "Esta instalação não tem AGENT_BRIDGE_SECRET, então nada pode ser verificado."
+	},
+	"savedViews": {
+		"nameRequired": "Uma visualização precisa de um nome.",
+		"nameTaken": "Você já tem uma visualização com esse nome.",
+		"notFound": "Nenhuma visualização salva com o id {id}."
+	},
+	"settings": {
+		"gatewayUnreachable": "Não foi possível conectar ao AI Gateway para verificar esse modelo. Tente novamente em instantes.",
+		"keyHasSpaces": "Uma chave de API não tem espaços. Cole a chave inteira de uma vez.",
+		"keyTooLong": "Isso não parece uma chave de API da Context. Ela é longa demais.",
+		"keyTooShort": "Isso não parece uma chave de API da Context. Ela é curta demais.",
+		"modelNotFound": "O AI Gateway não oferece um modelo com uso de ferramentas chamado \"{modelId}\"."
+	},
+	"slack": {
+		"agentFailed": "O agente falhou, então o canal não foi criado.",
+		"agentNotAnswering": "O agente não está respondendo, então o canal não foi criado.",
+		"agentUnreadableReply": "O agente respondeu com algo ilegível, então o canal não foi criado.",
+		"channelArchived": "Este canal está arquivado. Alguém precisa desarquivá-lo antes que o Comp AI possa entrar.",
+		"channelCreationRefused": "O Slack recusou criar esse canal.",
+		"channelNameFormat": "Use letras minúsculas, números e traços.",
+		"channelNameInvalid": "Esse nome de canal não pode ser usado.",
+		"channelNameTaken": "Já existe um canal com esse nome.",
+		"channelNotFound": "O Slack não consegue ver este canal. Alguém precisa convidar o Comp AI.",
+		"forbiddenDisconnect": "Só um proprietário ou um admin pode desconectar o Slack.",
+		"missingScope": "O Slack recusou: falta uma permissão. Reconecte o Slack.",
+		"needsReconnect": "O Slack precisa ser reconectado.",
+		"noBridgeSecret": "Esta instalação não tem AGENT_BRIDGE_SECRET, então nada pode acessar o Slack.",
+		"noPrivateGrant": "Este workspace não deu permissão ao Comp AI para criar um canal privado.",
+		"noSuchChannel": "Nenhum canal encontrado.",
+		"noSuchSlackChannel": "Nenhum canal do Slack encontrado.",
+		"notConnected": "O Slack não está conectado.",
+		"noUserGrant": "Este workspace não deu permissão ao Comp AI para se adicionar a um canal privado.",
+		"requestRefused": "O Slack recusou o pedido ({error}).",
+		"unknownBotUser": "O Slack não informou qual usuário é o Comp AI.",
+		"unreadableReply": "O Slack respondeu com algo ilegível."
+	},
+	"sso": {
+		"domainRequired": "Informe o domínio de e-mail que suas pessoas usam para entrar, por exemplo acme.com.",
+		"forbiddenConfigure": "Só um proprietário ou um admin pode mudar como as pessoas entram.",
+		"providerSaveFailed": "Não foi possível salvar o provedor de identidade.",
+		"providerUnreachable": "Não foi possível conectar ao provedor de identidade."
+	},
+	"tracking": {
+		"addDomainFirst": "Adicione primeiro o domínio onde seu site roda. Ainda não há script para encontrar.",
+		"domainAlreadyGone": "Esse domínio já não existe mais.",
+		"domainAlreadyListed": "{host} já está na lista.",
+		"forbiddenManage": "Só um proprietário ou um admin pode mudar o rastreamento.",
+		"invalidCookieLifetime": "Essa não é uma duração de cookie que oferecemos.",
+		"notADomain": "Isso não é um domínio. Tente algo como acme.com.",
+		"notAUrl": "Isso não é uma URL. Tente algo como acme.com/precos."
+	},
+	"verifyKey": {
+		"noKeySent": "Nenhuma chave de API foi enviada."
+	},
+	"workspace": {
+		"forbiddenChangeRole": "Só um proprietário ou um admin pode mudar o papel de um membro.",
+		"forbiddenRename": "Só um proprietário ou um admin pode mudar o workspace.",
+		"needsOwner": "O workspace precisa de um proprietário. Torne outra pessoa proprietária primeiro.",
+		"notAMember": "Essa pessoa não está neste workspace.",
+		"notAWebsite": "Isso não é um site. Digite o domínio, como acme.com.",
+		"notReadable": "Não foi possível ler o workspace. Entre novamente em instantes."
+	}
+}

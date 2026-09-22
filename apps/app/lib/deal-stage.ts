@@ -1,4 +1,5 @@
 import { DealStage } from "@crm/db/enums";
+import { translator } from "@crm/i18n/translator";
 import type { StatusTone } from "@crm/ui/components/status-indicator";
 
 const ORDER = [
@@ -11,19 +12,16 @@ const ORDER = [
 	DealStage.UNQUALIFIED_TO_BUY,
 ] as const;
 
-type DealStagePresentation = Record<
-	DealStage,
-	{ label: string; tone: StatusTone }
->;
+type DealStageTone = Record<DealStage, StatusTone>;
 
-const PRESENTATION: DealStagePresentation = {
-	DEMO_BOOKED: { label: "Demo booked", tone: "neutral" },
-	QUALIFIED_TO_BUY: { label: "Qualified to buy", tone: "info" },
-	DECISION_MAKER_BOUGHT_IN: { label: "Decision maker in", tone: "info" },
-	CONTRACT_SENT: { label: "Contract sent", tone: "warning" },
-	CLOSED_WON: { label: "Closed won", tone: "success" },
-	CLOSED_LOST: { label: "Closed lost", tone: "error" },
-	UNQUALIFIED_TO_BUY: { label: "Unqualified", tone: "neutral" },
+const TONE: DealStageTone = {
+	DEMO_BOOKED: "neutral",
+	QUALIFIED_TO_BUY: "info",
+	DECISION_MAKER_BOUGHT_IN: "info",
+	CONTRACT_SENT: "warning",
+	CLOSED_WON: "success",
+	CLOSED_LOST: "error",
+	UNQUALIFIED_TO_BUY: "neutral",
 };
 
 export const OPEN_STAGES = ORDER.slice(0, 4) as readonly DealStage[];
@@ -35,7 +33,9 @@ export const LOSING_STAGES: readonly DealStage[] = [
 
 export const DEAL_STAGE_OPTIONS = ORDER.map((value) => ({
 	value,
-	label: PRESENTATION[value].label,
+	get label(): string {
+		return dealStageLabel(value);
+	},
 }));
 
 const OPEN_STAGE_COLORS = [
@@ -54,9 +54,27 @@ export function dealStageColor(stage: DealStage): string {
 }
 
 export function dealStageLabel(stage: DealStage): string {
-	return PRESENTATION[stage].label;
+	const t = translator("records");
+	switch (stage) {
+		case "DEMO_BOOKED":
+			return t("dealStage.demoBooked");
+		case "QUALIFIED_TO_BUY":
+			return t("dealStage.qualifiedToBuy");
+		case "DECISION_MAKER_BOUGHT_IN":
+			return t("dealStage.decisionMakerBoughtIn");
+		case "CONTRACT_SENT":
+			return t("dealStage.contractSent");
+		case "CLOSED_WON":
+			return t("dealStage.closedWon");
+		case "CLOSED_LOST":
+			return t("dealStage.closedLost");
+		case "UNQUALIFIED_TO_BUY":
+			return t("dealStage.unqualified");
+	}
 }
 
-export function dealStagePresentation(stage: DealStage) {
-	return PRESENTATION[stage];
+type DealStagePresentation = { label: string; tone: StatusTone };
+
+export function dealStagePresentation(stage: DealStage): DealStagePresentation {
+	return { label: dealStageLabel(stage), tone: TONE[stage] };
 }

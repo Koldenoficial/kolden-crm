@@ -3,9 +3,22 @@ import LogoLinkedin from "@carbon/icons-react/es/LogoLinkedin";
 import LogoX from "@carbon/icons-react/es/LogoX";
 import Money from "@carbon/icons-react/es/Money";
 import UserMultiple from "@carbon/icons-react/es/UserMultiple";
+import { translator } from "@crm/i18n/translator";
 import type { CarbonIcon } from "@crm/ui/components/icon";
 
 type SocialLink<T> = { key: keyof T; label: string; icon: CarbonIcon };
+
+function socialLinkLabel(key: string): string {
+	const t = translator("records");
+	switch (key) {
+		case "pricingUrl":
+			return t("socialLinks.pricing");
+		case "careersUrl":
+			return t("socialLinks.careers");
+		default:
+			return key;
+	}
+}
 
 export type CompanyLinks = {
 	linkedinUrl: string | null;
@@ -25,8 +38,20 @@ const COMPANY_LINKS: SocialLink<CompanyLinks>[] = [
 	{ key: "linkedinUrl", label: "LinkedIn", icon: LogoLinkedin },
 	{ key: "twitterUrl", label: "X", icon: LogoX },
 	{ key: "githubUrl", label: "GitHub", icon: LogoGithub },
-	{ key: "pricingUrl", label: "Pricing", icon: Money },
-	{ key: "careersUrl", label: "Careers", icon: UserMultiple },
+	{
+		key: "pricingUrl",
+		get label() {
+			return socialLinkLabel("pricingUrl");
+		},
+		icon: Money,
+	},
+	{
+		key: "careersUrl",
+		get label() {
+			return socialLinkLabel("careersUrl");
+		},
+		icon: UserMultiple,
+	},
 ];
 
 const CONTACT_LINKS: SocialLink<ContactLinks>[] = [

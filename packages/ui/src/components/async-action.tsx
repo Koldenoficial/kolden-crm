@@ -2,6 +2,7 @@
 
 import { CircleAlertIcon, CheckIcon } from "lucide-react";
 import { domAnimation, LazyMotion, m, useReducedMotion } from "motion/react";
+import { useTranslations } from "next-intl";
 import {
 	type ReactNode,
 	useCallback,
@@ -120,9 +121,12 @@ export function AsyncButtonContent({
 	status,
 	children,
 	pendingLabel,
-	successLabel = "Done",
-	errorLabel = "Try again",
+	successLabel,
+	errorLabel,
 }: AsyncButtonContentProps) {
+	const t = useTranslations("ui");
+	const resolvedSuccessLabel = successLabel ?? t("asyncAction.done");
+	const resolvedErrorLabel = errorLabel ?? t("asyncAction.tryAgain");
 	const reduced = useReducedMotion() === true;
 	const states: Array<{ status: AsyncActionStatus; content: ReactNode }> = [
 		{ status: "idle", content: children },
@@ -140,7 +144,7 @@ export function AsyncButtonContent({
 			content: (
 				<>
 					<CheckIcon data-icon="inline-start" aria-hidden />
-					{successLabel}
+					{resolvedSuccessLabel}
 				</>
 			),
 		},
@@ -149,7 +153,7 @@ export function AsyncButtonContent({
 			content: (
 				<>
 					<CircleAlertIcon data-icon="inline-start" aria-hidden />
-					{errorLabel}
+					{resolvedErrorLabel}
 				</>
 			),
 		},
@@ -181,9 +185,9 @@ export function AsyncButtonContent({
 					{status === "pending"
 						? pendingLabel
 						: status === "success"
-							? successLabel
+							? resolvedSuccessLabel
 							: status === "error"
-								? errorLabel
+								? resolvedErrorLabel
 								: ""}
 				</span>
 			</span>

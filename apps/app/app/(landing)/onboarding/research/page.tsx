@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { AuthHeading, AuthShell } from "@/components/auth-shell";
 import { requireMailboxAccess } from "@/lib/session";
 import { ResearchForm } from "./research-form";
 
-export const metadata: Metadata = {
-	title: "Research key",
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations("auth.onboarding.research");
+	return { title: t("metaTitle") };
+}
 
 export const instant = false;
 
 export default async function ResearchKeyPage() {
 	await requireMailboxAccess();
+	const t = await getTranslations("auth.onboarding.research");
 
 	return (
 		<AuthShell>
-			<AuthHeading
-				title="Level up your CRM data"
-				description="Power your research agent with Context to research every company added to your CRM."
-			/>
+			<AuthHeading title={t("title")} description={t("description")} />
 
 			<ResearchForm />
 		</AuthShell>

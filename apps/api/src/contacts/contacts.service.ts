@@ -8,6 +8,7 @@ import {
 	type RecordSource,
 } from "@crm/db";
 import type { FieldDefinitionWithOptions } from "@crm/db/fields";
+import { translator } from "@crm/i18n/translator";
 import {
 	ConflictException,
 	Injectable,
@@ -218,7 +219,9 @@ export class ContactsService {
 		});
 
 		if (!contact) {
-			throw new NotFoundException(`No contact with id ${id}.`);
+			throw new NotFoundException(
+				translator("api")("contacts.notFound", { id }),
+			);
 		}
 
 		const relationship = await this.relationship(
@@ -273,7 +276,12 @@ export class ContactsService {
 			});
 			if (existing) {
 				throw new ConflictException(
-					`${[existing.firstName, existing.lastName].filter(Boolean).join(" ")} already uses ${email}.`,
+					translator("api")("contacts.emailTaken", {
+						name: [existing.firstName, existing.lastName]
+							.filter(Boolean)
+							.join(" "),
+						email,
+					}),
 				);
 			}
 		}
@@ -402,7 +410,9 @@ export class ContactsService {
 
 				if (!row) {
 					if (guard) return null;
-					throw new NotFoundException(`No contact with id ${id}.`);
+					throw new NotFoundException(
+						translator("api")("contacts.notFound", { id }),
+					);
 				}
 				if (
 					guard &&
@@ -556,7 +566,9 @@ export class ContactsService {
 				select: { id: true },
 			});
 			if (!company) {
-				throw new NotFoundException(`No company with id ${companyId}.`);
+				throw new NotFoundException(
+					translator("api")("companies.notFound", { id: companyId }),
+				);
 			}
 		}
 
@@ -678,7 +690,9 @@ export class ContactsService {
 		});
 
 		if (!contact) {
-			throw new NotFoundException(`No contact with id ${id}.`);
+			throw new NotFoundException(
+				translator("api")("contacts.notFound", { id }),
+			);
 		}
 
 		const queued = await this.agent.contactCreated(
@@ -714,12 +728,16 @@ export class ContactsService {
 			},
 		});
 
+		const t = translator("api");
+
 		if (!fact) {
-			throw new NotFoundException(`No fact with id ${input.factId}.`);
+			throw new NotFoundException(
+				t("contacts.factNotFound", { id: input.factId }),
+			);
 		}
 
 		if (fact.status !== FactStatus.PROPOSED) {
-			throw new ConflictException("That suggestion has already been settled.");
+			throw new ConflictException(t("contacts.factSettled"));
 		}
 
 		const accepted = input.decision === "accept";
@@ -908,13 +926,12 @@ export class ContactsService {
 
 	private translate(cause: unknown, id: string): never {
 		if (cause instanceof PrismaNamespace.PrismaClientKnownRequestError) {
+			const t = translator("api");
 			if (cause.code === "P2025") {
-				throw new NotFoundException(`No contact with id ${id}.`);
+				throw new NotFoundException(t("contacts.notFound", { id }));
 			}
 			if (cause.code === "P2002") {
-				throw new ConflictException(
-					"Another contact already uses that email address.",
-				);
+				throw new ConflictException(t("contacts.emailAlreadyUsed"));
 			}
 		}
 		throw cause;

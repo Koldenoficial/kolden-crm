@@ -1,4 +1,5 @@
 import type { Db, Prisma } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { z } from "zod";
 import { InjectDatabase } from "../database/database.constants";
@@ -48,7 +49,9 @@ export class ConversationService {
 		});
 
 		if (!thread) {
-			throw new NotFoundException(`No email thread with id ${threadId}.`);
+			throw new NotFoundException(
+				translator("api")("google.threadNotFound", { id: threadId }),
+			);
 		}
 
 		const faces = await this.facesFor(
@@ -138,7 +141,9 @@ export class ConversationService {
 		});
 
 		if (!event) {
-			throw new NotFoundException(`No calendar event with id ${eventId}.`);
+			throw new NotFoundException(
+				translator("api")("google.eventNotFound", { id: eventId }),
+			);
 		}
 
 		return {

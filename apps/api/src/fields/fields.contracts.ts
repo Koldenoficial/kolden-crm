@@ -1,4 +1,5 @@
 import { FIELD_ENTITIES, FIELD_TYPES } from "@crm/db/fields";
+import { translator } from "@crm/i18n/translator";
 import { z } from "zod";
 
 export const fieldEntity = z.enum(FIELD_ENTITIES);
@@ -21,12 +22,22 @@ export const fieldEntityInput = z.object({
 
 const fieldOptionInput = z.object({
 	id: z.string().optional(),
-	label: z.string().trim().min(1, "An option needs a label."),
+	label: z
+		.string()
+		.trim()
+		.min(1, {
+			error: () => translator("api")("fields.optionLabelRequired"),
+		}),
 });
 
 export const fieldCreateInput = z.object({
 	entity: fieldEntity,
-	label: z.string().trim().min(1, "A field needs a label."),
+	label: z
+		.string()
+		.trim()
+		.min(1, {
+			error: () => translator("api")("fields.labelRequired"),
+		}),
 	type: z.enum(FIELD_TYPES),
 	options: z.array(fieldOptionInput).default([]),
 	agentFilled: z.boolean().default(true),
@@ -69,7 +80,7 @@ export type FieldReorderInput = z.infer<typeof fieldReorderInput>;
 
 const recordFieldValue = z.union(
 	[z.string(), z.number(), z.boolean(), z.null()],
-	{ error: "A field holds text, a number, true or false, or nothing at all." },
+	{ error: () => translator("api")("fields.invalidValue") },
 );
 
 export const recordFieldValues = z.record(z.string(), recordFieldValue);

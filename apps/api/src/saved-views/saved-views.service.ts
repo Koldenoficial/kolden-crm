@@ -1,4 +1,5 @@
 import { type Db, type FieldEntity, Prisma as PrismaNamespace } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { parseSavedViewFilters } from "@crm/validation/saved-view";
 import {
 	ConflictException,
@@ -53,7 +54,9 @@ export class SavedViewsService {
 	): Promise<SavedView> {
 		const existing = await this.db.savedView.findUnique({ where: { id } });
 		if (!existing || existing.ownerId !== userId) {
-			throw new NotFoundException(`No saved view with id ${id}.`);
+			throw new NotFoundException(
+				translator("api")("savedViews.notFound", { id }),
+			);
 		}
 
 		try {
@@ -75,7 +78,9 @@ export class SavedViewsService {
 	async delete(id: string, userId: string): Promise<{ id: string }> {
 		const existing = await this.db.savedView.findUnique({ where: { id } });
 		if (!existing || existing.ownerId !== userId) {
-			throw new NotFoundException(`No saved view with id ${id}.`);
+			throw new NotFoundException(
+				translator("api")("savedViews.notFound", { id }),
+			);
 		}
 
 		try {
@@ -114,11 +119,12 @@ export class SavedViewsService {
 
 	private translate(cause: unknown, id?: string): never {
 		if (cause instanceof PrismaNamespace.PrismaClientKnownRequestError) {
+			const t = translator("api");
 			if (cause.code === "P2002") {
-				throw new ConflictException("You already have a view with that name.");
+				throw new ConflictException(t("savedViews.nameTaken"));
 			}
 			if (cause.code === "P2025") {
-				throw new NotFoundException(`No saved view with id ${id}.`);
+				throw new NotFoundException(t("savedViews.notFound", { id: id ?? "" }));
 			}
 		}
 		throw cause;

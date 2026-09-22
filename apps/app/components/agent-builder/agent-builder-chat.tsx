@@ -40,6 +40,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Client, type MessageStreamEvent } from "eve/client";
 import type { EveMessage, EveMessageInputRequest } from "eve/react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Fragment, type ReactNode, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -95,7 +96,6 @@ import { ShareChatDialog } from "./share-chat-dialog";
 type Conversation = RouterOutputs["conversations"]["builderById"];
 type SharedConversation = RouterOutputs["conversations"]["shared"];
 
-const BUILDER_STEPS = ["Scope", "Instructions", "Manifest", "Review"] as const;
 const BUILDER_STEP_ARTIFACTS = [
 	null,
 	"agent/instructions.md",
@@ -192,6 +192,7 @@ export function AgentBuilderChat({
 	conversationId: string;
 	initialData: Conversation | SharedConversation | null;
 }) {
+	const t = useTranslations("agentBuilder");
 	const trpc = useTRPC();
 	const queryClient = useQueryClient();
 	const sharedChat = isSharedChatToken(conversationId);
@@ -281,7 +282,9 @@ export function AgentBuilderChat({
 					className="flex flex-1 items-center justify-center p-8"
 					aria-busy="true"
 				>
-					<span className="text-muted-foreground text-sm">Opening chat…</span>
+					<span className="text-muted-foreground text-sm">
+						{t("chat.openingChat")}
+					</span>
 				</main>
 			);
 		}
@@ -666,6 +669,7 @@ function SharedAgentChat({
 }: {
 	conversation: SharedConversation;
 }) {
+	const t = useTranslations("agentBuilder");
 	const submissions = builderSubmissions.parse(conversation.submissions);
 	const events = streamEvents.parse(conversation.events);
 	const messages = messagesFromEvents(events);
@@ -680,9 +684,13 @@ function SharedAgentChat({
 		<main className="flex min-h-0 flex-1 flex-col">
 			<header className="flex h-12 shrink-0 items-center gap-3 border-b px-5">
 				<h1 className="min-w-0 flex-1 truncate font-medium text-sm">
-					{conversation.agent?.name ?? conversation.title ?? "Agent builder"}
+					{conversation.agent?.name ??
+						conversation.title ??
+						t("chat.shared.fallbackTitle")}
 				</h1>
-				<span className="text-muted-foreground text-xs">Read-only</span>
+				<span className="text-muted-foreground text-xs">
+					{t("chat.shared.readOnly")}
+				</span>
 			</header>
 
 			<MessageScrollerProvider autoScroll defaultScrollPosition="last-anchor">
@@ -695,11 +703,12 @@ function SharedAgentChat({
 							<MessageScrollerItem messageId="shared-chat-notice">
 								<div className="rounded-lg border bg-card px-4 py-3 text-sm">
 									<p className="font-medium">
-										Shared by {conversation.ownerName}
+										{t("chat.shared.sharedBy", {
+											name: conversation.ownerName,
+										})}
 									</p>
 									<p className="mt-1 text-muted-foreground text-xs">
-										You can read this builder chat, but only its owner can
-										continue or change it.
+										{t("chat.shared.notice")}
 									</p>
 								</div>
 							</MessageScrollerItem>
@@ -755,18 +764,19 @@ function ChatHeader({
 	working: boolean;
 	creatingAgent: boolean;
 }) {
+	const t = useTranslations("agentBuilder");
 	const workspaceUrl = useWorkspaceUrl();
 	const title =
 		(creatingAgent ? conversation.agent?.name : null) ??
 		conversation.title ??
-		"Agent chat";
+		t("chat.header.fallbackTitle");
 
 	return (
 		<header className="flex h-12 shrink-0 items-center gap-2 border-b px-4 sm:gap-2.5 sm:pr-4 sm:pl-5">
 			<div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
 				<h1 className="truncate font-medium text-sm">{title}</h1>
 				<span className="hidden shrink-0 text-muted-foreground text-xs sm:inline">
-					Private
+					{t("chat.header.private")}
 				</span>
 				{working ? (
 					<span className="flex shrink-0 items-center gap-2 text-muted-foreground text-xs">
@@ -775,15 +785,20 @@ function ChatHeader({
 							className="size-3.5 animate-spin text-ring"
 							motion="none"
 						/>
-						<span className="sr-only">Working in background</span>
+						<span className="sr-only">
+							{t("chat.header.workingInBackground")}
+						</span>
 						<span aria-hidden="true" className="hidden sm:inline">
-							Working in background
+							{t("chat.header.workingInBackground")}
 						</span>
 					</span>
 				) : null}
 			</div>
 			<Button asChild variant="ghost" size="icon-sm">
-				<Link href={workspaceUrl("/chat")} aria-label="Start a new chat">
+				<Link
+					href={workspaceUrl("/chat")}
+					aria-label={t("chat.header.newChatAriaLabel")}
+				>
 					<Icon icon={Add} />
 				</Link>
 			</Button>
@@ -809,8 +824,9 @@ function UserSubmission({
 	error: string | null;
 	sending?: boolean;
 }) {
+	const t = useTranslations("agentBuilder");
 	const message = submission.message;
-	const messageText = message.text ?? "Message unavailable";
+	const messageText = message.text ?? t("chat.userSubmission.unavailable");
 	const command =
 		submission.commandType === "CREATE_AGENT"
 			? consumeBuilderCommand(messageText)
@@ -835,12 +851,15 @@ function UserSubmission({
 				{response ? (
 					<div className="flex items-center gap-1.5 text-muted-foreground text-xs">
 						<Icon icon={Reply} className="size-3.5" />
-						<span>Answer to follow-up</span>
+						<span>{t("chat.userSubmission.answerToFollowUp")}</span>
 					</div>
 				) : null}
 				{submission.commandType === "CREATE_AGENT" ? (
 					<div className="flex flex-wrap gap-1">
-						<ChatCommandChip label="Create agent" icon={Application} />
+						<ChatCommandChip
+							label={t("common.createAgent")}
+							icon={Application}
+						/>
 					</div>
 				) : null}
 				<p className="wrap-break-word">{text}</p>
@@ -863,7 +882,7 @@ function UserSubmission({
 				) : null}
 				{failed ? (
 					<p className="mt-2 text-destructive text-xs">
-						{error ?? "This message could not be sent."}
+						{error ?? t("chat.userSubmission.sendFailed")}
 					</p>
 				) : null}
 			</div>
@@ -880,6 +899,7 @@ function AssistantMessage({
 	message: EveMessage;
 	answeredQuestionIds: ReadonlySet<string>;
 }) {
+	const t = useTranslations("agentBuilder");
 	const [transcript] = toTranscript([message]);
 	if (!transcript || transcript.mine) return null;
 
@@ -898,7 +918,7 @@ function AssistantMessage({
 						<Reasoning
 							key={item.id}
 							isStreaming={item.streaming}
-							label="Reasoning"
+							label={t("chat.assistantMessage.reasoning")}
 						>
 							<Markdown className="wrap-break-word leading-5">
 								{item.text}
@@ -961,12 +981,13 @@ function FollowUpTranscriptItem({
 	question: EveMessageInputRequest;
 	answered: boolean;
 }) {
+	const t = useTranslations("agentBuilder");
 	return (
 		<div className="w-full max-w-sm border-ring/50 border-l-2 bg-muted/40 px-3 py-2.5">
 			<div className="flex items-center justify-between gap-3 text-xs">
-				<span className="font-medium">Follow-up</span>
+				<span className="font-medium">{t("chat.followUp.label")}</span>
 				<span className="text-muted-foreground">
-					{answered ? "Answered" : "Waiting for your answer"}
+					{answered ? t("chat.followUp.answered") : t("chat.followUp.waiting")}
 				</span>
 			</div>
 			<Markdown className="mt-1.5 wrap-break-word text-sm leading-5">
@@ -977,15 +998,16 @@ function FollowUpTranscriptItem({
 }
 
 function CopyResponseAction({ markdown }: { markdown: string }) {
+	const t = useTranslations("agentBuilder");
 	return (
 		<div className="flex h-7 items-center">
 			<Button
 				variant="ghost"
 				size="icon-xs"
-				aria-label="Copy response as Markdown"
+				aria-label={t("chat.response.copyAriaLabel")}
 				onClick={() => {
 					void navigator.clipboard.writeText(markdown);
-					toast.success("Response copied as Markdown.");
+					toast.success(t("chat.response.copiedToast"));
 				}}
 			>
 				<Icon icon={Copy} />
@@ -1003,6 +1025,7 @@ function ResponseActions({
 	messageId: string;
 	markdown: string;
 }) {
+	const t = useTranslations("agentBuilder");
 	const trpc = useTRPC();
 	const initial = conversation.feedback.find(
 		(item) => item.messageId === messageId,
@@ -1025,10 +1048,10 @@ function ResponseActions({
 			<Button
 				variant="ghost"
 				size="icon-xs"
-				aria-label="Copy response as Markdown"
+				aria-label={t("chat.response.copyAriaLabel")}
 				onClick={() => {
 					void navigator.clipboard.writeText(markdown);
-					toast.success("Response copied as Markdown.");
+					toast.success(t("chat.response.copiedToast"));
 				}}
 			>
 				<Icon icon={Copy} />
@@ -1036,7 +1059,7 @@ function ResponseActions({
 			<Button
 				variant="ghost"
 				size="icon-xs"
-				aria-label="Rate response helpful"
+				aria-label={t("chat.response.rateHelpfulAriaLabel")}
 				aria-pressed={rating === "UP"}
 				className={cn(rating === "UP" && "bg-muted text-foreground")}
 				onClick={() => choose("UP")}
@@ -1046,7 +1069,7 @@ function ResponseActions({
 			<Button
 				variant="ghost"
 				size="icon-xs"
-				aria-label="Rate response not helpful"
+				aria-label={t("chat.response.rateNotHelpfulAriaLabel")}
 				aria-pressed={rating === "DOWN"}
 				className={cn(rating === "DOWN" && "bg-muted text-foreground")}
 				onClick={() => choose("DOWN")}
@@ -1068,6 +1091,13 @@ function BuildingAgentCard({
 	artifacts: Conversation["builderArtifacts"];
 	startedAt: string | null;
 }) {
+	const t = useTranslations("agentBuilder");
+	const BUILDER_STEPS = [
+		t("chat.buildingAgent.steps.scope"),
+		t("chat.buildingAgent.steps.instructions"),
+		t("chat.buildingAgent.steps.manifest"),
+		t("chat.buildingAgent.steps.review"),
+	] as const;
 	const completed = completedBuilderSteps(artifacts, startedAt, sessionId);
 	const stop = useAsyncAction({
 		action: async () => {
@@ -1078,8 +1108,8 @@ function BuildingAgentCard({
 			});
 			if (!response.ok) throw new Error(await response.text());
 		},
-		onSuccess: () => toast.success("Stop requested."),
-		onError: () => toast.error("The agent could not be stopped. Try again."),
+		onSuccess: () => toast.success(t("chat.buildingAgent.stop.stoppedToast")),
+		onError: () => toast.error(t("chat.buildingAgent.stop.failedToast")),
 	});
 
 	const writingPath =
@@ -1090,13 +1120,16 @@ function BuildingAgentCard({
 			<div className="overflow-hidden rounded-lg border bg-card">
 				<div className="flex items-center gap-2 px-4 pt-4">
 					<span className="min-w-0 flex-1 font-medium text-sm">
-						Building the agent
+						{t("chat.buildingAgent.title")}
 					</span>
 					<span className="shrink-0 font-mono text-muted-foreground text-xs">
-						{completed} of 4
+						{t("chat.buildingAgent.stepCount", { completed })}
 					</span>
 				</div>
-				<ol className="flex flex-col gap-1 p-3" aria-label="Agent creation">
+				<ol
+					className="flex flex-col gap-1 p-3"
+					aria-label={t("chat.buildingAgent.ariaLabel")}
+				>
 					{BUILDER_STEPS.map((label, index) => {
 						const done = index < completed;
 						const active =
@@ -1146,15 +1179,15 @@ function BuildingAgentCard({
 										{done && artifact
 											? artifact.replace("agent/", "")
 											: done
-												? "Done"
+												? t("chat.buildingAgent.status.done")
 												: active
-													? "Working"
-													: "Queued"}
+													? t("chat.buildingAgent.status.working")
+													: t("chat.buildingAgent.status.queued")}
 									</span>
 								</div>
 								{active && writingPath ? (
 									<p className="pl-7 font-mono text-muted-foreground text-xs">
-										Writing {writingPath}
+										{t("chat.buildingAgent.writingPath", { path: writingPath })}
 									</p>
 								) : null}
 							</li>
@@ -1163,7 +1196,7 @@ function BuildingAgentCard({
 				</ol>
 				<footer className="flex items-center gap-2 border-t bg-muted px-4 py-3">
 					<p className="min-w-0 flex-1 text-pretty text-muted-foreground text-xs">
-						Runs in the background
+						{t("chat.buildingAgent.runsInBackground")}
 					</p>
 					<Button
 						variant="outline"
@@ -1174,11 +1207,11 @@ function BuildingAgentCard({
 					>
 						<AsyncButtonContent
 							status={stop.status}
-							pendingLabel="Stopping"
-							successLabel="Stopping"
-							errorLabel="Try again"
+							pendingLabel={t("chat.buildingAgent.stop.pending")}
+							successLabel={t("chat.buildingAgent.stop.pending")}
+							errorLabel={t("common.tryAgain")}
 						>
-							Stop
+							{t("chat.buildingAgent.stop.label")}
 						</AsyncButtonContent>
 					</Button>
 				</footer>
@@ -1198,14 +1231,15 @@ function BuilderFailureCard({
 	retrying: boolean;
 	onRetry: (() => void) | null;
 }) {
+	const t = useTranslations("agentBuilder");
 	const message =
 		failure.kind === "rate-limit"
-			? "Vercel AI Gateway rate-limited this model before it could start. Try again in a moment or add AI Gateway credits in Vercel."
+			? t("chat.failure.rateLimit")
 			: failure.kind === "restricted"
-				? "This model requires paid AI Gateway credits. Add credits in Vercel, then try again."
+				? t("chat.failure.restricted")
 				: failure.kind === "credits"
-					? "Vercel AI Gateway has no available credits. Add credits in Vercel, then try again."
-					: "The builder could not finish this request. Try again.";
+					? t("chat.failure.credits")
+					: t("chat.failure.unknown");
 
 	return (
 		<div
@@ -1216,7 +1250,9 @@ function BuilderFailureCard({
 				<Icon icon={WarningAlt} className="mt-0.5 size-4 text-destructive" />
 				<div className="min-w-0 flex-1">
 					<p className="font-medium text-sm">
-						{creatingAgent ? "Agent creation stopped" : "Response stopped"}
+						{creatingAgent
+							? t("chat.failure.creatingAgentTitle")
+							: t("chat.failure.responseTitle")}
 					</p>
 					<p className="mt-0.5 text-pretty text-muted-foreground text-xs leading-5">
 						{message}
@@ -1233,9 +1269,9 @@ function BuilderFailureCard({
 				>
 					<AsyncButtonContent
 						status={retrying ? "pending" : "idle"}
-						pendingLabel="Retrying"
+						pendingLabel={t("chat.failure.retryPending")}
 					>
-						Try again
+						{t("common.tryAgain")}
 					</AsyncButtonContent>
 				</Button>
 			) : null}
@@ -1250,6 +1286,7 @@ function ReviewAgentCard({
 	conversation: Conversation;
 	versionId: string;
 }) {
+	const t = useTranslations("agentBuilder");
 	const workspaceUrl = useWorkspaceUrl();
 	const version = conversation.createdVersions.find(
 		(candidate) => candidate.id === versionId,
@@ -1262,27 +1299,39 @@ function ReviewAgentCard({
 	return (
 		<div className="flex flex-col gap-5">
 			<p className="max-w-[640px] text-pretty text-sm leading-5">
-				Your private draft is ready to review.
+				{t("chat.review.notice")}
 			</p>
-			<AgentCardShell name={manifest.name ?? agent.name} status="Private">
+			<AgentCardShell
+				name={manifest.name ?? agent.name}
+				status={t("chat.review.status")}
+			>
 				<div className="flex flex-col gap-2 p-4">
-					<ReviewRow label="When" value={manifest.trigger} />
-					<ReviewRow label="Find" value={manifest.looksAt} />
-					<ReviewRow label="Then" value={manifest.action} />
-					<ReviewRow label="Scope">
+					<ReviewRow
+						label={t("chat.review.fields.when")}
+						value={manifest.trigger}
+					/>
+					<ReviewRow
+						label={t("chat.review.fields.find")}
+						value={manifest.looksAt}
+					/>
+					<ReviewRow
+						label={t("chat.review.fields.then")}
+						value={manifest.action}
+					/>
+					<ReviewRow label={t("chat.review.fields.scope")}>
 						<AgentScopeBadges
 							scopes={manifest.access}
-							fallback="Bounded CRM read access"
+							fallback={t("chat.review.scopeFallback")}
 						/>
 					</ReviewRow>
 				</div>
-				<AgentCardFooter note="Sandboxed · credentials never enter the sandbox">
+				<AgentCardFooter note={t("chat.review.footerNote")}>
 					<Button asChild size="sm">
 						<Link
 							href={workspaceUrl(`/agents/${agent.id}`)}
 							transitionTypes={["nav-forward"]}
 						>
-							View details
+							{t("chat.review.viewDetails")}
 							<Icon icon={ArrowRight} data-icon="inline-end" />
 						</Link>
 					</Button>
@@ -1357,6 +1406,7 @@ function DeployedAgentCard({
 	conversation: Conversation;
 	onFollowUp: (message: string) => Promise<void>;
 }) {
+	const t = useTranslations("agentBuilder");
 	const trpc = useTRPC();
 	const workspaceUrl = useWorkspaceUrl();
 	const queryClient = useQueryClient();
@@ -1367,7 +1417,7 @@ function DeployedAgentCard({
 				await queryClient.invalidateQueries({
 					queryKey: trpc.agents.history.pathKey(),
 				});
-				toast.success("Agent run queued.");
+				toast.success(t("chat.deployed.runQueuedToast"));
 			},
 			onError: (error) => toast.error(error.message),
 		}),
@@ -1385,21 +1435,24 @@ function DeployedAgentCard({
 	const nextRun =
 		enabledTriggers.length === 1 ? enabledTriggers[0]?.nextRunAt : null;
 	const triggerSummary =
-		enabledTriggers.map((trigger) => trigger.name).join(" · ") || "Manual only";
+		enabledTriggers.map((trigger) => trigger.name).join(" · ") ||
+		t("chat.deployed.manualOnly");
+	const suggestions = [t("chat.deployed.suggestion1")];
 
 	return (
 		<div className="flex flex-col gap-[18px]">
 			<div className="flex flex-col gap-1">
-				<p className="text-sm leading-5">{agent.name} is live.</p>
+				<p className="text-sm leading-5">
+					{t("chat.deployed.liveStatement", { name: agent.name })}
+				</p>
 				<p className="text-muted-foreground text-sm leading-5">
-					I created the Eve agent, applied its bounded CRM and integration
-					access, and made it live for the team.
+					{t("chat.deployed.description")}
 				</p>
 			</div>
-			<AgentCardShell name={agent.name} status="Live">
+			<AgentCardShell name={agent.name} status={t("chat.deployed.status")}>
 				<div className="flex flex-col gap-2 p-4">
 					<ReviewRow
-						label="Trigger"
+						label={t("chat.deployed.fields.trigger")}
 						value={
 							nextRun ? (
 								<LocalDateTime
@@ -1416,10 +1469,18 @@ function DeployedAgentCard({
 							)
 						}
 					/>
-					<ReviewRow label="Runs in" value="Eve runtime · isolated sandbox" />
-					<ReviewRow label="Owner" value={`Team · ${agent.createdBy.name}`} />
+					<ReviewRow
+						label={t("chat.deployed.fields.runsIn")}
+						value={t("chat.deployed.runsInValue")}
+					/>
+					<ReviewRow
+						label={t("chat.deployed.fields.owner")}
+						value={t("chat.deployed.ownerValue", {
+							name: agent.createdBy.name,
+						})}
+					/>
 				</div>
-				<AgentCardFooter note="The chat stays private. The agent is team-owned.">
+				<AgentCardFooter note={t("chat.deployed.footerNote")}>
 					<div className="flex items-center gap-2">
 						<Button
 							variant="outline"
@@ -1430,17 +1491,17 @@ function DeployedAgentCard({
 						>
 							<AsyncButtonContent
 								status={runAction.status}
-								pendingLabel="Queueing"
-								successLabel="Queued"
-								errorLabel="Try again"
+								pendingLabel={t("chat.deployed.run.pending")}
+								successLabel={t("chat.deployed.run.success")}
+								errorLabel={t("common.tryAgain")}
 							>
 								<Icon icon={Play} data-icon="inline-start" />
-								Run now
+								{t("chat.deployed.run.label")}
 							</AsyncButtonContent>
 						</Button>
 						<Button asChild size="sm">
 							<Link href={workspaceUrl(`/agents/${agent.id}`)}>
-								Open agent
+								{t("chat.deployed.openAgent")}
 								<Icon icon={ArrowRight} data-icon="inline-end" />
 							</Link>
 						</Button>
@@ -1450,9 +1511,9 @@ function DeployedAgentCard({
 
 			<div>
 				<p className="flex h-7 items-center text-muted-foreground text-sm">
-					Suggested follow-ups
+					{t("chat.deployed.suggestedFollowUps")}
 				</p>
-				{["Add another teammate to the notification"].map((suggestion) => (
+				{suggestions.map((suggestion) => (
 					<button
 						key={suggestion}
 						type="button"
@@ -1471,17 +1532,20 @@ function DeployedAgentCard({
 }
 
 function ChatUnavailable() {
+	const t = useTranslations("agentBuilder");
 	const workspaceUrl = useWorkspaceUrl();
 
 	return (
 		<main className="flex flex-1 items-center justify-center p-8">
 			<div className="max-w-md text-center">
-				<h1 className="font-medium text-lg">Chat unavailable</h1>
+				<h1 className="font-medium text-lg">{t("chat.unavailable.title")}</h1>
 				<p className="mt-2 text-muted-foreground text-sm">
-					This chat does not exist or you do not have access to it.
+					{t("chat.unavailable.description")}
 				</p>
 				<Button asChild variant="outline" className="mt-5">
-					<Link href={workspaceUrl("/chat")}>Start a new chat</Link>
+					<Link href={workspaceUrl("/chat")}>
+						{t("chat.unavailable.startNewChat")}
+					</Link>
 				</Button>
 			</div>
 		</main>

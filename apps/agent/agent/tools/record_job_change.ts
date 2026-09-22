@@ -1,4 +1,5 @@
 import { db } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { defineTool } from "eve/tools";
 import { z } from "zod";
 import { sensitiveWrite } from "../lib/approval";
@@ -48,17 +49,20 @@ export default defineTool({
 		const name = [contact.firstName, contact.lastName]
 			.filter(Boolean)
 			.join(" ");
+		const t = translator("api");
 
 		await writeTimelineNote(
 			contactId,
-			`${name} has moved to ${change.to}`,
+			t("activities.jobChangeSubject", { name, to: change.to }),
 			[
-				`${name} appears to have left ${change.from} for ${change.to}.`,
+				t("activities.jobChangeSummary", {
+					name,
+					from: change.from,
+					to: change.to,
+				}),
 				change.sourceUrl ?? "",
 				"",
-				"Worth a conversation either way: a champion in a new seat is the",
-				"warmest introduction there is, and their replacement at the old",
-				"account is a relationship nobody owns yet.",
+				t("activities.jobChangeAdvice"),
 			]
 				.filter(Boolean)
 				.join("\n"),

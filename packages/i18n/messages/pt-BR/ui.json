@@ -1,0 +1,89 @@
+{
+	"tablePagination": {
+		"noResults": "Nenhum resultado",
+		"showing": "Mostrando {start}–{end} de {total}",
+		"previous": "Anterior",
+		"next": "Próximo"
+	},
+	"dataTable": {
+		"selectedCount": "{count, plural, one {# selecionado} other {# selecionados}}",
+		"clear": "Limpar",
+		"filters": "Filtros",
+		"all": "Todos",
+		"sort": "Ordenar",
+		"sortBy": "Ordenar por",
+		"detail": "Detalhe",
+		"ascending": "Crescente",
+		"descending": "Decrescente",
+		"columns": "Colunas",
+		"toggleColumns": "Mostrar colunas",
+		"searchFacet": "Buscar {facet}…",
+		"nothingMatches": "Nada encontrado.",
+		"noResultsFound": "Nenhum resultado encontrado.",
+		"selectAllRows": "Selecionar todas as linhas desta página",
+		"selectRow": "Selecionar linha",
+		"selectRowLabeled": "Selecionar {label}"
+	},
+	"combobox": {
+		"selectOption": "Selecione uma opção",
+		"search": "Buscar…",
+		"nothingMatches": "Nada encontrado."
+	},
+	"command": {
+		"paletteTitle": "Paleta de comandos",
+		"paletteDescription": "Busque um comando para executar..."
+	},
+	"attendeeList": {
+		"accepted": "Aceitou",
+		"declined": "Recusou",
+		"maybe": "Talvez",
+		"noReply": "Sem resposta"
+	},
+	"dialog": {
+		"close": "Fechar"
+	},
+	"sheet": {
+		"close": "Fechar"
+	},
+	"datePicker": {
+		"selectDate": "Selecione uma data",
+		"clear": "Limpar"
+	},
+	"asyncAction": {
+		"done": "Feito",
+		"tryAgain": "Tentar de novo"
+	},
+	"sortableList": {
+		"reorder": "Reordenar {label}"
+	},
+	"suggestion": {
+		"accept": "Aceitar",
+		"dismiss": "Descartar"
+	},
+	"spinner": {
+		"loading": "Carregando"
+	},
+	"messageScroller": {
+		"scrollToEnd": "Rolar até o fim",
+		"scrollToStart": "Rolar até o início"
+	},
+	"questionnaire": {
+		"previous": "Anterior",
+		"skip": "Pular",
+		"next": "Próximo",
+		"submit": "Enviar"
+	},
+	"thinkingIndicator": {
+		"label": "Pensando"
+	},
+	"reasoning": {
+		"label": "Raciocínio",
+		"streaming": "Pensando…"
+	},
+	"threadMessage": {
+		"noBody": "Sem corpo de mensagem."
+	},
+	"dotMatrix": {
+		"loading": "Carregando"
+	}
+}

@@ -18,6 +18,7 @@ import SlackLogo from "@crm/ui/components/brand-logos/slack";
 import { Button } from "@crm/ui/components/button";
 import { Icon } from "@crm/ui/components/icon";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { NewAgentDialog } from "@/components/agent-builder/new-agent-dialog";
 import { requireSession } from "@/lib/session";
@@ -38,17 +39,32 @@ const PRIVATE_CHANNEL_SCOPES = [
 	SLACK_USER_GRANT.scope,
 ];
 
-const never = [
-	"Send anything at all until you build an automation and switch it on",
-	"Post anywhere except the destination approved in that automation",
-	"Read a direct message between two people",
-];
+type Translate = Awaited<ReturnType<typeof getTranslations<"settings">>>;
 
-const suggestions = [
-	["When a deal is created", "Post the deal to an approved sales channel."],
-	["When a deal is won", "Tell an approved channel that the deal closed."],
-	["When a deal reopens", "Notify one approved channel or teammate."],
-];
+function neverItems(t: Translate): string[] {
+	return [
+		t("connections.slack.never.sendUntilAutomation"),
+		t("connections.slack.never.postOutsideDestination"),
+		t("connections.slack.never.readDirectMessage"),
+	];
+}
+
+function suggestionItems(t: Translate): [string, string][] {
+	return [
+		[
+			t("connections.slack.suggestions.dealCreated.title"),
+			t("connections.slack.suggestions.dealCreated.description"),
+		],
+		[
+			t("connections.slack.suggestions.dealWon.title"),
+			t("connections.slack.suggestions.dealWon.description"),
+		],
+		[
+			t("connections.slack.suggestions.dealReopened.title"),
+			t("connections.slack.suggestions.dealReopened.description"),
+		],
+	];
+}
 
 type SlackConnectionPageProps = {
 	params: Promise<{ slug: string }>;
@@ -68,13 +84,14 @@ async function SlackConnectionPageContent({
 	searchParams,
 }: SlackConnectionPageProps) {
 	await requireSession();
+	const t = await getTranslations("settings");
 	const [{ slug }, query] = await Promise.all([params, searchParams]);
 	const queryClient = getServerQueryClient();
 	const status = await queryClient.fetchQuery(
 		getServerTrpc().slack.status.queryOptions(),
 	);
 	return status.connected ? (
-		<ConnectedSlack slug={slug} status={status} />
+		<ConnectedSlack slug={slug} status={status} t={t} />
 	) : (
 		<ConnectionPage centered className="max-w-(--container-page)">
 			<header className="flex flex-col gap-3 px-(--spacing-block-inline)">
@@ -82,23 +99,21 @@ async function SlackConnectionPageContent({
 					<SlackLogo className="size-6" />
 					<h1 className="font-medium text-xl">Slack</h1>
 					<span className="ml-auto text-muted-foreground text-sm">
-						Not connected
+						{t("connections.slack.notConnected")}
 					</span>
 				</div>
 				<p className="text-muted-foreground text-sm leading-relaxed">
-					Connecting Slack gives the CRM a way in and a way out. What it
-					actually does with that is up to you afterwards, one automation at a
-					time.
+					{t("connections.slack.introDescription")}
 				</p>
 			</header>
 			<SlackScopeGroups
-				groups={groupScopes([...SLACK_REQUESTED_SCOPES])}
-				title="What you are handing over"
+				groups={groupScopes([...SLACK_REQUESTED_SCOPES], t)}
+				title={t("connections.slack.handingOverTitle")}
 				withheld={[]}
 			/>
 			<PlainList
-				title="What it will never do"
-				items={never}
+				title={t("connections.slack.neverTitle")}
+				items={neverItems(t)}
 				icon={Close}
 				tone="text-muted-foreground"
 			/>
@@ -109,22 +124,20 @@ async function SlackConnectionPageContent({
 					connectError={connectErrorOf(query, "slack")}
 				/>
 				<p className="text-muted-foreground text-xs">
-					You approve the workspace in Slack. You can disconnect it here at any
-					time.
+					{t("connections.slack.approveNote")}
 				</p>
 			</div>
 			<section className="flex flex-col gap-3 px-(--spacing-block-inline)">
 				<div>
 					<h2 className="font-medium text-sm">
-						Afterwards, most teams start with one of these
+						{t("connections.slack.suggestionsTitle")}
 					</h2>
 					<p className="text-muted-foreground text-xs">
-						Suggestions, not settings. None of them exist until you pick one and
-						switch it on.
+						{t("connections.slack.suggestionsSubtitle")}
 					</p>
 				</div>
 				<div className="grid gap-3 md:grid-cols-3">
-					{suggestions.map(([name, description]) => (
+					{suggestionItems(t).map(([name, description]) => (
 						<div className="rounded-lg border p-4" key={name}>
 							<h3 className="font-medium text-sm">{name}</h3>
 							<p className="mt-2 text-muted-foreground text-xs leading-relaxed">
@@ -138,28 +151,73 @@ async function SlackConnectionPageContent({
 	);
 }
 
-function toLine(entry: SlackScope) {
+type ScopeKeys = Record<
+	string,
+	| "usersRead"
+	| "usersReadEmail"
+	| "channelsRead"
+	| "groupsRead"
+	| "channelsHistory"
+	| "groupsHistory"
+	| "chatWrite"
+	| "chatWritePublic"
+	| "imWrite"
+	| "channelsJoin"
+	| "channelsManage"
+	| "groupsWrite"
+	| "channelsWriteInvites"
+	| "groupsWriteInvites"
+	| "conversationsConnectWrite"
+	| "linksWrite"
+	| "slackUserInvite"
+>;
+
+const SCOPE_KEYS: ScopeKeys = {
+	"users:read": "usersRead",
+	"users:read.email": "usersReadEmail",
+	"channels:read": "channelsRead",
+	"groups:read": "groupsRead",
+	"channels:history": "channelsHistory",
+	"groups:history": "groupsHistory",
+	"chat:write": "chatWrite",
+	"chat:write.public": "chatWritePublic",
+	"im:write": "imWrite",
+	"channels:join": "channelsJoin",
+	"channels:manage": "channelsManage",
+	"groups:write": "groupsWrite",
+	"channels:write.invites": "channelsWriteInvites",
+	"groups:write.invites": "groupsWriteInvites",
+	"conversations.connect:write": "conversationsConnectWrite",
+	"links:write": "linksWrite",
+	"slack:user-invite": "slackUserInvite",
+};
+
+function toLine(entry: SlackScope, t: Translate) {
+	const key = SCOPE_KEYS[entry.scope];
 	return {
 		scope: entry.scope,
-		grant: entry.grant,
+		grant: key ? t(`connections.slack.scope.${key}`) : entry.grant,
 		sensitive: entry.sensitive,
 	};
 }
 
-function groupScopes(scopes: string[]) {
+function groupScopes(scopes: string[], t: Translate) {
 	const held = describeSlackScopes(scopes);
 
 	return SLACK_SCOPE_GROUPS.map((group) => ({
 		id: group.id,
-		label: group.label,
-		summary: group.summary,
-		scopes: held.filter((entry) => entry.group === group.id).map(toLine),
+		label: t(`connections.slack.scopeGroup.${group.id}.label`),
+		summary: t(`connections.slack.scopeGroup.${group.id}.summary`),
+		scopes: held
+			.filter((entry) => entry.group === group.id)
+			.map((entry) => toLine(entry, t)),
 	})).filter((group) => group.scopes.length > 0);
 }
 
 function ConnectedSlack({
 	slug,
 	status,
+	t,
 }: {
 	slug: string;
 	status: {
@@ -175,6 +233,7 @@ function ConnectedSlack({
 		canManage: boolean;
 		people: { matched: number; reviewed: number };
 	};
+	t: Translate;
 }) {
 	const agents = status.agents;
 	const drift = slackScopeDrift(status.scopes);
@@ -188,7 +247,7 @@ function ConnectedSlack({
 					<SlackLogo className="size-6" />
 					<h1 className="font-medium text-xl">Slack</h1>
 					<span className="ml-auto text-muted-foreground text-sm">
-						{status.workspace ?? "Connected"}
+						{status.workspace ?? t("connections.slack.connectedFallback")}
 					</span>
 					<SlackDisconnectButton
 						canManage={status.canManage}
@@ -197,33 +256,35 @@ function ConnectedSlack({
 				</div>
 				<p className="text-muted-foreground text-sm">
 					{status.canManage
-						? "Here is what Slack gave us. Agents only post where their automation says."
-						: "Here is what Slack gave us. Only an owner or an admin can disconnect it."}
+						? t("connections.slack.summaryManage")
+						: t("connections.slack.summaryReadOnly")}
 				</p>
 			</header>
-			<MissingGrant missing={missing} slug={slug} />
+			<MissingGrant missing={missing} slug={slug} t={t} />
 			<SlackScopeGroups
-				groups={groupScopes(status.scopes)}
-				title="What this workspace granted"
-				withheld={missing.map(toLine)}
+				groups={groupScopes(status.scopes, t)}
+				title={t("connections.slack.grantedTitle")}
+				withheld={missing.map((entry) => toLine(entry, t))}
 			/>
 			<SlackChannels />
 			<section className="flex flex-col gap-3 border-y px-(--spacing-block-inline) py-5">
 				<div className="flex items-end justify-between gap-4">
 					<div>
-						<h2 className="font-medium text-sm">Agents that use Slack</h2>
+						<h2 className="font-medium text-sm">
+							{t("connections.slack.agentsTitle")}
+						</h2>
 						<p className="text-muted-foreground text-xs">
-							Built in chat, not here. Open one to change it.
+							{t("connections.slack.agentsSubtitle")}
 						</p>
 					</div>
 					<NewAgentDialog>
-						<Button size="sm">New agent</Button>
+						<Button size="sm">{t("connections.slack.newAgent")}</Button>
 					</NewAgentDialog>
 				</div>
 				<div className="flex flex-col divide-y rounded-lg border">
 					{agents.length === 0 ? (
 						<p className="px-(--spacing-block-inline) py-4 text-muted-foreground text-sm">
-							No deployed agents use Slack yet.
+							{t("connections.slack.noAgents")}
 						</p>
 					) : null}
 					{agents.map(
@@ -248,7 +309,9 @@ function ConnectedSlack({
 									<span
 										className={`size-2 rounded-full ${agent.status === "LIVE" ? "bg-success" : "bg-muted-foreground"}`}
 									/>
-									{agent.status === "LIVE" ? "Running" : "Paused"}
+									{agent.status === "LIVE"
+										? t("connections.slack.running")
+										: t("connections.slack.paused")}
 								</span>
 							</Link>
 						),
@@ -257,19 +320,22 @@ function ConnectedSlack({
 						className="px-(--spacing-block-inline) py-4 font-medium text-sm hover:bg-muted/50"
 						href={`/${slug}/chat`}
 					>
-						Describe another agent in chat
+						{t("connections.slack.describeAnotherAgent")}
 					</Link>
 				</div>
 			</section>
 			<div className="flex items-center justify-between gap-4 px-(--spacing-block-inline)">
 				<p className="text-sm">
 					{status.people.reviewed === 0
-						? "No workspace people have been reviewed yet."
-						: `${status.people.matched} of ${status.people.reviewed} reviewed people are matched.`}
+						? t("connections.slack.noPeopleReviewed")
+						: t("connections.slack.peopleMatched", {
+								matched: status.people.matched,
+								reviewed: status.people.reviewed,
+							})}
 				</p>
 				<Button asChild variant="outline" size="sm">
 					<Link href={`/${slug}/settings/connections/slack/people`}>
-						Review
+						{t("connections.slack.review")}
 					</Link>
 				</Button>
 			</div>
@@ -280,9 +346,11 @@ function ConnectedSlack({
 function MissingGrant({
 	slug,
 	missing,
+	t,
 }: {
 	slug: string;
 	missing: SlackScope[];
+	t: Translate;
 }) {
 	if (missing.length === 0) return null;
 
@@ -296,11 +364,13 @@ function MissingGrant({
 				<Icon icon={Warning} />
 				<AlertTitle>
 					{privateChannels
-						? "Comp AI cannot reach private channels"
-						: `Slack held back ${missing.length} permission${missing.length === 1 ? "" : "s"}`}
+						? t("connections.slack.cannotReachPrivate")
+						: t("connections.slack.heldBackPermissions", {
+								count: missing.length,
+							})}
 				</AlertTitle>
 				<AlertDescription>
-					<span>Reconnect to ask again. You lose nothing.</span>
+					<span>{t("connections.slack.reconnectNote")}</span>
 					<ul className="mt-2 flex flex-col gap-1.5">
 						{missing.map((entry) => (
 							<li className="flex items-start gap-2" key={entry.scope}>

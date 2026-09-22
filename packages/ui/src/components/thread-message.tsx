@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import { PersonAvatar } from "@crm/ui/components/person-avatar";
 import { cn } from "@crm/ui/lib/utils";
 import type * as React from "react";
@@ -22,6 +23,7 @@ function ThreadMessage({
 	action?: React.ReactNode;
 }) {
 	const outbound = direction === "OUTBOUND";
+	const t = translator("ui");
 
 	return (
 		<article
@@ -59,7 +61,7 @@ function ThreadMessage({
 					</p>
 				) : (
 					<p className="text-muted-foreground text-xs italic">
-						No message body.
+						{t("threadMessage.noBody")}
 					</p>
 				)}
 

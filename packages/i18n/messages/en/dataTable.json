@@ -1,0 +1,16 @@
+{
+	"savedViews": {
+		"trigger": "Views",
+		"saveCurrent": "Save current view…",
+		"myViews": "My views",
+		"sharedWithTeam": "Shared with the team",
+		"dialogTitle": "Save this view",
+		"nameLabel": "Name",
+		"shareLabel": "Share with the team",
+		"cancel": "Cancel",
+		"save": "Save",
+		"saved": "View saved.",
+		"deleted": "View deleted.",
+		"deleteView": "Delete {name}"
+	}
+}

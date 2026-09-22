@@ -1,0 +1,214 @@
+{
+	"activities": {
+		"briefCustomers": "Customers: {value}",
+		"briefPricing": "Pricing: {value}",
+		"briefRecently": "Recently:\n{value}",
+		"briefSellsTo": "Sells to: {value}",
+		"jobChangeAdvice": "Worth a conversation either way: a champion in a new seat is the\nwarmest introduction there is, and their replacement at the old\naccount is a relationship nobody owns yet.",
+		"jobChangeSubject": "{name} has moved to {to}",
+		"jobChangeSummary": "{name} appears to have left {from} for {to}.",
+		"needsAnchor": "A timeline needs a company, a contact or a deal.",
+		"needsRecord": "An activity has to be about a company, a contact or a deal.",
+		"notFound": "No activity with id {id}.",
+		"onlyTasksComplete": "Only tasks can be completed.",
+		"researchBriefSubject": "Research brief — {name}",
+		"taskNeedsSubject": "A task needs a subject — it is the thing to do."
+	},
+	"agentRuns": {
+		"alreadyActive": "This agent already has an active run. Stop it or wait for it to finish.",
+		"cancelledByUser": "A workspace member stopped this run.",
+		"forbiddenCancel": "Only the person who started this run, or a workspace admin, can stop it.",
+		"notFinished": "This run has not finished yet.",
+		"notFound": "No agent with id {id}.",
+		"notLive": "This agent is not live yet.",
+		"requestAlreadyUsed": "That run request has already been used.",
+		"runNotFound": "No run with id {id}."
+	},
+	"agents": {
+		"deletedBeforeRunCompleted": "The agent was deleted before this run completed.",
+		"deployRequestAlreadyUsed": "That deployment request has already been used.",
+		"fileNotFound": "No file at {path}.",
+		"forbiddenChange": "Only the creator or a workspace admin can change this agent.",
+		"manifestUnreadable": "This version's manifest cannot be read, so it cannot be changed.",
+		"needsOneAction": "An agent needs at least one action.",
+		"noChannelAction": "None of this agent's actions post to a channel, so its channel cannot be changed.",
+		"noDeployedVersion": "This agent has no deployed version.",
+		"notAMember": "You are not a member of this workspace.",
+		"notFound": "No agent with id {id}.",
+		"onlyArchivedCanRestore": "Only an archived agent can be restored.",
+		"onlyLiveCanPause": "Only a live agent can be paused.",
+		"onlyLiveOrPausedCanArchive": "Only a live or paused agent can be archived.",
+		"onlyPausedCanResume": "Only a paused agent can be resumed.",
+		"versionNotFound": "No version with id {id}.",
+		"versionNotValidated": "Only a validated agent version can be deployed."
+	},
+	"apiKeys": {
+		"authUnreachable": "Could not reach the auth service.",
+		"saveFailed": "The API key could not be saved."
+	},
+	"auth": {
+		"userNotFound": "No user with id {id}."
+	},
+	"bulk": {
+		"nothingSelected": "Nothing was selected.",
+		"ownerGone": "That owner does not work here any more.",
+		"somethingWentWrong": "Something went wrong.",
+		"tooManyAtOnce": "Too many records at once — select a page at a time."
+	},
+	"cancelRun": {
+		"noRunId": "No run id was sent."
+	},
+	"companies": {
+		"contactNotHere": "That contact does not work at this company.",
+		"domainTaken": "Another company already uses that domain.",
+		"domainTakenBy": "{name} already uses the domain {domain}.",
+		"nameRequired": "A company needs a name.",
+		"needsDomain": "There is nothing to read without a domain — add one first.",
+		"notADomain": "\"{domain}\" is not a domain — try something like \"stripe.com\".",
+		"notFound": "No company with id {id}."
+	},
+	"connections": {
+		"notADomain": "\"{domain}\" is not a domain.",
+		"notConnected": "{source} is not connected.",
+		"ownDomainExcluded": "That is our own domain — it is already excluded."
+	},
+	"contacts": {
+		"emailAlreadyUsed": "Another contact already uses that email address.",
+		"emailTaken": "{name} already uses {email}.",
+		"factNotFound": "No fact with id {id}.",
+		"factSettled": "That suggestion has already been settled.",
+		"firstNameRequired": "A contact needs a first name.",
+		"notAnEmail": "That is not an email address.",
+		"notFound": "No contact with id {id}."
+	},
+	"contextKey": {
+		"notRecognised": "Context did not recognise that API key."
+	},
+	"conversations": {
+		"answerUnavailable": "That answer is not available for this question.",
+		"attachmentSizeMismatch": "Attachment size does not match its content.",
+		"attachmentUnavailable": "That attachment is unavailable.",
+		"attachmentsUnavailable": "One or more attachments are no longer available.",
+		"belongsToAnotherTeam": "This conversation belongs to another team.",
+		"builderNotFound": "No builder conversation with id {id}.",
+		"cannotMoveRecord": "A conversation cannot be moved to another CRM record.",
+		"chooseAnswerFirst": "Choose an answer before submitting.",
+		"chooseAvailableAnswer": "Choose one of the available answers for this question.",
+		"chooseOneAnswer": "Choose one option or enter a written answer.",
+		"chooseOneRecord": "Choose exactly one contact, company or deal.",
+		"invalidBase64": "Attachment content must be valid base64.",
+		"notFound": "No conversation with id {id}.",
+		"notWaitingForAnswer": "The agent is no longer waiting for that answer.",
+		"noWorkspaceMembership": "No workspace membership was found.",
+		"questionAlreadyAnswered": "That follow-up question has already been answered.",
+		"questionNoLongerActive": "That follow-up question is no longer active.",
+		"recordConversationNotFound": "No record conversation with session {sessionId}.",
+		"requestAlreadyUsed": "That request has already been used.",
+		"sharedUnavailable": "That shared conversation is unavailable."
+	},
+	"currency": {
+		"codeInvalid": "A currency code is three letters, like USD.",
+		"codeUnsupported": "That is not a currency this CRM can convert.",
+		"couldNotFetchRates": "Could not fetch rates.",
+		"forbiddenManage": "Only an owner or an admin can change how money is reported.",
+		"isReportingCurrency": "{baseCurrency} is the reporting currency — its rate is always 1.",
+		"rateProviderUnreachable": "Could not reach {provider}. Rates entered by hand are unaffected."
+	},
+	"deals": {
+		"amountTooLarge": "That amount is too large to record.",
+		"chooseContact": "Choose somebody to bring onto the deal.",
+		"companyRequired": "A deal belongs to a company.",
+		"contactNotOnDeal": "That contact is not on this deal.",
+		"contactWrongCompany": "That contact does not work at {name}.",
+		"nameRequired": "A deal needs a name.",
+		"needsLostReason": "Say why it was lost — a closed-lost deal with no reason teaches nobody anything.",
+		"needsLostReasonBulk": "Say why they were lost — a closed-lost deal with no reason teaches nobody anything.",
+		"notADate": "\"{value}\" is not a date.",
+		"notFound": "No deal with id {id}.",
+		"ownerRequired": "A deal needs an owner.",
+		"relationsGone": "That company or owner does not exist any more.",
+		"roleTooLong": "That role is too long."
+	},
+	"fields": {
+		"alreadyExists": "There is already a field called \"{key}\".",
+		"invalidValue": "A field holds text, a number, true or false, or nothing at all.",
+		"labelNotUsable": "That label does not make a usable key.",
+		"labelRequired": "A field needs a label.",
+		"notAgentFilled": "Your agents do not fill this field, so there is nothing to run.",
+		"notFound": "That field does not exist.",
+		"optionLabelRequired": "An option needs a label.",
+		"orderNamesForeignField": "That order names a field which is not on this record type.",
+		"selectNeedsOption": "A select needs at least one option.",
+		"typeLocked": "This field already holds values, so its type cannot change. Archive it and make a new one."
+	},
+	"google": {
+		"eventNotFound": "No calendar event with id {id}.",
+		"threadNotFound": "No email thread with id {id}."
+	},
+	"researchKey": {
+		"agentAnswered": "The agent answered {status}.",
+		"noAnswer": "No answer.",
+		"noBridgeSecret": "This install has no AGENT_BRIDGE_SECRET, so nothing can check."
+	},
+	"savedViews": {
+		"nameRequired": "A view needs a name.",
+		"nameTaken": "You already have a view with that name.",
+		"notFound": "No saved view with id {id}."
+	},
+	"settings": {
+		"gatewayUnreachable": "Could not reach the AI Gateway to check that model. Try again in a moment.",
+		"keyHasSpaces": "An API key has no spaces in it. Paste the whole key on its own.",
+		"keyTooLong": "That does not look like a Context API key — it is too long.",
+		"keyTooShort": "That does not look like a Context API key — it is too short.",
+		"modelNotFound": "The AI Gateway does not serve a tool-using model called \"{modelId}\"."
+	},
+	"slack": {
+		"agentFailed": "The agent failed, so the channel was not created.",
+		"agentNotAnswering": "The agent is not answering, so the channel was not created.",
+		"agentUnreadableReply": "The agent answered with something unreadable, so the channel was not created.",
+		"channelArchived": "This channel is archived. Somebody has to unarchive it before Comp AI can join.",
+		"channelCreationRefused": "Slack refused to create that channel.",
+		"channelNameFormat": "Use lowercase letters, numbers and dashes.",
+		"channelNameInvalid": "That channel name is not usable.",
+		"channelNameTaken": "A channel with that name already exists.",
+		"channelNotFound": "Slack cannot see this channel. A member has to invite Comp AI.",
+		"forbiddenDisconnect": "Only an owner or an admin can disconnect Slack.",
+		"missingScope": "Slack refused: a permission is missing. Reconnect Slack.",
+		"needsReconnect": "Slack needs to be reconnected.",
+		"noBridgeSecret": "This install has no AGENT_BRIDGE_SECRET, so nothing can reach Slack.",
+		"noPrivateGrant": "This workspace did not grant Comp AI permission to create a private channel.",
+		"noSuchChannel": "No such channel.",
+		"noSuchSlackChannel": "No such Slack channel.",
+		"notConnected": "Slack is not connected.",
+		"noUserGrant": "This workspace did not grant Comp AI permission to add itself to a private channel.",
+		"requestRefused": "Slack refused the request ({error}).",
+		"unknownBotUser": "Slack did not report which user Comp AI is.",
+		"unreadableReply": "Slack sent back something unreadable."
+	},
+	"sso": {
+		"domainRequired": "Give the email domain your people sign in with, for example acme.com.",
+		"forbiddenConfigure": "Only an owner or an admin can change how people sign in.",
+		"providerSaveFailed": "The identity provider could not be saved.",
+		"providerUnreachable": "Could not reach the identity provider."
+	},
+	"tracking": {
+		"addDomainFirst": "Add the domain your website runs on first — there is no script to find yet.",
+		"domainAlreadyGone": "That domain is already gone.",
+		"domainAlreadyListed": "{host} is already on the list.",
+		"forbiddenManage": "Only an owner or an admin can change tracking.",
+		"invalidCookieLifetime": "That is not a cookie lifetime we offer.",
+		"notADomain": "That is not a domain. Try something like acme.com.",
+		"notAUrl": "That is not a URL. Try something like acme.com/pricing."
+	},
+	"verifyKey": {
+		"noKeySent": "No API key was sent."
+	},
+	"workspace": {
+		"forbiddenChangeRole": "Only an owner or an admin can change a member's role.",
+		"forbiddenRename": "Only an owner or an admin can change the workspace.",
+		"needsOwner": "The workspace needs an owner. Make someone else an owner first.",
+		"notAMember": "That person is not in this workspace.",
+		"notAWebsite": "That is not a website. Enter the domain, like acme.com.",
+		"notReadable": "The workspace could not be read. Sign in again in a moment."
+	}
+}

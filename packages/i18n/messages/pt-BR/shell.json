@@ -1,0 +1,51 @@
+{
+	"meta": {
+		"description": "Gestão de relacionamento com clientes para a Comp AI"
+	},
+	"nav": {
+		"primary": "Principal",
+		"overview": "Visão geral",
+		"chat": "Chat",
+		"companies": "Empresas",
+		"contacts": "Contatos",
+		"deals": "Negócios",
+		"settings": "Configurações",
+		"openNavigation": "Abrir navegação",
+		"closeNavigation": "Fechar navegação",
+		"navigationAndChats": "Navegação e chats de agentes",
+		"navigation": "Navegação"
+	},
+	"header": {
+		"homepage": "Página inicial",
+		"accountMenu": "Menu da conta",
+		"lightMode": "Modo claro",
+		"darkMode": "Modo escuro",
+		"signOut": "Sair",
+		"loading": "Carregando o cabeçalho do workspace…"
+	},
+	"signOutError": "Não foi possível sair.",
+	"pageShell": {
+		"loading": "Carregando a página…"
+	},
+	"enrichmentQueue": {
+		"trigger": "Enriquecendo",
+		"triggerCount": "Enriquecendo {count}",
+		"now": "Enriquecendo agora",
+		"emptyTitle": "Nada por aqui agora",
+		"emptyDescription": "Empresas e contatos novos aparecem aqui enquanto seus agentes pesquisam sobre eles.",
+		"moreQueued": "mais {count} na fila",
+		"showAll": "Mostrar tudo",
+		"loadMore": "Carregar mais",
+		"scheduledCount": "{count, plural, one {# registro está agendado para uma nova verificação} other {# registros estão agendados para uma nova verificação}}",
+		"hide": "Ocultar",
+		"show": "Mostrar",
+		"scheduledMore": "mais {count} agendados não aparecem nesta lista"
+	},
+	"proxy": {
+		"apiUnreachable": "A API em {url} não está acessível.",
+		"eveNotConfigured": "O agente de pesquisa não está configurado nesta instalação.",
+		"eveNotSignedIn": "Não autenticado.",
+		"eveConversationNotFound": "Conversa não encontrada.",
+		"eveUnreachable": "O agente de pesquisa não está acessível."
+	}
+}

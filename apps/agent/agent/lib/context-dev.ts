@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import ContextDev from "context.dev";
 import { APIError } from "context.dev/core/error";
 import { z } from "zod";
@@ -124,9 +125,10 @@ export function classifyKey(cause: unknown): KeyCheck {
 	}
 
 	if (cause.status === 401 && !recognisedKeyFailure(cause)) {
+		const t = translator("api");
 		return {
 			outcome: "invalid",
-			reason: "Context did not recognise that API key.",
+			reason: t("contextKey.notRecognised"),
 		};
 	}
 

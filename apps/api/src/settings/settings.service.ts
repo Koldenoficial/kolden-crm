@@ -9,6 +9,7 @@ import {
 	writeArchiveRetentionDays,
 	writeContextDevKey,
 } from "@crm/db/settings";
+import { translator } from "@crm/i18n/translator";
 import { BadRequestException, Injectable, Logger } from "@nestjs/common";
 import { ResearchKeyService } from "../agent/research-key.service";
 import { BackfillService } from "../backfill/backfill.service";
@@ -48,6 +49,8 @@ export class SettingsService {
 	}
 
 	async setAgentModel(modelId: string | null): Promise<AgentModelSettings> {
+		const t = translator("api");
+
 		if (modelId === null) {
 			await writeAgentModel(this.db, null);
 			this.logger.log({ message: "Agent model reset to the default" });
@@ -57,17 +60,13 @@ export class SettingsService {
 		const models = await this.catalog.models();
 
 		if (!models) {
-			throw new BadRequestException(
-				"Could not reach the AI Gateway to check that model. Try again in a moment.",
-			);
+			throw new BadRequestException(t("settings.gatewayUnreachable"));
 		}
 
 		const chosen = models.find((model) => model.id === modelId);
 
 		if (!chosen) {
-			throw new BadRequestException(
-				`The AI Gateway does not serve a tool-using model called "${modelId}".`,
-			);
+			throw new BadRequestException(t("settings.modelNotFound", { modelId }));
 		}
 
 		await writeAgentModel(this.db, {

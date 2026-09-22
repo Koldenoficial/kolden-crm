@@ -23,6 +23,7 @@ import {
 	trackingSnippet,
 	VERIFY_WINDOW_MS,
 } from "@crm/db/tracking";
+import { translator } from "@crm/i18n/translator";
 import {
 	BadRequestException,
 	ForbiddenException,
@@ -145,7 +146,9 @@ export class TrackingService {
 		await this.assertCanManage(userId);
 
 		if (!COOKIE_LIFETIMES.some((entry) => entry.days === days)) {
-			throw new BadRequestException("That is not a cookie lifetime we offer.");
+			throw new BadRequestException(
+				translator("api")("tracking.invalidCookieLifetime"),
+			);
 		}
 
 		await this.db.appSetting.upsert({
@@ -165,9 +168,7 @@ export class TrackingService {
 
 		const host = normalizeHost(input.host);
 		if (!host) {
-			throw new BadRequestException(
-				"That is not a domain. Try something like acme.com.",
-			);
+			throw new BadRequestException(translator("api")("tracking.notADomain"));
 		}
 
 		try {
@@ -189,7 +190,9 @@ export class TrackingService {
 				error instanceof Prisma.PrismaClientKnownRequestError &&
 				error.code === "P2002"
 			) {
-				throw new BadRequestException(`${host} is already on the list.`);
+				throw new BadRequestException(
+					translator("api")("tracking.domainAlreadyListed", { host }),
+				);
 			}
 
 			throw error;
@@ -206,7 +209,9 @@ export class TrackingService {
 				error instanceof Prisma.PrismaClientKnownRequestError &&
 				error.code === "P2025"
 			) {
-				throw new NotFoundException("That domain is already gone.");
+				throw new NotFoundException(
+					translator("api")("tracking.domainAlreadyGone"),
+				);
 			}
 
 			throw error;
@@ -232,15 +237,13 @@ export class TrackingService {
 
 		if (!trackingReady(row?.trackingLimitToDomains ?? true, domains)) {
 			throw new BadRequestException(
-				"Add the domain your website runs on first — there is no script to find yet.",
+				translator("api")("tracking.addDomainFirst"),
 			);
 		}
 
 		const target = absolute(url);
 		if (!target) {
-			throw new BadRequestException(
-				"That is not a URL. Try something like acme.com/pricing.",
-			);
+			throw new BadRequestException(translator("api")("tracking.notAUrl"));
 		}
 
 		const compiled = await this.config.compiled();
@@ -476,7 +479,7 @@ export class TrackingService {
 	private async assertCanManage(userId: string): Promise<void> {
 		if (!canManageTracking(await this.roleOf(userId))) {
 			throw new ForbiddenException(
-				"Only an owner or an admin can change tracking.",
+				translator("api")("tracking.forbiddenManage"),
 			);
 		}
 	}

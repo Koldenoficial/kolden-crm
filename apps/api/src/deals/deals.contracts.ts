@@ -1,5 +1,6 @@
 import { DealStage } from "@crm/db";
 import { FIELD_ENTITIES, FIELD_TYPES } from "@crm/db/fields";
+import { translator } from "@crm/i18n/translator";
 import { z } from "zod";
 import { bulkIdsInput } from "../crm/bulk";
 import { currencyCode } from "../currency/currency.contracts";
@@ -12,7 +13,9 @@ const amountCents = z
 	.number()
 	.int()
 	.min(0)
-	.max(MAX_AMOUNT_CENTS, "That amount is too large to record.")
+	.max(MAX_AMOUNT_CENTS, {
+		error: () => translator("api")("deals.amountTooLarge"),
+	})
 	.nullable()
 	.optional();
 
@@ -42,9 +45,18 @@ const stageEnum = z.enum(
 );
 
 export const dealCreateInput = z.object({
-	name: z.string().trim().min(1, "A deal needs a name."),
-	companyId: z.string().min(1, "A deal belongs to a company."),
-	ownerId: z.string().min(1, "A deal needs an owner."),
+	name: z
+		.string()
+		.trim()
+		.min(1, {
+			error: () => translator("api")("deals.nameRequired"),
+		}),
+	companyId: z.string().min(1, {
+		error: () => translator("api")("deals.companyRequired"),
+	}),
+	ownerId: z.string().min(1, {
+		error: () => translator("api")("deals.ownerRequired"),
+	}),
 	stage: stageEnum.optional(),
 	amountCents,
 	currency: currencyCode.optional(),
@@ -84,14 +96,16 @@ export type SetStageInput = z.infer<typeof setStageInput>;
 const dealContactRole = z
 	.string()
 	.trim()
-	.max(80, "That role is too long.")
+	.max(80, { error: () => translator("api")("deals.roleTooLong") })
 	.nullable();
 
 export const dealContactsInput = z.object({ dealId: z.string() });
 
 export const dealAttachContactInput = z.object({
 	dealId: z.string(),
-	contactId: z.string().min(1, "Choose somebody to bring onto the deal."),
+	contactId: z.string().min(1, {
+		error: () => translator("api")("deals.chooseContact"),
+	}),
 	role: dealContactRole.optional(),
 });
 
@@ -115,7 +129,9 @@ export type DealContactRoleInput = z.infer<typeof dealContactRoleInput>;
 export const dealBulkInput = bulkIdsInput;
 
 export const dealBulkOwnerInput = bulkIdsInput.extend({
-	ownerId: z.string().min(1, "A deal needs an owner."),
+	ownerId: z.string().min(1, {
+		error: () => translator("api")("deals.ownerRequired"),
+	}),
 });
 
 export type DealBulkOwnerInput = z.infer<typeof dealBulkOwnerInput>;

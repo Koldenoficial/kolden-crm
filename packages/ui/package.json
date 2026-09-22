@@ -19,6 +19,7 @@
 	"dependencies": {
 		"@carbon/icons-react": "^11.82.0",
 		"@crm/db": "workspace:*",
+		"@crm/i18n": "workspace:*",
 		"@dnd-kit/core": "^6.3.1",
 		"@dnd-kit/modifiers": "^9.0.0",
 		"@dnd-kit/sortable": "^10.0.0",
@@ -52,6 +53,7 @@
 		"@types/react": "^19.2.18",
 		"@types/react-dom": "^19",
 		"next": "16.2.12",
+		"next-intl": "^4.14.6",
 		"react": "19.2.4",
 		"react-dom": "19.2.4",
 		"shadcn": "^4.16.1",

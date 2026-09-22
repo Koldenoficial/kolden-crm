@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { type Db, Prisma } from "@crm/db";
 import type { AgentRunStatus } from "@crm/db/enums";
 import { lockIdempotencyKey } from "@crm/db/idempotency";
+import { translator } from "@crm/i18n/translator";
 import {
 	BadRequestException,
 	ConflictException,
@@ -182,12 +183,14 @@ export class AgentRunsService {
 					FOR UPDATE
 				`;
 
+			const t = translator("api");
+
 			if (!agent || agent.status === "DELETED") {
-				throw new NotFoundException(`No agent with id ${input.id}.`);
+				throw new NotFoundException(t("agentRuns.notFound", { id: input.id }));
 			}
 
 			if (agent.status !== "LIVE" || !agent.currentVersionId) {
-				throw new BadRequestException("This agent is not live yet.");
+				throw new BadRequestException(t("agentRuns.notLive"));
 			}
 
 			const active = await tx.agentRun.findFirst({
@@ -198,9 +201,7 @@ export class AgentRunsService {
 				select: { id: true },
 			});
 			if (active) {
-				throw new ConflictException(
-					"This agent already has an active run. Stop it or wait for it to finish.",
-				);
+				throw new ConflictException(t("agentRuns.alreadyActive"));
 			}
 
 			const created = await tx.agentRun.create({
@@ -263,11 +264,15 @@ export class AgentRunsService {
 					input: true,
 				},
 			});
+			const t = translator("api");
+
 			if (!previous || previous.agentId !== input.id) {
-				throw new NotFoundException(`No run with id ${input.runId}.`);
+				throw new NotFoundException(
+					t("agentRuns.runNotFound", { id: input.runId }),
+				);
 			}
 			if (CANCELLABLE_STATUSES.includes(previous.status)) {
-				throw new ConflictException("This run has not finished yet.");
+				throw new ConflictException(t("agentRuns.notFinished"));
 			}
 
 			const [agent] = await tx.$queryRaw<
@@ -279,10 +284,10 @@ export class AgentRunsService {
 					FOR UPDATE
 				`;
 			if (!agent || agent.status === "DELETED") {
-				throw new NotFoundException(`No agent with id ${input.id}.`);
+				throw new NotFoundException(t("agentRuns.notFound", { id: input.id }));
 			}
 			if (agent.status !== "LIVE" || !agent.currentVersionId) {
-				throw new BadRequestException("This agent is not live yet.");
+				throw new BadRequestException(t("agentRuns.notLive"));
 			}
 
 			const active = await tx.agentRun.findFirst({
@@ -290,9 +295,7 @@ export class AgentRunsService {
 				select: { id: true },
 			});
 			if (active) {
-				throw new ConflictException(
-					"This agent already has an active run. Stop it or wait for it to finish.",
-				);
+				throw new ConflictException(t("agentRuns.alreadyActive"));
 			}
 
 			const created = await tx.agentRun.create({
@@ -350,14 +353,16 @@ export class AgentRunsService {
 				FOR UPDATE
 			`;
 
+			const t = translator("api");
+
 			if (!run || run.agentId !== input.id) {
-				throw new NotFoundException(`No run with id ${input.runId}.`);
+				throw new NotFoundException(
+					t("agentRuns.runNotFound", { id: input.runId }),
+				);
 			}
 
 			if (!agent.canManage && run.initiatedById !== userId) {
-				throw new ForbiddenException(
-					"Only the person who started this run, or a workspace admin, can stop it.",
-				);
+				throw new ForbiddenException(t("agentRuns.forbiddenCancel"));
 			}
 
 			if (!CANCELLABLE_STATUSES.includes(run.status)) {
@@ -367,12 +372,14 @@ export class AgentRunsService {
 			const sequence = run.nextEventSequence + 1;
 			const finishedAt = new Date();
 
+			const cancelMessage = t("agentRuns.cancelledByUser");
+
 			await tx.agentRun.update({
 				where: { id: run.id },
 				data: {
 					status: "CANCELLED",
 					errorCode: AGENT_DISPATCH.cancel.errorCode,
-					errorMessage: AGENT_DISPATCH.cancel.message,
+					errorMessage: cancelMessage,
 					finishedAt,
 					nextEventSequence: sequence,
 				},
@@ -383,7 +390,7 @@ export class AgentRunsService {
 				data: {
 					status: "CANCELLED",
 					errorCode: AGENT_DISPATCH.cancel.errorCode,
-					errorMessage: AGENT_DISPATCH.cancel.message,
+					errorMessage: cancelMessage,
 					completedAt: finishedAt,
 				},
 			});
@@ -439,7 +446,9 @@ export class AgentRunsService {
 		requestedAgentId: string,
 	) {
 		if (existingAgentId !== requestedAgentId) {
-			throw new BadRequestException("That run request has already been used.");
+			throw new BadRequestException(
+				translator("api")("agentRuns.requestAlreadyUsed"),
+			);
 		}
 	}
 }

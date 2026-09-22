@@ -1,4 +1,5 @@
 import type { Db } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { BadRequestException } from "@nestjs/common";
 import { z } from "zod";
 
@@ -7,8 +8,10 @@ export const MAX_BULK_IDS = 100;
 export const bulkIdsInput = z.object({
 	ids: z
 		.array(z.string())
-		.min(1, "Nothing was selected.")
-		.max(MAX_BULK_IDS, "Too many records at once — select a page at a time."),
+		.min(1, { error: () => translator("api")("bulk.nothingSelected") })
+		.max(MAX_BULK_IDS, {
+			error: () => translator("api")("bulk.tooManyAtOnce"),
+		}),
 });
 
 export type BulkResult = {
@@ -31,7 +34,7 @@ export async function requireOwner(
 	});
 
 	if (!owner) {
-		throw new BadRequestException("That owner does not work here any more.");
+		throw new BadRequestException(translator("api")("bulk.ownerGone"));
 	}
 }
 
@@ -54,7 +57,9 @@ export async function runBulk(
 			}
 		} catch (error) {
 			message ??=
-				error instanceof Error ? error.message : "Something went wrong.";
+				error instanceof Error
+					? error.message
+					: translator("api")("bulk.somethingWentWrong");
 		}
 	}
 

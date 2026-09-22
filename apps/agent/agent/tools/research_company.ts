@@ -1,4 +1,5 @@
 import { ActivityType, db } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { defineTool } from "eve/tools";
 import { z } from "zod";
 import { extract, type JsonSchema } from "../lib/context-dev";
@@ -117,10 +118,11 @@ export default defineTool({
 			return { written: false as const, reason: "No user to attribute to." };
 
 		const scalar = briefScalar.parse(result.data);
+		const t = translator("api");
 		const activity = await db.activity.create({
 			data: {
 				type: ActivityType.ENRICHMENT,
-				subject: `Research brief — ${company.name}`,
+				subject: t("activities.researchBriefSubject", { name: company.name }),
 				body:
 					scalar === null
 						? formatBrief(researchBrief.parse(result.data))
@@ -148,19 +150,30 @@ export default defineTool({
 });
 
 function formatBrief(brief: ResearchBrief): string {
+	const t = translator("api");
 	const lines: string[] = [];
 
 	if (brief.positioning) lines.push(brief.positioning);
-	if (brief.pricingModel) lines.push(`Pricing: ${brief.pricingModel}`);
-	if (brief.targetCustomer) lines.push(`Sells to: ${brief.targetCustomer}`);
+	if (brief.pricingModel) {
+		lines.push(t("activities.briefPricing", { value: brief.pricingModel }));
+	}
+	if (brief.targetCustomer) {
+		lines.push(t("activities.briefSellsTo", { value: brief.targetCustomer }));
+	}
 
 	if (brief.notableCustomers.length > 0) {
-		lines.push(`Customers: ${brief.notableCustomers.join(", ")}`);
+		lines.push(
+			t("activities.briefCustomers", {
+				value: brief.notableCustomers.join(", "),
+			}),
+		);
 	}
 
 	if (brief.recentNews.length > 0) {
 		lines.push(
-			`Recently:\n${brief.recentNews.map((item) => `• ${item}`).join("\n")}`,
+			t("activities.briefRecently", {
+				value: brief.recentNews.map((item) => `• ${item}`).join("\n"),
+			}),
 		);
 	}
 

@@ -3,6 +3,7 @@
 import { Spinner } from "@crm/ui/components/spinner";
 import { Tabs, TabsList, TabsTrigger } from "@crm/ui/components/tabs";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import {
 	type RecordKind,
 	useFieldsSheet,
@@ -10,12 +11,7 @@ import {
 import { DetailSheet, DetailSheetHeader } from "@/components/detail-sheet";
 import { useTRPC } from "@/lib/trpc/client";
 import { FieldEditor } from "./field-editor";
-import {
-	ENTITY_TABS,
-	NEW_FIELD,
-	SHEET_TITLE,
-	subtitleFor,
-} from "./fields-copy";
+import { entityTabs, newField, sheetTitle, subtitleFor } from "./fields-copy";
 import { entityOf } from "./fields-entity";
 import { FieldsList } from "./fields-list";
 
@@ -33,7 +29,9 @@ function FieldsSheetBody({
 	onClose: () => void;
 }) {
 	const trpc = useTRPC();
+	const t = useTranslations("records");
 	const entity = entityOf(kind);
+	const tabs = entityTabs();
 
 	const query = useQuery(
 		trpc.fields.list.queryOptions({ entity, includeArchived: true }),
@@ -50,16 +48,20 @@ function FieldsSheetBody({
 	});
 
 	if (field) {
-		const entityLabel = ENTITY_TABS.find((tab) => tab.kind === kind)?.label;
+		const entityLabel = tabs.find((tab) => tab.kind === kind)?.label;
 		const filled = coverage.data;
 
 		return (
 			<>
 				<DetailSheetHeader
-					title={editing?.label ?? (editingKey ? "" : NEW_FIELD)}
+					title={editing?.label ?? (editingKey ? "" : newField())}
 					description={
 						filled
-							? `${entityLabel} · ${filled.filled} of ${filled.total} filled`
+							? t("fields.filledCount", {
+									label: entityLabel ?? "",
+									filled: filled.filled,
+									total: filled.total,
+								})
 							: entityLabel
 					}
 					onBack={() => onEdit(null)}
@@ -84,7 +86,7 @@ function FieldsSheetBody({
 	return (
 		<>
 			<DetailSheetHeader
-				title={SHEET_TITLE}
+				title={sheetTitle()}
 				description={subtitleFor(kind)}
 				onClose={onClose}
 				note={
@@ -93,7 +95,7 @@ function FieldsSheetBody({
 						onValueChange={(next) => onEntity(next as RecordKind)}
 					>
 						<TabsList>
-							{ENTITY_TABS.map((tab) => (
+							{tabs.map((tab) => (
 								<TabsTrigger key={tab.kind} value={tab.kind}>
 									{tab.label}
 								</TabsTrigger>

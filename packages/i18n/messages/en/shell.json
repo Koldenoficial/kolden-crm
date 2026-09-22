@@ -1,0 +1,51 @@
+{
+	"meta": {
+		"description": "Customer Relationship Management for Comp AI"
+	},
+	"nav": {
+		"primary": "Primary",
+		"overview": "Overview",
+		"chat": "Chat",
+		"companies": "Companies",
+		"contacts": "Contacts",
+		"deals": "Deals",
+		"settings": "Settings",
+		"openNavigation": "Open navigation",
+		"closeNavigation": "Close navigation",
+		"navigationAndChats": "Navigation and agent chats",
+		"navigation": "Navigation"
+	},
+	"header": {
+		"homepage": "Homepage",
+		"accountMenu": "Account menu",
+		"lightMode": "Light mode",
+		"darkMode": "Dark mode",
+		"signOut": "Sign out",
+		"loading": "Loading workspace header…"
+	},
+	"signOutError": "Could not sign out.",
+	"pageShell": {
+		"loading": "Loading page…"
+	},
+	"enrichmentQueue": {
+		"trigger": "Enriching",
+		"triggerCount": "Enriching {count}",
+		"now": "Enriching now",
+		"emptyTitle": "Nothing right now",
+		"emptyDescription": "New companies and contacts show up here while your agents look them up.",
+		"moreQueued": "{count} more queued",
+		"showAll": "Show all",
+		"loadMore": "Load more",
+		"scheduledCount": "{count, plural, one {# record is booked for a later look} other {# records are booked for a later look}}",
+		"hide": "Hide",
+		"show": "Show",
+		"scheduledMore": "{count} more are booked but not listed here"
+	},
+	"proxy": {
+		"apiUnreachable": "The API at {url} is not reachable.",
+		"eveNotConfigured": "The research agent is not configured for this install.",
+		"eveNotSignedIn": "Not signed in.",
+		"eveConversationNotFound": "Conversation not found.",
+		"eveUnreachable": "The research agent is not reachable."
+	}
+}

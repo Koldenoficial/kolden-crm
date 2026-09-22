@@ -7,6 +7,7 @@ import {
 	AgentTriggerType,
 	AgentVersionStatus,
 } from "@crm/db";
+import { translator } from "@crm/i18n/translator";
 import { z } from "zod";
 
 const agentManifestSummaryOutput = z.object({
@@ -51,11 +52,11 @@ const hasExactlyOneRecord = (input: {
 }) =>
 	[input.contactId, input.companyId, input.dealId].filter(Boolean).length === 1;
 
-const recordMessage = "Choose exactly one contact, company or deal.";
+const recordError = () => translator("api")("conversations.chooseOneRecord");
 
 export const conversationListInput = z
 	.object(recordShape)
-	.refine(hasExactlyOneRecord, { message: recordMessage });
+	.refine(hasExactlyOneRecord, { error: recordError });
 
 export type ConversationListInput = z.infer<typeof conversationListInput>;
 
@@ -68,7 +69,7 @@ export const conversationSaveInput = z
 		title: z.string().trim().max(120).optional(),
 		messageCount: z.number().int().min(0).optional(),
 	})
-	.refine(hasExactlyOneRecord, { message: recordMessage });
+	.refine(hasExactlyOneRecord, { error: recordError });
 
 export type ConversationSaveInput = z.infer<typeof conversationSaveInput>;
 
@@ -98,15 +99,17 @@ export const builderAttachment = z
 			.string()
 			.min(1)
 			.max(2_800_000)
-			.regex(
-				/^(?:[A-Za-z\d+/]{4})*(?:[A-Za-z\d+/]{2}==|[A-Za-z\d+/]{3}=)?$/,
-				"Attachment content must be valid base64.",
-			),
+			.regex(/^(?:[A-Za-z\d+/]{4})*(?:[A-Za-z\d+/]{2}==|[A-Za-z\d+/]{3}=)?$/, {
+				error: () => translator("api")("conversations.invalidBase64"),
+			}),
 	})
 	.refine(
 		(attachment) =>
 			decodedBase64Size(attachment.contentBase64) === attachment.size,
-		{ message: "Attachment size does not match its content.", path: ["size"] },
+		{
+			error: () => translator("api")("conversations.attachmentSizeMismatch"),
+			path: ["size"],
+		},
 	);
 
 const builderStoredAttachment = z.object({
@@ -155,7 +158,7 @@ export const builderQuestionResponseInput = z
 		text: z.string().trim().min(1).max(20_000).optional(),
 	})
 	.refine((input) => Boolean(input.optionId) !== Boolean(input.text), {
-		message: "Choose one option or enter a written answer.",
+		error: () => translator("api")("conversations.chooseOneAnswer"),
 	});
 
 export type BuilderQuestionResponseInput = z.infer<

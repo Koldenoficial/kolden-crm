@@ -3,6 +3,7 @@
 import { DealStage } from "@crm/db/enums";
 import { cn } from "@crm/ui/lib/utils";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { DealStageIndicator } from "@/components/crm/deal-stage";
 import { dealStageLabel, isClosedStage, OPEN_STAGES } from "@/lib/deal-stage";
@@ -20,12 +21,13 @@ export function StageStepper({
 }) {
 	const trpc = useTRPC();
 	const cache = useCrmCache();
+	const t = useTranslations("records");
 
 	const setStage = useMutation(
 		trpc.deals.setStage.mutationOptions({
 			onSuccess: async (result) => {
 				await cache.deal(dealId);
-				if (result.changed) toast.success("Stage updated.");
+				if (result.changed) toast.success(t("stageStepper.stageUpdated"));
 			},
 			onError: (error) => toast.error(error.message),
 		}),

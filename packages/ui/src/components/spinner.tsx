@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import { cn } from "@crm/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -24,11 +25,12 @@ function Spinner({
 	size,
 	...props
 }: React.ComponentProps<"svg"> & VariantProps<typeof spinnerVariants>) {
+	const t = translator("ui");
 	return (
 		<svg
 			data-slot="spinner"
 			role="status"
-			aria-label="Loading"
+			aria-label={t("spinner.loading")}
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="-68 -68 648 648"
 			fill="none"

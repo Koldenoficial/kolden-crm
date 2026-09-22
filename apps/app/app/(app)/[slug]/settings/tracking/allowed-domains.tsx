@@ -1,6 +1,7 @@
 "use client";
 
 import Add from "@carbon/icons-react/es/Add";
+import { appLocale } from "@crm/i18n";
 import { Button } from "@crm/ui/components/button";
 import {
 	Card,
@@ -33,6 +34,7 @@ import {
 import { Spinner } from "@crm/ui/components/spinner";
 import { TableCell } from "@crm/ui/components/table";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
 import { toast } from "sonner";
 import { LocalRelativeTime } from "@/components/local-date-time";
@@ -41,22 +43,41 @@ import { useTRPC } from "@/lib/trpc/client";
 
 const CELL = "px-3 py-2.5 align-middle";
 
-const COLUMNS: SimpleTableColumn[] = [
-	{ id: "domain", header: "Domain" },
-	{ id: "scope", header: "Scope", width: "w-40" },
-	{ id: "pageViews", header: "Page views", width: "w-28", align: "right" },
-	{ id: "lastSeen", header: "Last seen", width: "w-28", align: "right" },
-	{ id: "actions", srLabel: "Actions", width: "w-24" },
-];
-
-const SCOPES = {
-	SITE_AND_SUBDOMAINS: "Site + subdomains",
-	EXACT_HOST: "Exact host",
-} as const;
-
 export function AllowedDomains() {
+	const t = useTranslations("settings");
 	const trpc = useTRPC();
 	const cache = useCrmCache();
+
+	const COLUMNS: SimpleTableColumn[] = [
+		{ id: "domain", header: t("tracking.allowedDomains.headers.domain") },
+		{
+			id: "scope",
+			header: t("tracking.allowedDomains.headers.scope"),
+			width: "w-40",
+		},
+		{
+			id: "pageViews",
+			header: t("tracking.allowedDomains.headers.pageViews"),
+			width: "w-28",
+			align: "right",
+		},
+		{
+			id: "lastSeen",
+			header: t("tracking.allowedDomains.headers.lastSeen"),
+			width: "w-28",
+			align: "right",
+		},
+		{
+			id: "actions",
+			srLabel: t("tracking.allowedDomains.headers.actions"),
+			width: "w-24",
+		},
+	];
+
+	const SCOPES = {
+		SITE_AND_SUBDOMAINS: t("tracking.allowedDomains.scopes.siteAndSubdomains"),
+		EXACT_HOST: t("tracking.allowedDomains.scopes.exactHost"),
+	} as const;
 
 	const tracking = useQuery(trpc.tracking.settings.queryOptions());
 
@@ -64,7 +85,7 @@ export function AllowedDomains() {
 		trpc.tracking.removeDomain.mutationOptions({
 			onSuccess: async () => {
 				await cache.tracking();
-				toast.success("Domain removed.");
+				toast.success(t("tracking.allowedDomains.removed"));
 			},
 			onError: (error) => toast.error(error.message),
 		}),
@@ -77,9 +98,9 @@ export function AllowedDomains() {
 	return (
 		<Card>
 			<CardHeader>
-				<CardTitle>Allowed domains</CardTitle>
+				<CardTitle>{t("tracking.allowedDomains.title")}</CardTitle>
 				<CardDescription>
-					The script records page views on these hosts only.
+					{t("tracking.allowedDomains.description")}
 				</CardDescription>
 
 				<CardAction>
@@ -88,9 +109,7 @@ export function AllowedDomains() {
 			</CardHeader>
 
 			{domains.length === 0 ? (
-				<CardTableEmpty>
-					Add the domain your website runs on to get your tracking script.
-				</CardTableEmpty>
+				<CardTableEmpty>{t("tracking.allowedDomains.empty")}</CardTableEmpty>
 			) : (
 				<SimpleTable columns={COLUMNS}>
 					{domains.map((domain) => (
@@ -102,7 +121,7 @@ export function AllowedDomains() {
 								{SCOPES[domain.scope]}
 							</TableCell>
 							<TableCell className={`${CELL} text-right tabular-nums`}>
-								{domain.pageViews.toLocaleString()}
+								{domain.pageViews.toLocaleString(appLocale())}
 							</TableCell>
 							<TableCell className={`${CELL} text-right text-muted-foreground`}>
 								{domain.lastSeenAt ? (
@@ -119,7 +138,7 @@ export function AllowedDomains() {
 										disabled={remove.isPending}
 										onClick={() => remove.mutate({ id: domain.id })}
 									>
-										Remove
+										{t("tracking.allowedDomains.remove")}
 									</Button>
 								) : null}
 							</TableCell>
@@ -132,8 +151,14 @@ export function AllowedDomains() {
 }
 
 function AddDomain({ disabled }: { disabled: boolean }) {
+	const t = useTranslations("settings");
 	const trpc = useTRPC();
 	const cache = useCrmCache();
+
+	const SCOPES = {
+		SITE_AND_SUBDOMAINS: t("tracking.allowedDomains.scopes.siteAndSubdomains"),
+		EXACT_HOST: t("tracking.allowedDomains.scopes.exactHost"),
+	} as const;
 
 	const hostId = useId();
 	const scopeId = useId();
@@ -150,7 +175,7 @@ function AddDomain({ disabled }: { disabled: boolean }) {
 				await cache.tracking();
 				setOpen(false);
 				setHost("");
-				toast.success("Domain added.");
+				toast.success(t("tracking.allowedDomains.added"));
 			},
 			onError: (error) => toast.error(error.message),
 		}),
@@ -161,7 +186,7 @@ function AddDomain({ disabled }: { disabled: boolean }) {
 			<PopoverTrigger asChild>
 				<Button size="sm" disabled={disabled}>
 					<Icon icon={Add} data-icon="inline-start" />
-					Add domain
+					{t("tracking.allowedDomains.addButton")}
 				</Button>
 			</PopoverTrigger>
 
@@ -174,7 +199,9 @@ function AddDomain({ disabled }: { disabled: boolean }) {
 					}}
 				>
 					<Field>
-						<FieldLabel htmlFor={hostId}>Domain</FieldLabel>
+						<FieldLabel htmlFor={hostId}>
+							{t("tracking.allowedDomains.domainLabel")}
+						</FieldLabel>
 						<Input
 							id={hostId}
 							value={host}
@@ -188,7 +215,9 @@ function AddDomain({ disabled }: { disabled: boolean }) {
 					</Field>
 
 					<Field>
-						<FieldLabel htmlFor={scopeId}>Scope</FieldLabel>
+						<FieldLabel htmlFor={scopeId}>
+							{t("tracking.allowedDomains.scopeLabel")}
+						</FieldLabel>
 						<Select
 							value={scope}
 							onValueChange={(next) => setScope(next as keyof typeof SCOPES)}
@@ -208,7 +237,7 @@ function AddDomain({ disabled }: { disabled: boolean }) {
 
 					<Button type="submit" disabled={add.isPending || host.trim() === ""}>
 						{add.isPending ? <Spinner data-icon="inline-start" /> : null}
-						Add domain
+						{t("tracking.allowedDomains.addButton")}
 					</Button>
 				</form>
 			</PopoverContent>

@@ -1,3 +1,4 @@
+import { translator } from "@crm/i18n/translator";
 import { connection } from "next/server";
 import { bufferedProxyResponse } from "@/lib/api-proxy-response";
 import { API_URL } from "@/lib/env";
@@ -45,8 +46,9 @@ async function handler(request: Request): Promise<Response> {
 			error,
 		);
 
+		const t = translator("shell");
 		return Response.json(
-			{ error: `The API at ${API_URL} is not reachable.` },
+			{ error: t("proxy.apiUnreachable", { url: API_URL }) },
 			{ status: 502 },
 		);
 	}

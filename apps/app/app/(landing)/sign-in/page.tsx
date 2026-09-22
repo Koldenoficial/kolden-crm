@@ -1,6 +1,7 @@
 import type { MailboxProviderId } from "@crm/auth/scopes";
 import type { Metadata } from "next";
 import { redirect, unstable_rethrow } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { AuthHeading, AuthShell } from "@/components/auth-shell";
 import { getSession } from "@/lib/session";
@@ -8,9 +9,10 @@ import { getServerQueryClient, getServerTrpc } from "@/lib/trpc/server";
 import { SocialSignIn } from "./social-sign-in";
 import { type SsoProvider, SsoSignIn } from "./sso-sign-in";
 
-export const metadata: Metadata = {
-	title: "Sign in",
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations("auth.signIn");
+	return { title: t("metaTitle") };
+}
 
 type SignInOptions = {
 	google: boolean;
@@ -40,15 +42,15 @@ async function currentSession() {
 	}
 }
 
-export default function SignInPage({ searchParams }: PageProps<"/sign-in">) {
+export default async function SignInPage({
+	searchParams,
+}: PageProps<"/sign-in">) {
+	const t = await getTranslations("auth.signIn");
 	return (
 		<AuthShell>
 			<Suspense
 				fallback={
-					<AuthHeading
-						title="Welcome back"
-						description="Sign in with your account to continue."
-					/>
+					<AuthHeading title={t("title")} description={t("description")} />
 				}
 			>
 				<SignIn searchParams={searchParams} />
@@ -60,6 +62,7 @@ export default function SignInPage({ searchParams }: PageProps<"/sign-in">) {
 async function SignIn({
 	searchParams,
 }: Pick<PageProps<"/sign-in">, "searchParams">) {
+	const t = await getTranslations("auth.signIn");
 	const [session, options, { method }] = await Promise.all([
 		currentSession(),
 		signInOptions(),
@@ -89,15 +92,12 @@ async function SignIn({
 		return (
 			<>
 				<AuthHeading
-					title="No way in yet"
-					description="This CRM has no sign-in method configured, so nobody can get in — including you."
+					title={t("unconfigured.title")}
+					description={t("unconfigured.description")}
 				/>
 
 				<p className="text-center text-muted-foreground text-sm/5">
-					Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET — or MICROSOFT_CLIENT_ID
-					and MICROSOFT_CLIENT_SECRET — in the root .env file and restart. Your
-					own identity provider can be added from Settings once somebody is
-					signed in.
+					{t("unconfigured.help")}
 				</p>
 			</>
 		);
@@ -105,10 +105,7 @@ async function SignIn({
 
 	return (
 		<>
-			<AuthHeading
-				title="Welcome back"
-				description="Sign in with your account to continue."
-			/>
+			<AuthHeading title={t("title")} description={t("description")} />
 
 			{showSso ? <SsoSignIn providers={providers} /> : null}
 			{social.map((provider) => (
